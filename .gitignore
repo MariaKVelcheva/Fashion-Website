@@ -1,0 +1,22 @@
+# created by virtualenv automatically
+.venv/Lib
+# PyCharm
+.idea/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+
+# Django
+db.sqlite3
+media/
+
+# Env
+.env
+*.log
