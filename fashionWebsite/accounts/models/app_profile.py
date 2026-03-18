@@ -34,7 +34,9 @@ class Customer(models.Model):
 
     address = models.TextField()
 
-    telephone_number = models.CharField()
+    telephone_number = models.CharField(
+        max_length=20,
+    )
 
     size = models.CharField(
         max_length=10,
@@ -46,7 +48,9 @@ class Customer(models.Model):
         to="clothes.Garment",
     )
 
-#   past_orders = models.ManyToManyField(
-#      to="clothes.Orders",)
+    @property
+    def past_orders(self):
+        return self.user.orders.order_by('-created_at')
 
-
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'

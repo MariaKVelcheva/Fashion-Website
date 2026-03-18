@@ -23,10 +23,14 @@ class OrderItem(models.Model):
         on_delete=models.SET_NULL,
     )
 
-    price = models.DecimalField(
+    unit_price = models.DecimalField(
         max_digits=10,
         decimal_places=2,
     )
+
+    @property
+    def line_total(self):
+        return self.unit_price * self.quantity
 
     def __str__(self):
         return self.garment.name

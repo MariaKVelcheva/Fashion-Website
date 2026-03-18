@@ -6,10 +6,11 @@ AppUser = get_user_model()
 
 class Order(models.Model):
     STATUS_CHOICES = (
-        ("Pending", "Pending"),
-        ("Paid", "Paid"),
-        ("Shipped", "Shipped"),
-        ("Received", "Received"),
+        ("pending", "Pending"),
+        ("confirmed", "Confirmed"),
+        ("shipped", "Shipped"),
+        ("received", "Received"),
+        ("cancelled", "Cancelled"),
     )
 
     PAYMENT_CHOICES = (
@@ -44,8 +45,7 @@ class Order(models.Model):
     payment_type = models.CharField(
         max_length=20,
         choices=PAYMENT_CHOICES,
-        null=True,
-        blank=True,
+        default="pod",
     )
 
     total_amount = models.DecimalField(

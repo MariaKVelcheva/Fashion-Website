@@ -20,3 +20,6 @@ class AppUser(auth_models.AbstractUser, auth_models.PermissionsMixin):
 
     objects = AppManager()
 
+    def __str__(self):
+        return self.email
+

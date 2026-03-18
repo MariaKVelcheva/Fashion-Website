@@ -18,6 +18,11 @@ class Garment(models.Model):
         blank=True,
     )
 
+    image = models.URLField(
+        null=True,
+        blank=True,
+    )
+
     slug = models.SlugField(
         unique=True,
         blank=True,
@@ -28,19 +33,13 @@ class Garment(models.Model):
         null=True,
     )
 
-    color = models.ForeignKey(
+    color = models.ManyToManyField(
         to="clothes.Color",
-        on_delete=models.SET_NULL,
-        blank=True,
-        null=True,
         related_name='garments',
     )
 
-    size = models.ForeignKey(
+    size = models.ManyToManyField(
         to="clothes.Size",
-        on_delete=models.SET_NULL,
-        blank=True,
-        null=True,
         related_name='garments',
     )
 
@@ -51,6 +50,14 @@ class Garment(models.Model):
         blank=True,
     )
 
+    stock = models.IntegerField(
+        default=1,
+    )
+
+    @property
+    def is_available(self):
+        return self.stock > 0
+
     @property
     def discount_price(self):
         promotion = self.promotions.filter(is_active=True).first()
@@ -58,6 +65,14 @@ class Garment(models.Model):
             discount = 0.01 * promotion.discount_percent * self.price
             return self.price - discount
         return self.price
+
+    @property
+    def has_discount(self):
+        return self.discount_price < self.price
+
+    @property
+    def display_price(self):
+        return self.discount_price if self.has_discount else self.price
 
     def save(self, *args, **kwargs):
         if not self.slug:

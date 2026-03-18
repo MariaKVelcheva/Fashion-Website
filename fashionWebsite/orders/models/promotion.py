@@ -12,6 +12,7 @@ class Promotion(models.Model):
 
     code = models.CharField(
         max_length=10,
+        unique=True,
     )
 
     type = models.CharField(
@@ -28,18 +29,15 @@ class Promotion(models.Model):
 
     valid_until = models.DateTimeField()
 
-    garments = models.ForeignKey(
+    garments = models.ManyToManyField(
         to="clothes.Garment",
         blank=True,
-        null=True,
-        on_delete=models.SET_NULL,
         related_name="promotions",
     )
 
     categories = models.ManyToManyField(
         to="clothes.Category",
         blank=True,
-        null=True,
         related_name="promotions",
     )
 

@@ -16,6 +16,7 @@ class Category(models.Model):
     name = models.CharField(
         max_length=50,
         choices=CHOICES,
+        unique=True,
     )
 
     slug = models.SlugField(
@@ -28,7 +29,6 @@ class Category(models.Model):
         if not self.slug:
             self.slug = slugify(self.name)
         return super().save(*args, **kwargs)
-
 
     def __str__(self):
         return self.name
