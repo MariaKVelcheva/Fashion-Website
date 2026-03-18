@@ -1,0 +1,22 @@
+from django.contrib.auth import models as auth_models, get_user_model
+from django.db import models
+from django.utils.translation import gettext_lazy as _
+from fashionWebsite.accounts.managers import AppManager
+
+
+class AppUser(auth_models.AbstractUser, auth_models.PermissionsMixin):
+    email = models.EmailField(
+        _("Email address"),
+        unique=True,
+    )
+
+    loyalty_points = models.IntegerField(
+        _("Points"),
+        default=0,
+    )
+
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = []
+
+    objects = AppManager()
+
