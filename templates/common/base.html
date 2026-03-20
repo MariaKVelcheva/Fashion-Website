@@ -1,0 +1,64 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ella Prime</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+{% include 'common/nav.html' %}
+
+{% block content %}
+{% endblock %}
+
+<div class="common-parts">
+    <section class="subscribe">
+    <h2>10% OFF YOUR NEXT ORDER</h2>
+    <h3>Get fashion news and Ella Prime offers</h3>
+    <form action="#" method="post">
+        {% csrf_token %}
+        <label for="emailSubscription"></label><input type="text" name="emailSubscription" id="emailSubscription" placeholder="Entre your email address">
+        <button>Subscribe</button>
+    </form>
+</section>
+<section class="social">
+    <h2>Join Now</h2>
+    <ul class="social-list" type="none">
+        <li><a href="#"><i class="fa-brands fa-facebook-f"></i> Facebook</a></li>
+        <li><a href="#"><i class="fa-brands fa-facebook-f"></i> Instagram</a></li>
+        <li><a href="#"><i class="fa-brands fa-tiktok"></i> TikTok</a></li>
+        <li><a href="#"><i class="fa-brands fa-tiktok"></i> Pinterest</a></li>
+    </ul>
+</section>
+<footer>
+    <div class="site-map">
+        <ul class="map-list" type="none">
+            <li>SHOP
+                <ul class="li-ul" type="none">
+                <li><a href="#">Collection</a></li>
+                <li><a href="#">Gift Card</a></li>
+                </ul>
+            </li>
+            <li>HELP
+            <ul class="li-ul" type="none">
+                <li><a href="#">Customer service</a></li>
+                <li><a href="#">My account</a></li>
+                <li><a href="#">My orders</a></li>
+                <li><a href="#">Returns and exchanges</a></li>
+            </ul></li>
+            <li>LEGAL AND PRIVACY
+            <ul class="li-ul" type="none">
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Sales conditions</a></li>
+            </ul>
+            </li>
+        </ul>
+    </div>
+    <div>&copy; Copyright Ella Prime &copy; 2026</div>
+</footer>
+</div>
+</body>
+</html>

@@ -29,12 +29,6 @@ class Promotion(models.Model):
 
     valid_until = models.DateTimeField()
 
-    garments = models.ManyToManyField(
-        to="clothes.Garment",
-        blank=True,
-        related_name="promotions",
-    )
-
     categories = models.ManyToManyField(
         to="clothes.Category",
         blank=True,

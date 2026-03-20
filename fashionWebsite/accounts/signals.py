@@ -1,3 +1,4 @@
+from django.contrib.auth.models import Group
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.conf import settings
@@ -14,3 +15,10 @@ def create_customer(sender, instance, created, **kwargs):
             address="",
             telephone_number="",
         )
+
+
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def assign_customer_group(sender, instance, created, **kwargs):
+    if created:
+        customer_group = Group.objects.get(name="Customers")
+        instance.groups.add(customer_group)

@@ -54,15 +54,22 @@ class Garment(models.Model):
         default=1,
     )
 
+    promotion = models.ForeignKey(
+        to="orders.Promotion",
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name='garments',
+    )
+
     @property
     def is_available(self):
         return self.stock > 0
 
     @property
     def discount_price(self):
-        promotion = self.promotions.filter(is_active=True).first()
-        if promotion:
-            discount = 0.01 * promotion.discount_percent * self.price
+        if self.promotion and self.promotion.is_active:
+            discount = 0.01 * self.promotion.discount_percent * self.price
             return self.price - discount
         return self.price
 
