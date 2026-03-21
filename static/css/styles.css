@@ -3,8 +3,153 @@
     padding: 0;
     box-sizing: border-box;
     text-align: center;
+    font-family: 'Josefin Sans', sans-serif;
 }
+
+body {
+    position: relative;
+}
+
+
+ul {
+     display: flex;
+     gap: 1rem;
+}
+
 
 a {
     text-decoration: none;
+}
+
+.common-parts {
+    height: 70vh;
+}
+
+nav {
+    position: sticky;
+    background-color: #989491;
+    display: flex;
+    top: 0;
+    gap: 15%;
+    padding: 0.5%;
+    align-items: center;
+}
+
+
+.navigation {
+    text-transform: uppercase;
+    font-weight: 800;
+}
+
+.subscribe {
+    background-color: #989491;
+    padding: 5rem;
+    line-height: 2;
+    font-weight: 100;
+    color: white;
+    border-radius: 5px;
+}
+
+.subscribe button {
+    margin-top: 1rem;
+    border: none;
+    background-color: #89c324;
+    padding: 1rem 1.5rem;
+    border-radius: 0 10px 10px 0;
+    color: white;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.subscribe button:hover {
+    background-color: white;
+    color: #89c324;
+}
+
+nav a {
+    color: #d8d2d2;
+}
+
+nav .customer a {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.subscribe input {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 10px 0 0 10px;
+    border: none;
+}
+
+.subscribe input:focus-within {
+    border: #89c324;
+}
+
+.social {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+    margin: 1rem;
+}
+
+.social h2 {
+    text-transform: uppercase;
+    font-size: 2rem;
+    padding: 2rem;
+    border-right: 3px solid #aca8a8;
+}
+
+.social ul {
+    display: flex;
+    gap: 3rem;
+}
+
+.social a {
+    color: black;
+    display: flex;
+    flex-direction: column;
+    text-transform: uppercase;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 600;
+}
+
+footer div:last-child {
+    text-align: center;
+    padding: 1rem;
+}
+
+.site-map {
+    display: flex;
+    text-align: center;
+    gap: 10%;
+    justify-content: center;
+    padding: 3rem;
+    background-color: #989491;
+}
+
+.map-list>li {
+    margin: 0 10rem;
+}
+
+.map-list h5 {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 1.6rem;
+}
+
+.li-ul {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.li-ul a {
+    color: black;
+    font-weight: 100;
 }
