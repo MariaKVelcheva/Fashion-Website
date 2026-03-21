@@ -41,6 +41,19 @@ nav {
     font-weight: 800;
 }
 
+.navigation li:hover {
+    border-bottom: 3px solid #bf2929;
+}
+
+#custom-nav-li {
+    color: #bf2929;
+}
+
+#custom-nav-li:hover {
+    color: #f6d003;
+    border-bottom: 3px solid #989491;
+}
+
 .subscribe {
     background-color: #989491;
     padding: 5rem;
@@ -71,11 +84,100 @@ nav a {
     color: #d8d2d2;
 }
 
-nav .customer a {
+nav a:hover {
+    text-underline: darkred;
+}
+
+.customer a {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     align-items: center;
+}
+
+.customer a, i {
+    font-size: 1.5rem;
+}
+
+.customer {
+    margin-left: 10rem;
+}
+
+.gallery {
+    gap: 2rem;
+    color: #f6d003;
+    text-transform: uppercase;
+}
+
+.gallery h3 {
+    font-size: 2rem;
+    font-style: italic;
+}
+
+.gallery h2 {
+    font-size: 5rem;
+}
+
+.gallery button, .trending button {
+    padding: 1.3rem 2.5rem;
+    border-radius: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2rem;
+    cursor: pointer;
+    border: none;
+    text-transform: uppercase;
+}
+
+.gallery button:hover {
+    background-color: #d8d2d2;
+}
+
+.collection {
+    margin: 2rem;
+}
+.collection h2 {
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.categories {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    align-items: center;
+}
+
+.categories img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    padding: 0.5rem;
+    border: 3px solid #bf2929;
+    border-radius: 50%;
+}
+
+.categories h3 {
+    text-transform: uppercase;
+    font-weight: 800;
+}
+
+.categories a {
+    color: #131313;
+    transition: all 0.3s ease;
+}
+
+.categories li:hover {
+    transform: translateY(-8px) scale(1.05);
+    transition: all 0.3s ease;
+}
+
+.categories a:hover {
+    color: #bf2929;
+}
+
+.categories img:hover {
+    border: none;
 }
 
 .subscribe input {
@@ -83,10 +185,6 @@ nav .customer a {
     padding: 1rem;
     border-radius: 10px 0 0 10px;
     border: none;
-}
-
-.subscribe input:focus-within {
-    border: #89c324;
 }
 
 .social {
@@ -152,4 +250,58 @@ footer div:last-child {
 .li-ul a {
     color: black;
     font-weight: 100;
+}
+
+.li-ul a:hover {
+    color: #bf2929;
+}
+
+.trending, .gallery {
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: rgba(0, 0, 0, 0.3);
+    background-blend-mode: multiply;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.trending {
+    gap: 3rem;
+}
+
+.trending h2 {
+    font-size: 3rem;
+    letter-spacing: 10px;
+    font-weight: 800;
+    color: #bf2929;
+}
+
+
+.trending button:hover {
+    background: none;
+    color: #f6d003;
+}
+
+
+.store-ad {
+    margin: 5rem 25%;
+}
+
+.store-ad li {
+    display:inline-block;
+    line-height: 1.5;
+    width: 15rem;
+}
+
+.store-ad li .main {
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.store-ad li a {
+    text-decoration: none;
+    color: #bf2929;
 }

@@ -21,7 +21,7 @@
     <form action="#" method="post">
         {% csrf_token %}
         <label for="emailSubscription"></label>
-        <input type="text" name="emailSubscription" id="emailSubscription" placeholder="Enter your email address">
+        <input type="email" name="emailSubscription" id="emailSubscription" placeholder="Enter your email address">
         <button>Subscribe</button>
     </form>
 </section>
@@ -58,7 +58,7 @@
             </li>
         </ul>
     </div>
-    <div>&copy; Copyright Ella Prime &copy; 2026</div>
+    <div>&copy; Copyright Ella Prime &copy; {{ "now"|date:"Y" }}</div>
 </footer>
 </div>
 </body>
