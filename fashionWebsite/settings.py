@@ -6,7 +6,7 @@ SECRET_KEY = 'django-insecure-h82_yt@5y3vb*oa*wmgp+66__mb!ztv'
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 MY_APPS = [
     "fashionWebsite.accounts",
@@ -14,6 +14,7 @@ MY_APPS = [
     "fashionWebsite.common",
     "fashionWebsite.orders"
 ]
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -91,6 +92,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
