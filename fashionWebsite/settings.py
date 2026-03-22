@@ -1,10 +1,12 @@
 from pathlib import Path
+import dj_database_url
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-h82_yt@5y3vb*oa*wmgp+66__mb!ztv'
 
-DEBUG = True
+DEBUG = os.getenv("DEBUG", "True") == "True"
 
 ALLOWED_HOSTS = ["*"]
 
@@ -56,14 +58,9 @@ TEMPLATES = [
 WSGI_APPLICATION = 'fashionWebsite.wsgi.application'
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "fashion_db",
-        "USER": "postgres",
-        "PASSWORD": "new_password",
-        "HOST": "127.0.0.1",
-        "PORT": "5432",
-    }
+    "default": dj_database_url.parse(
+        os.getenv("DATABASE_URL", "postgresql://postgres:new_password@localhost:5432/fashion_db")
+    )
 }
 
 AUTH_PASSWORD_VALIDATORS = [
