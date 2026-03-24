@@ -305,3 +305,11 @@ footer div:last-child {
     text-decoration: none;
     color: #bf2929;
 }
+
+@media screen and (max-width: 770px) {
+    .categories {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+}
