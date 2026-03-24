@@ -29,6 +29,7 @@ nav {
     position: sticky;
     background-color: #989491;
     display: flex;
+    flex-wrap: wrap;
     top: 0;
     gap: 15%;
     padding: 0.5%;

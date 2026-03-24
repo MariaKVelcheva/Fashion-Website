@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.db import models
 from django.utils.text import slugify
 
@@ -69,8 +71,8 @@ class Garment(models.Model):
     @property
     def discount_price(self):
         if self.promotion and self.promotion.is_active:
-            discount = 0.01 * self.promotion.discount_percent * self.price
-            return self.price - discount
+            discount = (0.01 * float(self.promotion.discount_percent) * float(self.price))
+            return self.price - Decimal(discount)
         return self.price
 
     @property
