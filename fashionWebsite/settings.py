@@ -38,6 +38,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' + EMAIL_HOST = 'smtp.gmail.com'
+# -> to change at production!!!
+
+
 ROOT_URLCONF = 'fashionWebsite.urls'
 
 TEMPLATES = [

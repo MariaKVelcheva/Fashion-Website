@@ -75,12 +75,12 @@ class CategoryEditForm(CategoryBaseForm):
 
 
 class CategoryDeleteForm(CategoryBaseForm):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
-        for field in self.fields:
-            self.fields[field].required = False
-            self.fields[field].disabled = True
+        for field in self.fields.values():
+            field.required = False
+            field.disabled = True
 
 
 class ColorCreateForm(ColorBaseForm):
@@ -88,11 +88,11 @@ class ColorCreateForm(ColorBaseForm):
 
 
 class ColorDeleteForm(ColorBaseForm):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
-        for field in self.fields:
-            self.fields[field].required = False
+        for field in self.fields.values():
+            field.required = False
             self.fields[field].disabled = True
 
 
@@ -101,18 +101,16 @@ class SizeCreateForm(SizeBaseForm):
 
 
 class SizeDeleteForm(SizeBaseForm):
-    pass
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
-
-class GarmentCreateForm(GarmentBaseForm):
-    def __init__(self):
-        super().__init__()
-
-        for field in self.fields:
-            self.fields[field].required = False
+        for field in self.fields.values():
+            field.required = False
             self.fields[field].disabled = True
 
 
+class GarmentCreateForm(GarmentBaseForm):
+    pass
 
 
 class GarmentEditForm(GarmentBaseForm):
@@ -120,3 +118,10 @@ class GarmentEditForm(GarmentBaseForm):
 
 
 class GarmentDeleteForm(GarmentBaseForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for field in self.fields:
+            self.fields[field].required = False
+            self.fields[field].disabled = True
+
