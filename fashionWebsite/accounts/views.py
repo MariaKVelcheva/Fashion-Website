@@ -15,7 +15,7 @@ class RegisterUserView(CreateView):
     template_name = "accounts/user-management/register.html"
 
     def get_success_url(self):
-        next_url = self.request.POST.get('next')
+        next_url = self.request.GET.get('next')
 
         if next_url:
             parsed_next = urlparse(next_url)
