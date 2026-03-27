@@ -16,9 +16,11 @@ class Color(models.Model):
     name = models.CharField(
         max_length=50,
         choices=CHOICES,
+        unique=True,
     )
 
     hex_code = models.CharField(
         max_length=7,
         blank=True,
+        unique=True,
     )

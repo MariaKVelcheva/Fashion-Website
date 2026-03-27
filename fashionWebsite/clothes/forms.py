@@ -3,7 +3,7 @@ from django import forms
 from fashionWebsite.clothes.models import Category, Color, Size, Garment
 
 
-class CategoryBaseForm(forms.ModelForm):
+class BaseCategoryForm(forms.ModelForm):
     class Meta:
         model = Category
         fields = ("name", )
@@ -15,7 +15,7 @@ class CategoryBaseForm(forms.ModelForm):
         }
 
 
-class ColorBaseForm(forms.ModelForm):
+class BaseColorForm(forms.ModelForm):
     class Meta:
         model = Color
         fields = "__all__"
@@ -29,7 +29,7 @@ class ColorBaseForm(forms.ModelForm):
         }
 
 
-class SizeBaseForm(forms.ModelForm):
+class BaseSizeForm(forms.ModelForm):
     class Meta:
         model = Size
         fields = ("name", )
@@ -39,7 +39,7 @@ class SizeBaseForm(forms.ModelForm):
         widgets = {"name": forms.RadioSelect()}
 
 
-class GarmentBaseForm(forms.ModelForm):
+class BaseGarmentForm(forms.ModelForm):
     class Meta:
         model = Garment
         exclude = ("slug", )
@@ -66,58 +66,34 @@ class GarmentBaseForm(forms.ModelForm):
         }
 
 
-class CategoryCreateForm(CategoryBaseForm):
+class CreateCategoryForm(BaseCategoryForm):
     pass
 
 
-class CategoryEditForm(CategoryBaseForm):
+class UpdateCategoryForm(BaseCategoryForm):
     pass
 
 
-class CategoryDeleteForm(CategoryBaseForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        for field in self.fields.values():
-            field.required = False
-            field.disabled = True
-
-
-class ColorCreateForm(ColorBaseForm):
+class CreateColorForm(BaseColorForm):
     pass
 
 
-class ColorDeleteForm(ColorBaseForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        for field in self.fields.values():
-            field.required = False
-            self.fields[field].disabled = True
-
-
-class SizeCreateForm(SizeBaseForm):
+class CreateSizeForm(BaseSizeForm):
     pass
 
 
-class SizeDeleteForm(SizeBaseForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        for field in self.fields.values():
-            field.required = False
-            self.fields[field].disabled = True
-
-
-class GarmentCreateForm(GarmentBaseForm):
+class CreateGarmentForm(BaseGarmentForm):
     pass
 
 
-class GarmentEditForm(GarmentBaseForm):
+class UpdateGarmentForm(BaseGarmentForm):
     pass
 
 
-class GarmentDeleteForm(GarmentBaseForm):
+class DeleteGarmentForm(BaseGarmentForm):
+    class Meta(BaseGarmentForm.Meta):
+        exclude = ("image", )
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

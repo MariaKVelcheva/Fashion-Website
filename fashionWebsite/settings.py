@@ -1,3 +1,4 @@
+from django.urls import reverse_lazy
 from pathlib import Path
 import dj_database_url
 import os
@@ -117,6 +118,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "accounts.AppUser"
 
 SITE_ID = 1
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = reverse_lazy("home")
+LOGOUT_REDIRECT_URL = reverse_lazy("home")
+
 

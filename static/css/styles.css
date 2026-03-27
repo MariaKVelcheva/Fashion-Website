@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap');
+
+
 * {
     margin: 0;
     padding: 0;
@@ -25,15 +28,24 @@ a {
     height: 70vh;
 }
 
+
+.logo a {
+    font-family: "Cinzel", sans-serif;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    letter-spacing: 0.05em;
+
+}
+
 nav {
     position: sticky;
-    background-color: #989491;
     display: flex;
-    flex-wrap: wrap;
+    background-color: #fffbfb;
+    flex-wrap: nowrap;
     top: 0;
-    gap: 15%;
-    padding: 0.5%;
+    gap: 10%;
+    padding: 1.5rem;
     align-items: center;
+    z-index: 1;
 }
 
 
@@ -52,7 +64,7 @@ nav {
 
 #custom-nav-li:hover {
     color: #f6d003;
-    border-bottom: 3px solid #989491;
+    border-bottom: 3px solid white;
 }
 
 .subscribe {
@@ -82,7 +94,7 @@ nav {
 }
 
 nav a {
-    color: #d8d2d2;
+    color: #0b0a0a;
 }
 
 nav a:hover {
@@ -98,6 +110,7 @@ nav a:hover {
 
 .customer a, i {
     font-size: 1.5rem;
+    font-weight: 400;
 }
 
 .customer {

@@ -15,5 +15,6 @@ class Size(models.Model):
     name = models.CharField(
         max_length=50,
         choices=CHOICES,
+        unique=True,
     )
 

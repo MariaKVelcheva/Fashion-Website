@@ -5,7 +5,10 @@ from fashionWebsite.accounts import views
 
 urlpatterns = [
     path('register/', views.RegisterUserView.as_view(), name='register'),
-
+    path('login/', views.LoginUserView.as_view(), name='login'),
+    path('logout/', views.LogoutUserView.as_view(), name='logout'),
+    path('update/', views.UpdateCustomerView.as_view(), name='customer-update'),
+    path('details/', views.DetailsCustomerView.as_view(), name='customer-details'),
 ]
 
 password_patterns = [

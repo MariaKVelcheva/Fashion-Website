@@ -1,0 +1,16 @@
+{% extends "common/base.html" %}
+
+{% block content %}
+    {% for category in categories %}
+        <p>{{ category.name }} with {{ category.type }}</p>
+        <p>Edit:</p> <form method="post" action="{% url 'update-category' category.slug %}">
+    {% csrf_token %}
+    <button class="btn btn-danger">🗑️Update</button>
+</form>
+        <p>Delete:</p> <form method="post" action="{% url 'delete-category' category.slug %}">
+    {% csrf_token %}
+    <button class="btn btn-danger">🗑️ Delete</button>
+</form>
+
+    {% endfor %}
+{% endblock %}

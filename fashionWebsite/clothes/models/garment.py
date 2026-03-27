@@ -84,7 +84,7 @@ class Garment(models.Model):
         return self.discount_price if self.has_discount else self.price
 
     def save(self, *args, **kwargs):
-        if not self.slug:
+        if self.name and not self.slug:
             self.slug = slugify(f"{self.name}-{self.category}")
         return super().save(*args, **kwargs)
 

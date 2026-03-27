@@ -43,19 +43,9 @@ class PromotionBaseForm(forms.ModelForm):
         return cleaned_data
 
 
-class PromotionCreateForm(PromotionBaseForm):
+class CreatePromotionForm(PromotionBaseForm):
     pass
 
 
-class PromotionUpdateForm(PromotionBaseForm):
+class UpdatePromotionForm(PromotionBaseForm):
     pass
-
-
-class PromotionDeleteForm(PromotionBaseForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        for field in self.fields.values():
-            field.required = False
-            field.disabled = True
-
