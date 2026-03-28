@@ -15,6 +15,11 @@ class CreateGarmentView(AdminRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse_lazy("details-garment", kwargs={"pk": self.object.pk})
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["colors"] = Color.objects.all()
+        return context
+
 
 class DetailsGarmentView(DetailView):
     model = Garment
@@ -58,6 +63,11 @@ class CreateColorView(AdminRequiredMixin, CreateView):
     template_name = "clothes/colors/create-color.html"
     success_url = reverse_lazy("home")
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["colors"] = Color.objects.all()
+        return context
+
 
 class CreateSizeView(AdminRequiredMixin, CreateView):
     model = Size
@@ -65,12 +75,22 @@ class CreateSizeView(AdminRequiredMixin, CreateView):
     template_name = "clothes/sizes/create-size.html"
     success_url = reverse_lazy("home")
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["sizes"] = Size.objects.all()
+        return context
+
 
 class CreateCategoryView(AdminRequiredMixin, CreateView):
     model = Category
     form_class = CreateCategoryForm
     template_name = "clothes/categories/create-category.html"
     success_url = reverse_lazy("all-categories")
+
+    def get_context_data(self, **kwargs):
+        context = self.get_context_data(**kwargs)
+        context["categories"] = Category.objects.all()
+        return context
 
 
 class UpdateCategoryView(AdminRequiredMixin, UpdateView):

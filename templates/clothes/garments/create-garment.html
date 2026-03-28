@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Ella Prime - Create a garment</title>
-    <link rel="stylesheet" href="{% static 'css/garment-create.css' %}">
+    <link rel="stylesheet" href="{% static 'css/garment-create.css' %}?v=2">
     <link rel="stylesheet" href="{% static 'css/forms.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
@@ -15,17 +15,27 @@
         <form method="post" class="create-category-form">
     {% csrf_token %}
         <h3>Create a garment</h3>
-        <div class="form">
             <div class="name-form">{{ form.name }}</div>
-        <div class="category-form">{{ form.category.name }}</div>
-        <div class="image-form">{{ form.image }}</div>
-        <div class="description-form">{{ form.description }}</div>
-        <div class="color-form">{{ form.color }}</div>
-        <div class="size-form">{{ form.size }}</div>  
-        <div class="price-form">{{ form.price }}</div>
-            <div class="stock-form">{{ form.stock }}</div> 
-            <div class="promotion-form">{{ form.promotion }}</div> 
-        </div>
+            <div class="category-form">{{ form.category }}</div>
+            <div class="image-form">{{ form.image }}</div>
+            <div class="description-form">{{ form.description }}</div>
+<div class="color-form">
+    {% for color in colors %}
+        <label class="color-option">
+<input type="checkbox"
+       name="color"
+       value="{{ color.id }}"
+       {% if color in form.instance.color.all %}checked{% endif %}>
+            <span class="color-square"
+                  style="background-color: {{ color.hex_code }};">
+            </span>
+        </label>
+    {% endfor %}
+</div>
+            <div class="size-form">{{ form.size }}</div>
+            <div class="price-form">{{ form.price }}</div>
+            <div class="stock-form">{{ form.stock }}</div>
+            <div class="promotion-form">{{ form.promotion }}</div>
 
     <p><button class="create-button common-button" type="submit">Create</button></p>
     </form>

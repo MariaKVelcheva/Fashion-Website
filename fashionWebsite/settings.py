@@ -15,7 +15,7 @@ MY_APPS = [
     "fashionWebsite.accounts",
     "fashionWebsite.clothes",
     "fashionWebsite.common",
-    "fashionWebsite.orders"
+    "fashionWebsite.orders",
 ]
 
 
@@ -81,6 +81,7 @@ DATABASES = {
         os.getenv("DATABASE_URL", "postgresql://postgres:new_password@localhost:5432/fashion_db")
     )
 }
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {

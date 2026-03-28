@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <title>Ella Prime - Create a category</title>
     <link rel="stylesheet" href="{% static 'css/category-create.css' %}">
-    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}?v=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
@@ -20,6 +20,7 @@
 
     <p><button class="create-button common-button" type="submit">Create</button></p>
     </form>
+         <div class="existing">Existing categories: {{ categories|join:", " }}</div>
 </div>
 </body>
 </html>

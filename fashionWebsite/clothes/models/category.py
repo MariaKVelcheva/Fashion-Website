@@ -3,20 +3,9 @@ from django.utils.text import slugify
 
 
 class Category(models.Model):
-    CHOICES = (
-        ("dress", "Dress"),
-        ("pants", "Pants"),
-        ("skirts", "Skirts"),
-        ("shirts", "Shirts"),
-        ("jackets", "Jackets"),
-        ("cardigans", "Cardigans"),
-        ("tops", "Tops"),
-    )
-
     name = models.CharField(
         max_length=50,
-        choices=CHOICES,
-        default="dress",
+        default="",
         unique=True,
     )
 

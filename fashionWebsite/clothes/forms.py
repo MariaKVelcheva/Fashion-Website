@@ -11,7 +11,7 @@ class BaseCategoryForm(forms.ModelForm):
             "name": "Name",
         }
         widgets = {
-            "name": forms.RadioSelect()
+            "name": forms.TextInput(attrs={'placeholder': 'Category name'})
         }
 
 
@@ -24,7 +24,7 @@ class BaseColorForm(forms.ModelForm):
             "hex_code": "Hex Code",
         }
         widgets = {
-            "name": forms.RadioSelect(),
+            "name": forms.TextInput(attrs={"placeholder": "Color name"}),
             "hex_code": forms.TextInput(attrs={'placeholder': 'Hex Code...'}),
         }
 
@@ -36,10 +36,15 @@ class BaseSizeForm(forms.ModelForm):
         labels = {
             "name": "Name",
         }
-        widgets = {"name": forms.RadioSelect()}
+        widgets = {"name": forms.TextInput(attrs={"placeholder": "Size type"}),}
 
 
 class BaseGarmentForm(forms.ModelForm):
+    color = forms.ModelMultipleChoiceField(
+        queryset=Color.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+    )
+
     class Meta:
         model = Garment
         exclude = ("slug", )
@@ -56,9 +61,8 @@ class BaseGarmentForm(forms.ModelForm):
         }
         widgets = {
             "category": forms.CheckboxSelectMultiple(),
-            "color": forms.CheckboxSelectMultiple(),
             "size": forms.RadioSelect(),
-            "description": forms.TextInput(attrs={'placeholder': 'Description'}),
+            "description": forms.Textarea(attrs={"placeholder": "Description", "rows": 10}),
             "price": forms.NumberInput(),
             "stock": forms.NumberInput(),
             "promotion": forms.RadioSelect(),

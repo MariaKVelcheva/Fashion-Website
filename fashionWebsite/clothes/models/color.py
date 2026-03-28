@@ -2,22 +2,10 @@ from django.db import models
 
 
 class Color(models.Model):
-    CHOICES = (
-        ("red", "Red"),
-        ("green", "Green"),
-        ("blue", "Blue"),
-        ("yellow", "Yellow"),
-        ("white", "White"),
-        ("black", "Black"),
-        ("gray", "Gray"),
-        ("brown", "Brown")
-    )
-
     name = models.CharField(
         max_length=50,
-        choices=CHOICES,
         unique=True,
-        default="black",
+        default="",
     )
 
     hex_code = models.CharField(
@@ -25,3 +13,6 @@ class Color(models.Model):
         blank=True,
         unique=True,
     )
+
+    def __str__(self):
+        return self.name
