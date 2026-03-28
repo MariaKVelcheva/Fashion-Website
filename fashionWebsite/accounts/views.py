@@ -42,7 +42,7 @@ class LoginUserView(LoginView):
 
 
 class LogoutUserView(LogoutView):
-    pass
+    next_page = reverse_lazy("home")
 
 
 class UpdateCustomerView(LoginRequiredMixin, UpdateView):

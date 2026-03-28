@@ -9,10 +9,24 @@ AppUser = get_user_model()
 
 
 class AppUserCreationForm(UserCreationForm):
+    password1 = forms.CharField(
+        widget=forms.PasswordInput(attrs={
+            'placeholder': 'Password',
+        })
+    )
+    password2 = forms.CharField(
+        widget=forms.PasswordInput(attrs={
+            'placeholder': 'Confirm Password',
+        })
+    )
+
     class Meta(UserCreationForm.Meta):
         model = AppUser
         fields = ("email", )
         field_classes = {"email": UsernameField}
+        widgets = {"email": forms.EmailInput(
+            attrs={"placeholder": "Enter email"}),
+        }
 
     def clean_email(self):
         email = self.cleaned_data.get("email")
@@ -33,7 +47,9 @@ class LoginForm(AuthenticationForm):
         widget=forms.TextInput(attrs={'placeholder': 'Email'})
     )
     password = forms.CharField(
-        widget=forms.PasswordInput()
+        widget=forms.PasswordInput(
+            attrs={"placeholder": "Password"}
+        )
     )
 
     def __init__(self, *args, **kwargs):

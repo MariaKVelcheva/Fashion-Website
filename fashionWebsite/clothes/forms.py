@@ -6,7 +6,7 @@ from fashionWebsite.clothes.models import Category, Color, Size, Garment
 class BaseCategoryForm(forms.ModelForm):
     class Meta:
         model = Category
-        fields = ("name", )
+        fields = ("name", "profile_image")
         labels = {
             "name": "Name",
         }

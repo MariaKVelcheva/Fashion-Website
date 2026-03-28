@@ -16,5 +16,6 @@ class Size(models.Model):
         max_length=50,
         choices=CHOICES,
         unique=True,
+        default=CHOICES[0][0],
     )
 

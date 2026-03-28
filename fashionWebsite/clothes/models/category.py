@@ -16,12 +16,18 @@ class Category(models.Model):
     name = models.CharField(
         max_length=50,
         choices=CHOICES,
+        default="dress",
         unique=True,
     )
 
     slug = models.SlugField(
         max_length=50,
         unique=True,
+        blank=True,
+    )
+
+    profile_image = models.ImageField(
+        null=True,
         blank=True,
     )
 

@@ -1,17 +1,38 @@
-{% extends "common/base.html" %}
+{% load static %}
 {% load socialaccount %}
 
-{% block content %}
-    <form method="post">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ella Prime - Register</title>
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+        <link rel="stylesheet" href="{% static 'css/register-form.css' %}?v=2">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+<div class="container">
+     {% include "common/logo.html" %}
+        <form method="post" class="register-form">
+
     {% csrf_token %}
-    {{ form.as_p }}
-        <a href="{% url 'register' %}?next={{ request.path }}">Register</a>
-        <a href="{% provider_login_url 'google' %}">Login with Google</a>
+    <div class="traditional-register">
+        <h3>Create an account</h3>
+        <p>{{ form.email }}</p>
+        <p>{{ form.password1 }}</p>
+        <p>{{ form.password2 }}</p>
 
-    <button>Create your profile ?</button>
+
+    <p><button class="common-button register-button"><a href="{% url 'register' %}?next={{ request.path }}">Register</a></button></p>
+        <p>Already have an account? <a href="{% url 'login' %}">Sign in</a></p></div>
+            <div class="element"><p>or</p></div>
+<div class="google-register">
+    <button type="button" class="register-with-google-btn" >
+    <a href="{% provider_login_url 'google' %}" class="google-btn">
+        Register with Google
+    </a></button>
+</div>
     </form>
-
-
-
-{% endblock %}
-
+</div>
+</body>
+</html>

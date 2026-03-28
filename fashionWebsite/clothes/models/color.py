@@ -17,6 +17,7 @@ class Color(models.Model):
         max_length=50,
         choices=CHOICES,
         unique=True,
+        default="black",
     )
 
     hex_code = models.CharField(

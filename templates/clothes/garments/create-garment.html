@@ -1,9 +1,34 @@
-{% extends "common/base.html" %}
+{% load static %}
 
-{% block content %}
-    <form method="post">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ella Prime - Create a garment</title>
+    <link rel="stylesheet" href="{% static 'css/garment-create.css' %}">
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+<div class="container">
+     {% include "common/logo.html" %}
+        <form method="post" class="create-category-form">
     {% csrf_token %}
-    {{ form }}
-    <button> Submit </button>
+        <h3>Create a garment</h3>
+        <div class="form">
+            <div class="name-form">{{ form.name }}</div>
+        <div class="category-form">{{ form.category.name }}</div>
+        <div class="image-form">{{ form.image }}</div>
+        <div class="description-form">{{ form.description }}</div>
+        <div class="color-form">{{ form.color }}</div>
+        <div class="size-form">{{ form.size }}</div>  
+        <div class="price-form">{{ form.price }}</div>
+            <div class="stock-form">{{ form.stock }}</div> 
+            <div class="promotion-form">{{ form.promotion }}</div> 
+        </div>
+
+    <p><button class="create-button common-button" type="submit">Create</button></p>
     </form>
-{% endblock %}
+</div>
+</body>
+</html>
