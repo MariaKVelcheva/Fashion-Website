@@ -13,6 +13,11 @@ class CreatePromotionView(LoginRequiredMixin, AdminRequiredMixin, CreateView):
     success_url = reverse_lazy("all-promotions")
     template_name = "orders/promotions/create-promotion.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["promotions"] = Promotion.objects.all()
+        return context
+
 
 class UpdatePromotionView(LoginRequiredMixin, AdminRequiredMixin, UpdateView):
     model = Promotion
@@ -27,7 +32,7 @@ class PromotionsCatalogueView(LoginRequiredMixin, AdminRequiredMixin, ListView):
     context_object_name = "promotions"
 
     def get_queryset(self):
-        return Promotion.objects.filter(is_active=True).order_by('-valid_until')
+        return Promotion.objects.all().order_by('-valid_until')
 
 
 

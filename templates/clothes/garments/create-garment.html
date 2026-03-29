@@ -12,16 +12,32 @@
 <body>
 <div class="container">
      {% include "common/logo.html" %}
-        <form method="post" class="create-category-form">
+        <form method="post" enctype="multipart/form-data" class="create-category-form">
     {% csrf_token %}
         <h3>Create a garment</h3>
-            <div class="name-form">{{ form.name }}</div>
-            <div class="category-form">{{ form.category }}</div>
-            <div class="image-form">{{ form.image }}</div>
-            <div class="description-form">{{ form.description }}</div>
-<div class="color-form">
+<div class="form-grid">
+    <div class="field">
+        {{ form.name.label_tag }}
+        {{ form.name }}
+    </div>
+    <div class="field">
+        {{ form.category.label_tag }}
+        {{ form.category }}
+    </div>
+<div class="field">
+    <label for="gallery_images">Gallery Images</label>
+    <input type="file" name="gallery_images" id="gallery_images" multiple>
+    <small>You can select multiple images (Ctrl/Cmd or drag & drop)</small>
+</div>
+    <div class="field full">
+        {{ form.description.label_tag }}
+        {{ form.description }}
+    </div>
+<p class="color-form">
+{{ form.color.label_tag }}
     {% for color in colors %}
         <label class="color-option">
+
 <input type="checkbox"
        name="color"
        value="{{ color.id }}"
@@ -31,14 +47,25 @@
             </span>
         </label>
     {% endfor %}
+</p>
+    <div class="field">
+        {{ form.price.label_tag }}
+        {{ form.price }}
+    </div>
+    <div class="field">
+        {{ form.stock.label_tag }}
+        {{ form.stock }}
+    </div>
+    <div class="field">
+        {{ form.size.label_tag }}
+        {{ form.size }}
+    </div>
+    <div class="field">
+        {{ form.promotion.label_tag }}
+        {{ form.promotion }}
+    </div>
 </div>
-            <div class="size-form">{{ form.size }}</div>
-            <div class="price-form">{{ form.price }}</div>
-            <div class="stock-form">{{ form.stock }}</div>
-            <div class="promotion-form">{{ form.promotion }}</div>
-
     <p><button class="create-button common-button" type="submit">Create</button></p>
     </form>
-</div>
 </body>
 </html>

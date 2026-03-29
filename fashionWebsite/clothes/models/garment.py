@@ -9,6 +9,7 @@ class Garment(models.Model):
         to="clothes.Category",
         on_delete=models.CASCADE,
         related_name='garments',
+        default="",
         null=True,
         blank=True,
     )
@@ -53,13 +54,14 @@ class Garment(models.Model):
     )
 
     stock = models.IntegerField(
-        default=1,
+        default=None,
     )
 
     promotion = models.ForeignKey(
         to="orders.Promotion",
         blank=True,
         null=True,
+        default="",
         on_delete=models.SET_NULL,
         related_name='garments',
     )

@@ -1,6 +1,7 @@
 from django import forms
 
 from fashionWebsite.clothes.models import Category, Color, Size, Garment
+from fashionWebsite.orders.models import Promotion
 
 
 class BaseCategoryForm(forms.ModelForm):
@@ -45,6 +46,24 @@ class BaseGarmentForm(forms.ModelForm):
         widget=forms.CheckboxSelectMultiple,
     )
 
+    category = forms.ModelChoiceField(
+        queryset=Category.objects.all(),
+        widget=forms.RadioSelect(),
+        empty_label=None,
+    )
+
+    size = forms.ModelChoiceField(
+        queryset=Size.objects.all(),
+        widget=forms.RadioSelect(),
+        empty_label=None,
+    )
+
+    promotion = forms.ModelChoiceField(
+        queryset=Promotion.objects.all(),
+        widget=forms.RadioSelect(),
+        empty_label=None,
+    )
+
     class Meta:
         model = Garment
         exclude = ("slug", )
@@ -60,12 +79,9 @@ class BaseGarmentForm(forms.ModelForm):
             "promotion": "Promotion",
         }
         widgets = {
-            "category": forms.CheckboxSelectMultiple(),
-            "size": forms.RadioSelect(),
-            "description": forms.Textarea(attrs={"placeholder": "Description", "rows": 10}),
-            "price": forms.NumberInput(),
-            "stock": forms.NumberInput(),
-            "promotion": forms.RadioSelect(),
+            "description": forms.Textarea(attrs={"placeholder": "Description", "rows": 5, "cols": 10}),
+            "price": forms.NumberInput(attrs={'placeholder': 'Price (€)'}),
+            "stock": forms.NumberInput(attrs={'placeholder': 'Stock left...'}),
             "name": forms.TextInput(attrs={'placeholder': 'Name'}),
         }
 

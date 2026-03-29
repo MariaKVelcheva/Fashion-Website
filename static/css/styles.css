@@ -48,7 +48,9 @@ nav {
     z-index: 1;
 }
 
-
+main {
+    min-height: 70vh;
+}
 .navigation {
     text-transform: uppercase;
     font-weight: 800;
