@@ -80,3 +80,18 @@ form {
     color: #ede5e5;
 }
 
+.variants-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.variant-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    background: rgba(255,255,255,0.05);
+    padding: 1rem;
+    border-radius: 10px;
+}

@@ -33,37 +33,44 @@
         {{ form.description.label_tag }}
         {{ form.description }}
     </div>
-<p class="color-form">
-{{ form.color.label_tag }}
-    {% for color in colors %}
-        <label class="color-option">
-
-<input type="checkbox"
-       name="color"
-       value="{{ color.id }}"
-       {% if color in form.instance.color.all %}checked{% endif %}>
-            <span class="color-square"
-                  style="background-color: {{ color.hex_code }};">
-            </span>
-        </label>
-    {% endfor %}
-</p>
     <div class="field">
         {{ form.price.label_tag }}
         {{ form.price }}
     </div>
     <div class="field">
-        {{ form.stock.label_tag }}
-        {{ form.stock }}
-    </div>
-    <div class="field">
-        {{ form.size.label_tag }}
-        {{ form.size }}
-    </div>
-    <div class="field">
         {{ form.promotion.label_tag }}
         {{ form.promotion }}
     </div>
+    <h4 style="margin-top: 2rem;">Variants</h4>
+
+{{ formset.management_form }}
+
+<div class="variants-container">
+    {% for variant_form in formset %}
+        <div class="variant-row">
+
+            <div class="field">
+                {{ variant_form.size.label_tag }}
+                {{ variant_form.size }}
+            </div>
+
+            <div class="field">
+                {{ variant_form.color.label_tag }}
+                {{ variant_form.color }}
+            </div>
+
+            <div class="field">
+                {{ variant_form.stock.label_tag }}
+                {{ variant_form.stock }}
+            </div>
+
+            <div class="field">
+                {{ variant_form.DELETE }} Delete
+            </div>
+
+        </div>
+    {% endfor %}
+</div>
 </div>
     <p><button class="create-button common-button" type="submit">Create</button></p>
     </form>

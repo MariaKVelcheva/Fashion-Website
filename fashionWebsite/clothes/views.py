@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView, ListView
 
 from fashionWebsite.clothes.forms import CreateGarmentForm, UpdateGarmentForm, DeleteGarmentForm, CreateColorForm, \
-    CreateSizeForm, CreateCategoryForm, UpdateCategoryForm
+    CreateSizeForm, CreateCategoryForm, UpdateCategoryForm, ProductFormSet
 from fashionWebsite.clothes.models import Garment, Color, Size, Category, GarmentImage
 from fashionWebsite.common.mixins import AdminRequiredMixin
 
@@ -14,24 +14,38 @@ class CreateGarmentView(AdminRequiredMixin, CreateView):
     template_name = "clothes/garments/create-garment.html"
 
     def form_valid(self, form):
-        response = super().form_valid(form)
+        context = self.get_context_data()
+        formset = context["formset"]
 
-        files = self.request.FILES.getlist("gallery_images")
+        if formset.is_valid():
+            self.object = form.save(commit=False)
+            self.object.save()
 
-        for file in files:
-            GarmentImage.objects.create(
-                garment=self.object,
-                image=file
-            )
+            formset.instance = self.object
+            formset.save()
 
-        return response
+            files = self.request.FILES.getlist("gallery_images")
+            for file in files:
+                GarmentImage.objects.create(
+                    garment=self.object,
+                    image=file
+                )
+
+            return redirect(self.get_success_url())
+
+        return self.form_invalid(form)
 
     def get_success_url(self):
         return reverse_lazy("details-garment", kwargs={"pk": self.object.pk})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["colors"] = Color.objects.all()
+
+        if self.request.POST:
+            context["formset"] = ProductFormSet(self.request.POST)
+        else:
+            context["formset"] = ProductFormSet()
+
         return context
 
 

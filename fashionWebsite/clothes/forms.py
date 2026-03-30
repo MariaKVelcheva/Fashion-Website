@@ -3,6 +3,9 @@ from django import forms
 from fashionWebsite.clothes.models import Category, Color, Size, Garment
 from fashionWebsite.orders.models import Promotion
 
+from django.forms import inlineformset_factory
+from .models import Product
+
 
 class BaseCategoryForm(forms.ModelForm):
     class Meta:
@@ -40,26 +43,18 @@ class BaseSizeForm(forms.ModelForm):
         widgets = {"name": forms.TextInput(attrs={"placeholder": "Size type"}),}
 
 
-class BaseGarmentForm(forms.ModelForm):
-    color = forms.ModelMultipleChoiceField(
-        queryset=Color.objects.all(),
-        widget=forms.CheckboxSelectMultiple,
-    )
+ProductFormSet = inlineformset_factory(
+    Garment,
+    Product,
+    fields=("size", "color", "stock"),
+    extra=1,
+    can_delete=True
+)
 
+
+class BaseGarmentForm(forms.ModelForm):
     category = forms.ModelChoiceField(
         queryset=Category.objects.all(),
-        widget=forms.RadioSelect(),
-        empty_label=None,
-    )
-
-    size = forms.ModelChoiceField(
-        queryset=Size.objects.all(),
-        widget=forms.RadioSelect(),
-        empty_label=None,
-    )
-
-    promotion = forms.ModelChoiceField(
-        queryset=Promotion.objects.all(),
         widget=forms.RadioSelect(),
         empty_label=None,
     )
@@ -70,18 +65,13 @@ class BaseGarmentForm(forms.ModelForm):
         labels = {
             "name": "Name",
             "category": "Category",
-            "color": "Color",
-            "size": "Size",
-            "image": "Image",
+            "profile_image": "Image",
             "description": "Description",
             "price": "Price",
-            "stock": "Stock",
-            "promotion": "Promotion",
         }
         widgets = {
             "description": forms.Textarea(attrs={"placeholder": "Description", "rows": 5, "cols": 10}),
             "price": forms.NumberInput(attrs={'placeholder': 'Price (€)'}),
-            "stock": forms.NumberInput(attrs={'placeholder': 'Stock left...'}),
             "name": forms.TextInput(attrs={'placeholder': 'Name'}),
         }
 

@@ -21,7 +21,7 @@ class Garment(models.Model):
         blank=True,
     )
 
-    image = models.URLField(
+    profile_image = models.URLField(
         null=True,
         blank=True,
     )
@@ -36,16 +36,6 @@ class Garment(models.Model):
         null=True,
     )
 
-    color = models.ManyToManyField(
-        to="clothes.Color",
-        related_name='garments',
-    )
-
-    size = models.ManyToManyField(
-        to="clothes.Size",
-        related_name='garments',
-    )
-
     price = models.DecimalField(
         max_digits=10,
         decimal_places=2,
@@ -53,22 +43,15 @@ class Garment(models.Model):
         blank=True,
     )
 
-    stock = models.IntegerField(
-        default=None,
-    )
-
-    promotion = models.ForeignKey(
-        to="orders.Promotion",
-        blank=True,
-        null=True,
-        default="",
-        on_delete=models.SET_NULL,
-        related_name='garments',
-    )
-
     @property
     def is_available(self):
-        return self.stock > 0
+        return self.products.filter(stock__gt=0).exists()
+
+    def get_available_sizes(self):
+        return self.products.values_list("size__name", flat=True).distinct()
+
+    def get_available_colors(self):
+        return self.products.values_list("color__name", flat=True).distinct()
 
     @property
     def discount_price(self):
