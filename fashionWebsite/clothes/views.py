@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView, ListView
@@ -145,5 +146,54 @@ class CategoryCatalogueView(ListView):
     ordering = ("name", )
     template_name = "clothes/categories/all-categories.html"
     context_object_name = "categories"
+
+
+class GarmentSearchView(ListView):
+    model = Garment
+    template_name = 'clothes/garments/search.html'
+    context_object_name = 'garments'
+
+    def get_queryset(self):
+        queryset = Garment.objects.filter(products__stock__gt=0).distinct()
+
+        q = self.request.GET.get('q')
+
+        category_ids = self.request.GET.getlist('category')
+        color_ids = self.request.GET.getlist('color')
+        size_ids = self.request.GET.getlist('size')
+
+        query = Q()
+
+        if q:
+            query |= Q(name__icontains=q)
+            query |= Q(description__icontains=q)
+
+        if category_ids:
+            query |= Q(category_id__in=category_ids)
+
+        if color_ids:
+            query |= Q(products__color_id__in=color_ids)
+
+        if size_ids:
+            query |= Q(products__size_id__in=size_ids)
+
+        if query:
+            queryset = queryset.filter(query)
+
+        return queryset.distinct()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        context['colors'] = Color.objects.all()
+        context['sizes'] = Size.objects.all()
+
+        context['selected_category'] = self.request.GET.get('category', '')
+        context['selected_color'] = self.request.GET.get('color', '')
+        context['selected_size'] = self.request.GET.get('size', '')
+
+        context['q'] = self.request.GET.get('q', '')
+
+        return context
 
 

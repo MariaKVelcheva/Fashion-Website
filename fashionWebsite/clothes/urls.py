@@ -17,5 +17,6 @@ urlpatterns = [
         path("create/", views.CreateCategoryView.as_view(), name="create-category"),
         path("<slug:slug>/update/", views.UpdateCategoryView.as_view(), name="update-category"),
         path("<slug:slug>/delete/", views.DeleteCategoryView.as_view(), name="delete-category"),
-    ]))
+    ])),
+    path('search/', views.GarmentSearchView.as_view(), name='garment-search'),
 ]

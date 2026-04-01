@@ -22,7 +22,6 @@ class Product(models.Model):
 
     stock = models.PositiveIntegerField(default=0)
 
-
     class Meta:
         indexes = [
             models.Index(fields=["garment", "size", "color"]),

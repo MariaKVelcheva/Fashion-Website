@@ -1,0 +1,60 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+<section>
+    <h1>Search garments</h1>
+
+    <form method="get">
+    <input type="text" name="q" value="{{ q }}" placeholder="Search...">
+        <select name="category">
+            <option value="">All categories</option>
+            {% for category in categories %}
+                <option value="{{ category.id }}"
+                    {% if selected_category == category.id|stringformat:"s" %}selected{% endif %}>
+                    {{ category.name }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <select name="color">
+            <option value="">All colors</option>
+            {% for color in colors %}
+                <option value="{{ color.id }}"
+                    {% if selected_color == color.id|stringformat:"s" %}selected{% endif %}>
+                    {{ color.name }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <select name="size">
+            <option value="">All sizes</option>
+            {% for size in sizes %}
+                <option value="{{ size.id }}"
+                    {% if selected_size == size.id|stringformat:"s" %}selected{% endif %}>
+                    {{ size.name }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <button type="submit">Search</button>
+        <a href="{% url 'garment-search' %}">Clear</a>
+    </form>
+</section>
+
+<section>
+    {% for garment in garments %}
+        <article>
+            <h2>{{ garment.name }}</h2>
+            <p>{{ garment.category.name }}</p>
+            <p>{{ garment.description }}</p>
+            <p>{{ garment.price }} lv</p>
+
+            {% if garment.main_image %}
+                <img src="{{ garment.main_image.url }}" alt="{{ garment.name }}">
+            {% endif %}
+        </article>
+    {% empty %}
+        <p>No garments match these filters.</p>
+    {% endfor %}
+</section>
+{% endblock %}
