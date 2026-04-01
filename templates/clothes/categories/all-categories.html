@@ -1,6 +1,7 @@
 {% extends "common/base.html" %}
 
 {% block content %}
+    {% include 'clothes/categories' %}
     {% for category in categories %}
         <p>{{ category.name }} with {{ category.type }}</p>
         <p>Edit:</p> <form method="post" action="{% url 'update-category' category.slug %}">

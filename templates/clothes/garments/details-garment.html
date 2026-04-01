@@ -15,8 +15,7 @@
 
 <div class="container">
     <div class="product-page">
-
-            <div class="main-image">
+        <div class="main-image">
     {% if garment.main_image %}
         <img src="{{ garment.main_image.image.url }}" alt="">
     {% endif %}
@@ -26,7 +25,7 @@
         <img src="{{ image.image.url }}" class="thumbnail">
     {% endfor %}
 </div>
-
+{% include 'common/wishlist-heart.html' %}
         <div class="product-info">
 
             <h1>{{ garment.name }}</h1>

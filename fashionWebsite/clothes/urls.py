@@ -17,6 +17,8 @@ urlpatterns = [
         path("create/", views.CreateCategoryView.as_view(), name="create-category"),
         path("<slug:slug>/update/", views.UpdateCategoryView.as_view(), name="update-category"),
         path("<slug:slug>/delete/", views.DeleteCategoryView.as_view(), name="delete-category"),
+        path("<slug:slug>/details/", views.CategoryDetailView.as_view(), name="details-category"),
     ])),
     path('search/', views.GarmentSearchView.as_view(), name='garment-search'),
+    path('wishlist/toggle/<int:product_id>/', views.toggle_wishlist, name='toggle-wishlist')
 ]

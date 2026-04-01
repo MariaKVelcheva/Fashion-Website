@@ -1,0 +1,10 @@
+ <section class="collection">
+    <h2>Latest Trends</h2>
+    <ul class="categories" type="none">
+{% for category in categories %}
+        <li><a href="#"><img src="{{ category.profile_picture }}" alt="{{ category.name }}">
+            <h3>{{ category.name }}</h3>
+        </a></li>
+{% endfor %}
+    </ul>
+    </section>

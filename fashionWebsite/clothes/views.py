@@ -1,12 +1,14 @@
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView, ListView
 
 from fashionWebsite.clothes.forms import CreateGarmentForm, UpdateGarmentForm, DeleteGarmentForm, CreateColorForm, \
     CreateSizeForm, CreateCategoryForm, UpdateCategoryForm, ProductFormSet
-from fashionWebsite.clothes.models import Garment, Color, Size, Category, GarmentImage
+from fashionWebsite.clothes.models import Garment, Color, Size, Category, GarmentImage, WishlistItem, Product
 from fashionWebsite.common.mixins import AdminRequiredMixin
+from django.http import JsonResponse
 
 
 class CreateGarmentView(AdminRequiredMixin, CreateView):
@@ -59,6 +61,14 @@ class DetailsGarmentView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["images"] = self.object.images.all()
+        if self.request.user.is_authenticated:
+            wishlist_ids = WishlistItem.objects.filter(
+                user=self.request.user
+            ).values_list('garment_id', flat=True)
+
+            context['user_wishlist'] = list(wishlist_ids)
+        else:
+            context['user_wishlist'] = []
         return context
 
 
@@ -89,6 +99,20 @@ class GarmentCatalogueView(ListView):
 
     def get_queryset(self):
         return Garment.objects.filter(products__stock__gt=0).distinct()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        if self.request.user.is_authenticated:
+            wishlist_ids = WishlistItem.objects.filter(
+                user=self.request.user
+            ).values_list('garment_id', flat=True)
+
+            context['user_wishlist'] = list(wishlist_ids)
+        else:
+            context['user_wishlist'] = []
+
+        return context
 
 
 class CreateColorView(AdminRequiredMixin, CreateView):
@@ -194,6 +218,46 @@ class GarmentSearchView(ListView):
 
         context['q'] = self.request.GET.get('q', '')
 
+        return context
+
+
+@login_required
+def toggle_wishlist(request, garment_id):
+    garment = get_object_or_404(Garment, id=garment_id)
+
+    item, created = WishlistItem.objects.get_or_create(
+        user=request.user,
+        garment=garment
+    )
+
+    if not created:
+        item.delete()
+        status = 'removed'
+    else:
+        status = 'added'
+
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        return JsonResponse({'status': status, 'garment_id': garment.id})
+
+    return redirect(request.META.get('HTTP_REFERER', 'home'))
+
+
+class CategoryDetailView(ListView):
+    model = Garment
+    template_name = 'clothes/categories/details-category.html'
+    context_object_name = 'garments'
+
+    def get_queryset(self):
+        category_pk = self.kwargs.get('slug')
+        self.category = get_object_or_404(Category, pk=category_pk)
+
+        # filter garments for this category
+        return Garment.objects.filter(category=self.category, products__stock__gt=0).distinct()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category'] = self.category
+        context['garments'] = self.get_queryset()
         return context
 
 

@@ -13,33 +13,7 @@
 <section class="catalogue">
 
     {% if garments %}
-        <div class="garment-grid">
-            {% for garment in garments %}
-                <div class="garment-card">
-                    
-                    <div class="garment-image">
-                        {% if garment.main_image %}
-                            <img src="{{ garment.main_image.image.url }}" alt="{{ garment.name }}">
-                        {% else %}
-                            <img src="{% static 'images/placeholder.jpeg' %}" alt="placeholder">
-                        {% endif %}
-                    </div>
-
-                    <div class="garment-info">
-                        <h3>{{ garment.name }}</h3>
-
-                        {% if garment.is_available %}
-                            <p class="in-stock">Available</p>
-                        {% else %}
-                            <p class="out-stock">Out of stock</p>
-                        {% endif %}
-
-                        <a href="{% url 'details-garment' garment.pk %}" class="view-btn">View</a>
-                    </div>
-
-                </div>
-            {% endfor %}
-        </div>
+ {% include "clothes/garments" %}
     {% else %}
         <p>No garments available.</p>
     {% endif %}

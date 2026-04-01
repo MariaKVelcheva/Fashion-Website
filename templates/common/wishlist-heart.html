@@ -1,0 +1,40 @@
+<form class="wishlist-form" method="post" action="{% url 'toggle-wishlist' garment.id %}">
+    {% csrf_token %}
+    <button type="submit" style="background: none; border: none; cursor: pointer;">
+        <i class="fa-heart {% if garment.id in user_wishlist %}fa-solid{% else %}fa-regular{% endif %}"></i>
+    </button>
+</form>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const forms = document.querySelectorAll(".wishlist-form");
+
+    forms.forEach(form => {
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            const csrfToken = form.querySelector('[name=csrfmiddlewaretoken]').value;
+            const garmentId = form.action.split('/').slice(-2, -1)[0];
+            const icon = form.querySelector('i');
+
+            fetch(form.action, {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": csrfToken,
+                    "X-Requested-With": "XMLHttpRequest",
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "added") {
+                    icon.classList.remove("fa-regular");
+                    icon.classList.add("fa-solid");
+                } else {
+                    icon.classList.remove("fa-solid");
+                    icon.classList.add("fa-regular");
+                }
+            });
+        });
+    });
+});
+</script>
