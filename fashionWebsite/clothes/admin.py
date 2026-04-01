@@ -24,14 +24,14 @@ class ColorAdmin(admin.ModelAdmin):
 
 class ProductInline(admin.TabularInline):
     model = Product
-    extra = 1
+    extra = 2
     autocomplete_fields = ("size", "color")
 
 
 @admin.register(Garment)
 class GarmentAdmin(admin.ModelAdmin):
     inlines = [ProductInline]
-    list_display = ("name", "category__name", "price", "discount_price")
-    search_fields = ("name", "category__name", "price", "discount_price", "size__name", "color__name")
+    list_display = ("name", "category__name", "price", )
+    search_fields = ("name", "category__name", "price", "size__name", "color__name")
     list_filter = ("category__name", )
 

@@ -21,11 +21,6 @@ class Garment(models.Model):
         blank=True,
     )
 
-    profile_image = models.URLField(
-        null=True,
-        blank=True,
-    )
-
     slug = models.SlugField(
         unique=True,
         blank=True,
@@ -47,26 +42,15 @@ class Garment(models.Model):
     def is_available(self):
         return self.products.filter(stock__gt=0).exists()
 
-    def get_available_sizes(self):
-        return self.products.values_list("size__name", flat=True).distinct()
+    @property
+    def main_image(self):
+        return self.images.first()
 
     def get_available_colors(self):
-        return self.products.values_list("color__name", flat=True).distinct()
+        return list({p.color for p in self.products.select_related("color")})
 
-    @property
-    def discount_price(self):
-        if self.promotion and self.promotion.is_active:
-            discount = (0.01 * float(self.promotion.discount_percent) * float(self.price))
-            return self.price - Decimal(discount)
-        return self.price
-
-    @property
-    def has_discount(self):
-        return self.discount_price < self.price
-
-    @property
-    def display_price(self):
-        return self.discount_price if self.has_discount else self.price
+    def get_available_sizes(self):
+        return list({p.size for p in self.products.select_related("size")})
 
     def save(self, *args, **kwargs):
         if self.name and not self.slug:

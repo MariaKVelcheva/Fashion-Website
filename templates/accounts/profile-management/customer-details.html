@@ -1,5 +1,36 @@
 {% extends "common/base.html" %}
 
 {% block content %}
-    <h1>This is customer with email address: {{ customer.user.email }}</h1>
+    <section class="personal-information">
+    <div class="business-card">
+        <div class="avatar">
+            {{ customer.first_name|truncatechars:1 }}{{ customer.last_name|truncatechars:1 }}
+        <form id="logout-form" method="post" action="{% url 'logout' %}" style="display: inline;">
+        {% csrf_token %}
+        <button type="submit" class="nav-link" style="background: none; border: none; cursor: pointer;">
+            Logout
+        </button>
+    </form>
+        </div>
+    </div>
+    <div class="list">
+        <ul>
+            <li><a href="#">Personal information</a></li>
+            <li><a href="#">Your purchases</a></li>
+            <li><a href="#">Your points</a></li>
+            <li><a href="#">Your wishlist</a></li>
+            <li><a href="#">Help</a></li>
+        </ul>
+    </div>
+    </section>
+    <section class="greetings">
+    <h2>Hello, {{ customer.first_name }}</h2>
+    <div class="account">Your EllaPrime account</div>
+    </section>
+    <section class="orders">
+    <h3>Your purchases</h3>
+    {% for order in orders %}
+    {{ order }}
+    {% endfor %}
+    </section>
 {% endblock %}

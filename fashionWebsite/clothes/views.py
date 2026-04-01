@@ -18,7 +18,7 @@ class CreateGarmentView(AdminRequiredMixin, CreateView):
         formset = context["formset"]
 
         if formset.is_valid():
-            self.object = form.save(commit=False)
+            self.object = form.save()
             self.object.save()
 
             formset.instance = self.object
@@ -55,6 +55,11 @@ class DetailsGarmentView(DetailView):
     slug_url_kwarg = "slug"
     template_name = "clothes/garments/details-garment.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["images"] = self.object.images.all()
+        return context
+
 
 class UpdateGarmentView(AdminRequiredMixin, UpdateView):
     model = Garment
@@ -82,7 +87,7 @@ class GarmentCatalogueView(ListView):
     context_object_name = "garments"
 
     def get_queryset(self):
-        return Garment.objects.filter(is_available=True)
+        return Garment.objects.filter(products__stock__gt=0).distinct()
 
 
 class CreateColorView(AdminRequiredMixin, CreateView):

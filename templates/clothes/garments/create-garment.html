@@ -37,11 +37,8 @@
         {{ form.price.label_tag }}
         {{ form.price }}
     </div>
-    <div class="field">
-        {{ form.promotion.label_tag }}
-        {{ form.promotion }}
-    </div>
-    <h4 style="margin-top: 2rem;">Variants</h4>
+</div>
+    <h2 style="margin: 1.5rem;">Products</h2>
 
 {{ formset.management_form }}
 
@@ -70,9 +67,56 @@
 
         </div>
     {% endfor %}
+</div> <button type="button" id="add-variant" class="common-button">
+    + Add Variant
+</button>
+<div id="empty-form-template" style="display: none;">
+    <div class="variant-row">
+        <div class="field">
+            {{ formset.empty_form.size.label_tag }}
+            {{ formset.empty_form.size }}
+        </div>
+
+        <div class="field">
+            {{ formset.empty_form.color.label_tag }}
+            {{ formset.empty_form.color }}
+        </div>
+
+        <div class="field">
+            {{ formset.empty_form.stock.label_tag }}
+            {{ formset.empty_form.stock }}
+        </div>
+
+        <div class="field">
+            {{ formset.empty_form.DELETE }} Delete
+        </div>
+    </div>
 </div>
-</div>
-    <p><button class="create-button common-button" type="submit">Create</button></p>
+    <button class="common-button create-button" type="submit">Create garment</button>
     </form>
+</div>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const addButton = document.getElementById("add-variant");
+    const container = document.querySelector(".variants-container");
+    const totalForms = document.querySelector("[name$='-TOTAL_FORMS']");
+    const emptyFormTemplate = document.getElementById("empty-form-template").innerHTML;
+
+    addButton.addEventListener("click", function () {
+        let formIndex = parseInt(totalForms.value);
+
+        let newFormHtml = emptyFormTemplate.replace(/__prefix__/g, formIndex);
+
+        container.insertAdjacentHTML("beforeend", newFormHtml);
+
+        totalForms.value = formIndex + 1;
+        console.log(addButton);
+    });
+
+});
+</script>
+
 </body>
 </html>

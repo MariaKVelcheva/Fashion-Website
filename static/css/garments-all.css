@@ -1,0 +1,77 @@
+.catalogue-header {
+    margin: 3rem;
+    text-align: left;
+}
+
+.catalogue-header h2 {
+    text-transform: uppercase;
+    font-size: 2rem;
+}
+
+/* GRID */
+.garment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+}
+
+/* CARD */
+.garment-card {
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    background-color: #fff;
+}
+
+.garment-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* IMAGE */
+.garment-image img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+/* INFO */
+.garment-info {
+    padding: 1.5rem;
+}
+
+.garment-info h3 {
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+/* STOCK STATUS */
+.in-stock {
+    color: #89c324;
+    font-weight: 600;
+}
+
+.out-stock {
+    color: #bf2929;
+    font-weight: 600;
+}
+
+/* BUTTON */
+.view-btn {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.7rem 1.5rem;
+    background-color: #bf2929;
+    color: white;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.view-btn:hover {
+    background-color: #f6d003;
+    color: black;
+}

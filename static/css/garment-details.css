@@ -1,0 +1,140 @@
+body {
+    background: #ece5e5;
+    font-family: sans-serif;
+}
+
+.container {
+    margin: 5%;
+}
+
+.product-page {
+    display: flex;
+    gap: 3rem;
+    align-items: flex-start;
+}
+
+.product-image img {
+    width: 400px;
+    border-radius: 15px;
+}
+
+
+.product-info {
+    max-width: 400px;
+}
+
+.price {
+    font-size: 1.5rem;
+    margin: 1rem 0;
+}
+
+.old-price {
+    text-decoration: line-through;
+    color: gray;
+    margin-right: 10px;
+}
+
+.new-price {
+    color: #bf2929;
+    font-weight: bold;
+}
+
+.description {
+    margin-bottom: 1.5rem;
+}
+
+.color-grid {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.color-option input {
+    display: none;
+}
+
+.color-square {
+    width: 35px;
+    height: 35px;
+    border-radius: 6px;
+    border: 2px solid #ccc;
+    cursor: pointer;
+    transition: 0.2s;
+    display: inline-block;
+}
+
+.color-option input:checked + .color-square {
+    border: 2px solid black;
+    transform: scale(1.1);
+}
+
+.size-grid {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.size-option input {
+    display: none;
+}
+
+.size-option span {
+    padding: 0.5rem 1rem;
+    border: 1px solid #333;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.size-option input:checked + span {
+    background: #333;
+    color: white;
+}
+
+.in-stock {
+    color: green;
+    margin: 1rem 0;
+}
+
+.out-of-stock {
+    color: red;
+    margin: 1rem 0;
+}
+
+.add-to-cart {
+    padding: 0.7rem 1.5rem;
+    border-radius: 10px;
+    border: none;
+    background: #636365;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.add-to-cart:hover {
+    background: #bf2929;
+}
+
+.main-image img {
+    width: 400px;
+    border-radius: 15px;
+}
+
+.gallery {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.thumbnail {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: 0.2s;
+}
+
+.thumbnail:hover {
+    opacity: 1;
+}

@@ -1,19 +1,97 @@
-<p class="color-form">
-{{ form.color.label_tag }}
-    {% for color in colors %}
-        <label class="color-option">
+{% extends "common/base.html" %}
+{% load static %}
 
-<input type="checkbox"
-       name="color"
-       value="{{ color.id }}"
-       {% if color in form.instance.color.all %}checked{% endif %}>
-            <span class="color-square"
-                  style="background-color: {{ color.hex_code }};">
-            </span>
-        </label>
+{% block content %}
+    {% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ garment.name }}</title>
+    <link rel="stylesheet" href="{% static 'css/garment-details.css' %}">
+</head>
+<body>
+
+<div class="container">
+    <div class="product-page">
+
+            <div class="main-image">
+    {% if garment.main_image %}
+        <img src="{{ garment.main_image.image.url }}" alt="">
+    {% endif %}
+</div>
+    <div class="gallery">
+    {% for image in images %}
+        <img src="{{ image.image.url }}" class="thumbnail">
     {% endfor %}
-</p>
-<p>    color = forms.ModelMultipleChoiceField(
-        queryset=Color.objects.all(),
-        widget=forms.CheckboxSelectMultiple,)
-</p>
+</div>
+
+        <div class="product-info">
+
+            <h1>{{ garment.name }}</h1>
+
+            <p class="price">
+                {% if garment.has_discount %}
+                    <span class="old-price">{{ garment.price }}€</span>
+                    <span class="new-price">{{ garment.discount_price }}€</span>
+                {% else %}
+                    {{ garment.price }}€
+                {% endif %}
+            </p>
+
+            <p class="description">
+                {{ garment.description }}
+            </p>
+
+            <div class="option-group">
+                <p>Color:</p>
+                <div class="color-grid">
+                    {% for color in garment.get_available_colors %}
+                        <label class="color-option">
+                            <input type="radio" name="color" value="{{ color.id }}">
+                            <span class="color-square"
+                                  style="background-color: {{ color.hex_code }}">
+                            </span>
+                        </label>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="option-group">
+                <p>Size:</p>
+                <div class="size-grid">
+                    {% for size in garment.get_available_sizes %}
+                        <label class="size-option">
+                            <input type="radio" name="size" value="{{ size.id }}">
+                            <span>{{ size.name }}</span>
+                        </label>
+                    {% endfor %}
+                </div>
+            </div>
+
+            {% if garment.is_available %}
+                <p class="in-stock">In stock</p>
+            {% else %}
+                <p class="out-of-stock">Out of stock</p>
+            {% endif %}
+
+            <button type="submit" class="add-to-cart">
+                Add to cart
+            </button>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+{% endblock %}
+
+<script>
+document.querySelectorAll(".thumbnail").forEach(img => {
+    img.addEventListener("click", function () {
+        document.querySelector(".main-image img").src = this.src;
+    });
+});
+</script>

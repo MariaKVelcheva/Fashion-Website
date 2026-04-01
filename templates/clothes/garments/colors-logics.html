@@ -1,0 +1,19 @@
+<p class="color-form">
+{{ form.color.label_tag }}
+    {% for color in colors %}
+        <label class="color-option">
+
+<input type="checkbox"
+       name="color"
+       value="{{ color.id }}"
+       {% if color in form.instance.color.all %}checked{% endif %}>
+            <span class="color-square"
+                  style="background-color: {{ color.hex_code }};">
+            </span>
+        </label>
+    {% endfor %}
+</p>
+<p>    color = forms.ModelMultipleChoiceField(
+        queryset=Color.objects.all(),
+        widget=forms.CheckboxSelectMultiple,)
+</p>

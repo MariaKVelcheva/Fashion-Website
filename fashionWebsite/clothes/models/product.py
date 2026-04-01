@@ -22,10 +22,8 @@ class Product(models.Model):
 
     stock = models.PositiveIntegerField(default=0)
 
-    sku = models.CharField(max_length=50, unique=True, blank=True)
 
     class Meta:
-        unique_together = ("garment", "size", "color")
         indexes = [
             models.Index(fields=["garment", "size", "color"]),
         ]

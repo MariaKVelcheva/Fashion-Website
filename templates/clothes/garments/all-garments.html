@@ -1,7 +1,49 @@
-{% extends "common/base.html" %}
+{% extends 'common/base.html' %}
+{% load static %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/garments-all.css' %}">
+{% endblock %}
 {% block content %}
-    {% for garment in garments %}
-        <p>{{ garment.name }} from {{ garment.category.name }}</p>
-    {% endfor %}
+
+<section class="catalogue-header">
+    <h2>Our Collection</h2>
+</section>
+
+<section class="catalogue">
+
+    {% if garments %}
+        <div class="garment-grid">
+            {% for garment in garments %}
+                <div class="garment-card">
+                    
+                    <div class="garment-image">
+                        {% if garment.main_image %}
+                            <img src="{{ garment.main_image.image.url }}" alt="{{ garment.name }}">
+                        {% else %}
+                            <img src="{% static 'images/placeholder.jpeg' %}" alt="placeholder">
+                        {% endif %}
+                    </div>
+
+                    <div class="garment-info">
+                        <h3>{{ garment.name }}</h3>
+
+                        {% if garment.is_available %}
+                            <p class="in-stock">Available</p>
+                        {% else %}
+                            <p class="out-stock">Out of stock</p>
+                        {% endif %}
+
+                        <a href="{% url 'details-garment' garment.pk %}" class="view-btn">View</a>
+                    </div>
+
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No garments available.</p>
+    {% endif %}
+
+</section>
+
 {% endblock %}
