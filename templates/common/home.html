@@ -8,7 +8,7 @@
             <h2> collection</h2>
     <button><a href="{% url 'all-garments' %}">Discover</a></button>
     </section>
-   
+   {% include "clothes/categories/categories.html" %}
     <section class="trending" style="background-image: url('{% static 'images/denim 2.jpeg' %}')">
     <h2>DENIM!</h2>
     <button>Discover</button>

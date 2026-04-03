@@ -24,6 +24,14 @@ class Customer(models.Model):
         ]
     )
 
+    middle_name = models.CharField(
+        max_length=100,
+        validators=[
+            MinLengthValidator(3),
+            name_validator,
+        ]
+    )
+
     last_name = models.CharField(
         max_length=100,
         validators=[

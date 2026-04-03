@@ -52,6 +52,7 @@ MIDDLEWARE = [
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = "maria.k.velcheva@gmail.com"
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' + EMAIL_HOST = 'smtp.gmail.com'
 # -> to change at production!!!
 
@@ -122,5 +123,4 @@ AUTH_USER_MODEL = "accounts.AppUser"
 SITE_ID = 1
 LOGIN_REDIRECT_URL = reverse_lazy("home")
 LOGOUT_REDIRECT_URL = reverse_lazy("home")
-
 

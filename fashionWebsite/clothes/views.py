@@ -61,6 +61,7 @@ class DetailsGarmentView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["images"] = self.object.images.all()
+        context["products"] = self.object.products.all()
         if self.request.user.is_authenticated:
             wishlist_ids = WishlistItem.objects.filter(
                 user=self.request.user

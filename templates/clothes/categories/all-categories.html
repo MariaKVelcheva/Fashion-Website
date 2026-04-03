@@ -4,7 +4,8 @@
     {% include 'clothes/categories' %}
     {% for category in categories %}
         <p>{{ category.name }} with {{ category.type }}</p>
-        <p>Edit:</p> <form method="post" action="{% url 'update-category' category.slug %}">
+{% if request.user.is_staff %}
+                <p>Edit:</p> <form method="post" action="{% url 'update-category' category.slug %}">
     {% csrf_token %}
     <button class="btn btn-danger">🗑️Update</button>
 </form>
@@ -12,6 +13,7 @@
     {% csrf_token %}
     <button class="btn btn-danger">🗑️ Delete</button>
 </form>
+        {% endif %}
 
     {% endfor %}
 {% endblock %}

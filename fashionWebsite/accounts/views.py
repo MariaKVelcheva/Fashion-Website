@@ -8,6 +8,9 @@ from django.urls import reverse_lazy
 
 from fashionWebsite.accounts.forms import AppUserCreationForm, LoginForm, UpdateCustomerForm
 from fashionWebsite.accounts.models import Customer
+from fashionWebsite.clothes.models import Product
+from fashionWebsite.orders.models import OrderItem
+from fashionWebsite.orders.utils import update_order_total, get_or_create_cart
 
 AppUser = get_user_model()
 
@@ -39,6 +42,34 @@ class LoginUserView(LoginView):
     model = AppUser
     form_class = LoginForm
     template_name = "accounts/user-management/login.html"
+
+    def merge_cart(request, user):
+        cart = request.session.get("cart")
+
+        if not cart:
+            return
+
+        order = get_or_create_cart(user)
+
+        for product_id, quantity in cart.items():
+            product = Product.objects.get(id=product_id)
+
+            order_item, created = OrderItem.objects.get_or_create(
+                order=order,
+                product=product,
+                defaults={
+                    "quantity": quantity,
+                    "unit_price": product.price,
+                }
+            )
+
+            if not created:
+                order_item.quantity += quantity
+                order_item.save()
+
+        update_order_total(order)
+
+        request.session["cart"] = {}
 
 
 class LogoutUserView(LogoutView):

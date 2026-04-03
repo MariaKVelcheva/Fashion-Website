@@ -1,0 +1,94 @@
+{% extends "common/base.html" %}
+
+
+{% block content %}
+
+<h1>Your Cart</h1>
+
+{% if items %}
+    <ul>
+        {% for item in items %}
+            <li>
+                <strong>{{ item.product.garment.name }}</strong><br>
+
+                Size: {{ item.product.size.name }}<br>
+                Color: {{ item.product.color.name }}<br>
+
+                Quantity: {{ item.quantity }}<br>
+                Price: {{ item.unit_price }}€<br>
+                Total: {{ item.line_total }}€
+<form method="post" action="{% url 'remove-from-cart' item.id %}">
+    {% csrf_token %}
+    <button type="submit" class="remove-btn"
+            data-url="{% url 'remove-from-cart' item.id %}"
+            data-item-id="{{ item.id }}">
+        Remove
+    </button>
+</form>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h2>Total: {{ order.total_amount }}€</h2>
+    <form method="post">
+    {% csrf_token %}
+    <input type="text" name="first_name"
+           value="{{ request.user.customer.first_name }}">     <input type="text" name="middle_name"
+           value="{{ request.user.customer.middle_name }}"> <input type="text" name="last_name"
+           value="{{ request.user.customer.last_name }}">
+    <textarea name="address">{{ request.user.customer.address }}</textarea>
+
+    <input type="text" name="phone"
+           value="{{ request.user.customer.phone_number }}">
+
+    <button type="submit">Confirm Order</button>
+</form>
+    <form method="post" action="{% url 'checkout' %}">
+    {% csrf_token %}
+    {% if not items %}
+        <button disabled> Checkout</button>
+{% else %}
+    {% if user.is_authenticated %}
+    <form method="post" action="{% url 'checkout' %}">
+        {% csrf_token %}
+        <button type="submit">Checkout</button>
+    </form>
+{% else %}
+    <p>Please log in to checkout.</p>
+{% endif %}
+{% endif %}
+</form>
+
+{% else %}
+    <p>Your cart is empty.</p>
+{% endif %}
+
+{% endblock %}
+
+<script>
+document.querySelectorAll(".remove-btn").forEach(button => {
+    button.addEventListener("click", function () {
+
+        const url = this.dataset.url;
+        const itemId = this.dataset.itemId;
+
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": getCSRFToken(),
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById("item-" + itemId).remove();
+
+                const cartCount = document.getElementById("cart-count");
+                if (cartCount) {
+                    cartCount.textContent = data.cart_count;
+                }
+            }
+        });
+    });
+});
+</script>

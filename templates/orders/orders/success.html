@@ -1,0 +1,12 @@
+{% extends "common/base.html" %}
+
+{% block content %}
+
+<h1>Order placed successfully 🎉</h1>
+
+<p>Thank you for your purchase!</p>
+
+<a href="{% url 'order-history' %}">View my orders</a><br>
+<a href="/">Continue shopping</a>
+
+{% endblock %}

@@ -12,7 +12,7 @@
         <li><a href="#">Promo</a></li>
         <li><a href="{% url 'all-garments' %}">Collection</a></li>
         <li><a href="#" id="custom-nav-li">Gallery</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="{% url 'contact' %}">Contact</a></li>
         {% endif %}
     </ul>
 {% include "common/logo.html" %}
@@ -33,7 +33,7 @@
     </a>
 </li>
         <li><a href="#"><i class="fa-solid fa-heart"></i></a></li>
-        <li><a href="#"><i class="fa-solid fa-bag-shopping"></i></a></li>
+        <li><a href="{% url 'cart' %}"><i class="fa-solid fa-bag-shopping"></i></a></li>
     {% endif %}
     <li>
     {% if not request.user.is_authenticated %}

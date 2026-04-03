@@ -8,8 +8,8 @@ class OrderItem(models.Model):
         related_name='items',
     )
 
-    garment = models.ForeignKey(
-        to="clothes.Garment",
+    product = models.ForeignKey(
+        to="clothes.Product",
         on_delete=models.PROTECT,
         related_name='items',
     )
@@ -33,5 +33,5 @@ class OrderItem(models.Model):
         return self.unit_price * self.quantity
 
     def __str__(self):
-        return self.garment.name
+        return self.product.garment.name
 
