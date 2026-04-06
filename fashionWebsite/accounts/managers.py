@@ -1,7 +1,7 @@
-from django.contrib.auth.models import UserManager
+from django.contrib.auth.models import BaseUserManager
 
 
-class AppManager(UserManager):
+class AppManager(BaseUserManager):
     def _create_user(self, email, password, **extra_fields):
         if not email:
             raise ValueError("Clients must provide an email address.")

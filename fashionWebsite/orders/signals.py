@@ -1,6 +1,7 @@
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from fashionWebsite.orders.models import OrderItem, Order
+from fashionWebsite.common.utils.email import send_custom_email, send_html_email
 
 
 @receiver(post_save, sender=OrderItem)
@@ -19,3 +20,17 @@ def restore_stock(sender, instance, **kwargs):
             item.garment.save(update_fields=['stock'])
 
         Order.objects.filter(pk=instance.pk).update(status='cancelled')
+
+
+@receiver(post_save, sender=Order)
+def send_order_confirmation(sender, instance, created, **kwargs):
+    if not instance.user or not instance.user.email:
+        return
+
+    if created:
+        send_html_email(
+            subject=f"Order Confirmation #{instance.id}",
+            template_name="emails/order_confirmation.html",
+            context={"order": instance},
+            recipient_list=[instance.user.email],
+        )

@@ -42,9 +42,10 @@ nav {
     background-color: #fffbfb;
     flex-wrap: nowrap;
     top: 0;
-    gap: 10%;
-    padding: 1.5rem;
+    gap: 8%;
+    padding: 1rem;
     align-items: center;
+    justify-content: space-around;
     z-index: 1;
 }
 

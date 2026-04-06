@@ -9,7 +9,6 @@ __pycache__/
 *$py.class
 *.so
 .Python
-env/
 venv/
 .venv/
 
@@ -18,5 +17,4 @@ db.sqlite3
 media/
 
 # Env
-.env
 *.log

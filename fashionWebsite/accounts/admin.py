@@ -21,7 +21,7 @@ class CustomerInline(admin.StackedInline):
 class AppUserAdmin(UserAdmin):
     inlines = [CustomerInline]
     fieldsets = (
-        (None, {"fields": ("email", "password")}),
+        (None, {"fields": ("email", "password",)}),
         (_("Personal info"), {"fields": ("loyalty_points", )}),
         (
             _("Permissions"),

@@ -3,6 +3,7 @@ from urllib.parse import urlparse
 from django.contrib.auth import get_user_model, login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LogoutView, LoginView
+from django.http import HttpResponseRedirect
 from django.views.generic import CreateView, UpdateView, DetailView
 from django.urls import reverse_lazy
 
@@ -31,11 +32,14 @@ class RegisterUserView(CreateView):
         return reverse_lazy("home")
 
     def form_valid(self, form):
-        response = super().form_valid(form)
         user = form.save()
-        login(self.request, user)
+        login(self.request, user, backend='django.contrib.auth.backends.ModelBackend')
+        return HttpResponseRedirect(self.get_success_url())
 
-        return response
+    def form_invalid(self, form):
+        form.data = form.data.copy()
+        form.data["email"] = ""
+        return super().form_invalid(form)
 
 
 class LoginUserView(LoginView):
@@ -43,34 +47,41 @@ class LoginUserView(LoginView):
     form_class = LoginForm
     template_name = "accounts/user-management/login.html"
 
-    def merge_cart(request, user):
-        cart = request.session.get("cart")
+    class LoginUserView(LoginView):
+        form_class = LoginForm
+        template_name = "accounts/user-management/login.html"
 
-        if not cart:
-            return
+        def form_valid(self, form):
+            response = super().form_valid(form)
+            user = self.request.user
+            self.merge_cart(user)
+            return response
 
-        order = get_or_create_cart(user)
+        def form_invalid(self, form):
+            form.data = form.data.copy()
+            form.data["email"] = ""
+            return super().form_invalid(form)
 
-        for product_id, quantity in cart.items():
-            product = Product.objects.get(id=product_id)
-
-            order_item, created = OrderItem.objects.get_or_create(
-                order=order,
-                product=product,
-                defaults={
-                    "quantity": quantity,
-                    "unit_price": product.price,
-                }
-            )
-
-            if not created:
-                order_item.quantity += quantity
-                order_item.save()
-
-        update_order_total(order)
-
-        request.session["cart"] = {}
-
+        def merge_cart(self, user):
+            cart = self.request.session.get("cart")
+            if not cart:
+                return
+            order = get_or_create_cart(user)
+            for product_id, quantity in cart.items():
+                product = Product.objects.get(id=product_id)
+                order_item, created = OrderItem.objects.get_or_create(
+                    order=order,
+                    product=product,
+                    defaults={
+                        "quantity": quantity,
+                        "unit_price": product.price,
+                    }
+                )
+                if not created:
+                    order_item.quantity += quantity
+                    order_item.save()
+            update_order_total(order)
+            self.request.session["cart"] = {}
 
 class LogoutUserView(LogoutView):
     next_page = reverse_lazy("home")

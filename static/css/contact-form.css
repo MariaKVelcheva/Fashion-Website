@@ -1,0 +1,46 @@
+h2 {
+    margin: 1rem;
+}
+ body {
+     background-color: #989491;
+ }
+
+button {
+    border: none;
+    cursor: pointer;
+    border-radius: 15px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 0.5rem 1rem;
+    color: #636365;
+    background: #f6f1f1;
+    width: 55%;
+}
+
+button:hover {
+    color: #bf2929;
+}
+
+.container {
+    margin: 0 auto;
+    max-width: 750px;
+}
+
+.name, .email {
+    min-width: 40%;
+    margin-top: 1.5rem;
+}
+
+textarea {
+    border: none;
+    padding: 1rem;
+    border-radius: 10%;
+}
+
+input {
+    padding: 1rem;
+}
+
+.message {
+    color: #bf2929;
+}

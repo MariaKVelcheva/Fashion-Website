@@ -3,17 +3,13 @@
     <ul class="navigation" type="none">
         {% if request.user.is_staff %}
         <li><a href="{% url 'create-garment' %}">Add garment</a></li>
-        <li><a href="{% url 'create-category' %}">Add category</a></li>
-        <li><a href="{% url 'create-size' %}">Add size</a></li>
-        <li><a href="{% url 'create-color' %}">Add color</a></li>
-        <li><a href="{% url 'create-promotion' %}">Add promotion</a></li>
-        {% else %}
+        {% endif %}
         <li><a href="#">New in</a></li>
         <li><a href="#">Promo</a></li>
         <li><a href="{% url 'all-garments' %}">Collection</a></li>
         <li><a href="#" id="custom-nav-li">Gallery</a></li>
         <li><a href="{% url 'contact' %}">Contact</a></li>
-        {% endif %}
+
     </ul>
 {% include "common/logo.html" %}
     <ul class="customer" type="none">

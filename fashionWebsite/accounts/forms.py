@@ -9,6 +9,11 @@ AppUser = get_user_model()
 
 
 class AppUserCreationForm(UserCreationForm):
+    email = forms.EmailField(
+        label="Email",
+        widget=forms.EmailInput(attrs={"autofocus": True, "placeholder": "Email"})
+    )
+
     password1 = forms.CharField(
         widget=forms.PasswordInput(attrs={
             'placeholder': 'Password',
@@ -20,19 +25,39 @@ class AppUserCreationForm(UserCreationForm):
         })
     )
 
+    error_messages = {
+        "invalid_login": "Invalid email or password.",
+    }
+
     class Meta(UserCreationForm.Meta):
         model = AppUser
         fields = ("email", )
-        field_classes = {"email": UsernameField}
-        widgets = {"email": forms.EmailInput(
-            attrs={"placeholder": "Enter email"}),
-        }
 
     def clean_email(self):
         email = self.cleaned_data.get("email")
         if AppUser.objects.filter(email=email).exists():
             raise forms.ValidationError("Email already registered!")
         return email
+
+    def clean_password2(self):
+        pw1 = self.cleaned_data.get("password1")
+        pw2 = self.cleaned_data.get("password2")
+        if pw1 and pw2 and pw1 != pw2:
+            raise forms.ValidationError("Passwords don't match")
+        return pw2
+
+    def clean(self):
+        cleaned_data = super().clean()
+        if self.errors:
+            raise forms.ValidationError("Invalid email or password.")
+        return cleaned_data
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data["password1"])
+        if commit:
+            user.save()
+        return user
 
 
 class AppUserChangeForm(UserChangeForm):
@@ -43,7 +68,7 @@ class AppUserChangeForm(UserChangeForm):
 
 
 class LoginForm(AuthenticationForm):
-    email = forms.EmailField(
+    username = forms.EmailField(
         widget=forms.TextInput(attrs={'placeholder': 'Email'})
     )
     password = forms.CharField(
@@ -52,10 +77,20 @@ class LoginForm(AuthenticationForm):
         )
     )
 
+    error_messages = {
+        "invalid_login": "Invalid email or password.",
+    }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        if self.errors:
+            raise forms.ValidationError("Invalid email or password.")
+        return cleaned_data
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["password"].label = ""
-        self.fields["email"].label = ""
+        self.fields["username"].label = ""
 
 
 class UpdateCustomerForm(forms.ModelForm):

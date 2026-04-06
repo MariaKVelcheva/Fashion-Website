@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from fashionWebsite.accounts.managers import AppManager
 
 
-class AppUser(auth_models.AbstractUser, auth_models.PermissionsMixin):
+class AppUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     email = models.EmailField(
         _("Email address"),
         unique=True,
@@ -14,6 +14,9 @@ class AppUser(auth_models.AbstractUser, auth_models.PermissionsMixin):
         _("Points"),
         default=0,
     )
+
+    is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []

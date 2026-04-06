@@ -5,13 +5,13 @@ class ContactForm(forms.Form):
     name = forms.CharField(
         max_length=100,
         widget=forms.TextInput(
-            attrs={"placeholder": "Your name..."},
+            attrs={"placeholder": "Enter your name"},
         ),
     )
 
     email = forms.EmailField(
-        widget=forms.TextInput(
-            attrs={"placeholder": "Your email..."},
+        widget=forms.EmailInput(
+            attrs={"placeholder": "Enter your email"},
         )
     )
 

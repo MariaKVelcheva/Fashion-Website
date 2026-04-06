@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Ella Prime - Login</title>
-    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}?v=2">
     <link rel="stylesheet" href="{% static 'css/login-form.css' %}?v=2">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
@@ -18,20 +18,26 @@
     {% csrf_token %}
     <div class="traditional-login">
         <h3>Sign in</h3>
-        <p>{{ form.email }}</p>
+
+    {% if form.non_field_errors %}
+    <div class="form-errors">
+        {% for error in form.non_field_errors %}
+            <p>{{ error }}</p>
+        {% endfor %}
+    </div>
+        {% endif %}
+        <p>{{ form.username }}</p>
         <p>{{ form.password }}</p>
 
 
-    <p><button class="common-button login-button"><a href="{% url 'register' %}?next={{ request.path }}">Login</a></button></p>
+    <p>
+        <button type="submit" class="common-button register-button">
+    Log in
+</button>
+    </p>
         <p>Don't have an account yet? <a href="{% url 'register' %}">Create one</a></p></div>
-            <div class="element"><p>or</p></div>
-<div class="google-login">
-    <button type="button" class="login-with-google-btn" >
-    <a href="{% provider_login_url 'google' %}" class="google-btn">
-        Login with Google
-    </a></button>
-</div>
-    </form>
+            </form>     
+    
 </div>
 
 

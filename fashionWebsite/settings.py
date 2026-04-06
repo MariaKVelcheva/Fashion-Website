@@ -1,21 +1,26 @@
+from dotenv import load_dotenv
+
+load_dotenv()
+
 from django.urls import reverse_lazy
 from pathlib import Path
 import dj_database_url
 import os
 
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-h82_yt@5y3vb*oa*wmgp+66__mb!ztv'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
-DEBUG = os.getenv("DEBUG", "True") == "True"
+DEBUG = os.getenv("DEBUG", "True").lower() in ("true", "1", "yes")
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "*").split(",")
 
 MY_APPS = [
-    "fashionWebsite.accounts",
+    "fashionWebsite.accounts.apps.AccountsConfig",
     "fashionWebsite.clothes",
     "fashionWebsite.common",
-    "fashionWebsite.orders",
+    "fashionWebsite.orders.apps.OrdersConfig",
 ]
 
 
@@ -25,6 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sites',
     'django.contrib.staticfiles',
     'allauth',
     'allauth.account',
@@ -34,10 +40,11 @@ INSTALLED_APPS = [
 
 
 AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
 ]
 
+SOCIALACCOUNT_ADAPTER = "fashionWebsite.accounts.adapter.AppUserSocialAdapter"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -51,11 +58,16 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-DEFAULT_FROM_EMAIL = "maria.k.velcheva@gmail.com"
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' + EMAIL_HOST = 'smtp.gmail.com'
-# -> to change at production!!!
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_PORT = 587
+EMAIL_USE_SSL = False
+EMAIL_USE_TLS = True
+
+EMAIL_HOST_USER = "apikey"
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
 
 ROOT_URLCONF = 'fashionWebsite.urls'
 
@@ -123,4 +135,11 @@ AUTH_USER_MODEL = "accounts.AppUser"
 SITE_ID = 1
 LOGIN_REDIRECT_URL = reverse_lazy("home")
 LOGOUT_REDIRECT_URL = reverse_lazy("home")
+
+ACCOUNT_LOGIN_METHODS = {"email"}
+
+SOCIALACCOUNT_AUTO_SIGNUP = True
+ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*']
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_EMAIL_VERIFICATION = "optional"
 
