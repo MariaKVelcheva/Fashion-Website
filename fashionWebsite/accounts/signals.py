@@ -1,3 +1,4 @@
+from fashionWebsite.common.tasks import send_email_task
 from django.contrib.auth.models import Group
 from django.dispatch import receiver
 from django.db.models.signals import post_save, post_migrate
@@ -51,9 +52,9 @@ def send_welcome_email(sender, instance, created, **kwargs):
         return
 
     if created:
-        send_html_email(
+        send_email_task.delay(
             subject="Welcome to Fashion Website!",
             template_name="emails/welcome.html",
-            context={"user": instance},
+            context={"user_id": instance.id},
             recipient_list=[instance.email],
         )

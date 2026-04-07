@@ -3,7 +3,7 @@ from django.conf import settings
 from django.template.loader import render_to_string
 
 
-def send_custom_email(subject, message, recipient_list, html_message):
+def send_custom_email(subject, message, recipient_list, html_message=None, reply_to=None):
     send_mail(
         subject=subject,
         message=message,
@@ -11,6 +11,7 @@ def send_custom_email(subject, message, recipient_list, html_message):
         recipient_list=recipient_list,
         fail_silently=False,
         html_message=html_message,
+        reply_to=reply_to,
     )
 
 

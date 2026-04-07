@@ -1,5 +1,7 @@
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+
+from fashionWebsite.common.tasks import send_email_task
 from fashionWebsite.orders.models import OrderItem, Order
 from fashionWebsite.common.utils.email import send_custom_email, send_html_email
 
@@ -28,9 +30,9 @@ def send_order_confirmation(sender, instance, created, **kwargs):
         return
 
     if created:
-        send_html_email(
+        send_email_task.delay(
             subject=f"Order Confirmation #{instance.id}",
             template_name="emails/order_confirmation.html",
-            context={"order": instance},
+            context={"order_id": instance.id},
             recipient_list=[instance.user.email],
         )

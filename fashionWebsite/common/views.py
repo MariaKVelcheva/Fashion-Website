@@ -7,6 +7,7 @@ from django.urls import reverse_lazy
 from fashionWebsite.common.forms import ContactForm
 from django.conf import settings
 
+from fashionWebsite.common.tasks import send_email_task
 from fashionWebsite.common.utils.email import send_custom_email, send_html_email
 
 
@@ -23,10 +24,12 @@ class ContactView(FormView):
         send_custom_email(
             subject=f"New Contact Form Submission from {form.cleaned_data['name']}",
             message=form.cleaned_data['message'],
-            recipient_list=["maria.k.velcheva@gmail.com"],
+            html_message=form.cleaned_data['message'],
+            recipient_list=[settings.DEFAULT_FROM_EMAIL],
+            reply_to=form.cleaned_data['email'],
         )
 
-        send_html_email(
+        send_email_task.delay(
             subject="Thank you for contacting us",
             template_name="emails/contact_reply.html",
             context={

@@ -1,15 +1,57 @@
 <!DOCTYPE html>
 <html>
-  <body>
-    <h2>Order Confirmation #{{ order.id }}</h2>
-    <p>Hi {{ order.user.email }},</p>
-    <p>Thank you for your order! Here are the details:</p>
-    <ul>
-      {% for item in order.items.all %}
-      <li>{{ item.product.name }} - Quantity: {{ item.quantity }} - Price: ${{ item.price }}</li>
-      {% endfor %}
-    </ul>
-    <p>Total: ${{ order.total_price }}</p>
-    <p>We’ll notify you when your order is shipped.</p>
+  <body style="margin:0; padding:0; background-color:#f4f4f4; font-family: Arial, sans-serif;">
+
+    <table width="100%" cellpadding="0" cellspacing="0" style="padding:20px;">
+      <tr>
+        <td align="center">
+
+          <table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff; padding:30px; border-radius:8px;">
+            
+            <tr>
+              <td style="text-align:center; padding-bottom:20px;">
+                <a href="https://ella-prime.com" style="text-decoration:none; font-size:24px; font-weight:bold; color:#000;">
+                  EllaPrimE
+                </a>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="color:#333; font-size:16px; line-height:1.5;">
+                <h2>Order Confirmation #{{ order.id }}</h2>
+
+                <p>Hi {{ order.user.email }},</p>
+                <p>Thank you for your order! Here are the details:</p>
+
+                <table width="100%" cellpadding="8" cellspacing="0" style="border-collapse: collapse; margin:15px 0;">
+                  <tr style="background:#f4f4f4;">
+                    <th align="left">Product</th>
+                    <th align="left">Qty</th>
+                    <th align="left">Price</th>
+                  </tr>
+
+                  {% for item in order.items.all %}
+                  <tr style="border-bottom:1px solid #eee;">
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>${{ item.price }}</td>
+                  </tr>
+                  {% endfor %}
+                </table>
+
+                <p><strong>Total: ${{ order.total_amount }}</strong></p>
+
+                <p>We’ll notify you when your order is shipped.</p>
+
+                <p>Thank you,<br>EllaPrimE Team</p>
+              </td>
+            </tr>
+
+          </table>
+
+        </td>
+      </tr>
+    </table>
+
   </body>
 </html>
