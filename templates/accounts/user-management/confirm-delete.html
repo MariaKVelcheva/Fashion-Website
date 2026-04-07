@@ -1,0 +1,27 @@
+<button type="button" data-bs-toggle="modal" data-bs-target="#deleteModal">
+  Delete Account
+</button>
+
+<div id="deleteModal">
+  <div>
+    <h5>Confirm Account Deletion</h5>
+    <p>Are you sure you want to deactivate your account? This action cannot be undone.</p>
+    <button type="button" data-bs-dismiss="modal">Cancel</button>
+    <button type="button" id="confirmDelete">Yes, delete my account.</button>
+  </div>
+</div>
+
+<script>
+document.getElementById("confirmDelete").addEventListener("click", function() {
+    fetch("{% url 'delete_user' %}", {
+        method: "POST",
+        headers: {
+            "X-CSRFToken": "{{ csrf_token }}",
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        window.location.href = data.redirect_url;
+    });
+});
+</script>

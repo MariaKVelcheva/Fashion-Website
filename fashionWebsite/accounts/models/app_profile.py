@@ -19,7 +19,6 @@ class Customer(models.Model):
     first_name = models.CharField(
         max_length=100,
         validators=[
-            MinLengthValidator(3),
             name_validator,
         ]
     )
@@ -27,15 +26,15 @@ class Customer(models.Model):
     middle_name = models.CharField(
         max_length=100,
         validators=[
-            MinLengthValidator(3),
             name_validator,
-        ]
+        ],
+        null=True,
+        blank=True,
     )
 
     last_name = models.CharField(
         max_length=100,
         validators=[
-            MinLengthValidator(3),
             name_validator,
         ]
     )
@@ -59,6 +58,14 @@ class Customer(models.Model):
     @property
     def past_orders(self):
         return self.user.orders.order_by('-created_at')
+
+    def is_profile_complete(self):
+        return (
+                self.first_name and len(self.first_name.strip()) >= 3 and
+                self.last_name and len(self.last_name.strip()) >= 3 and
+                self.address and self.address.strip() and
+                self.telephone_number and self.telephone_number.strip()
+        )
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'

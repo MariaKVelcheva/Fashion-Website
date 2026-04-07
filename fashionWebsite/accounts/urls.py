@@ -9,6 +9,7 @@ urlpatterns = [
     path('logout/', views.LogoutUserView.as_view(), name='logout'),
     path('update/', views.UpdateCustomerView.as_view(), name='customer-update'),
     path('details/', views.DetailsCustomerView.as_view(), name='customer-details'),
+    path('delete/', views.DeleteUserView.as_view(), name='user-delete'),
 ]
 
 password_patterns = [
@@ -23,8 +24,8 @@ password_patterns = [
     path('password-reset/',
          auth_views.PasswordResetView.as_view(
              template_name='accounts/password-management/password-reset.html',
-             email_template_name='accounts/password_reset_email.html',
-             subject_template_name='accounts/password_reset_subject.txt'
+             email_template_name='accounts/password-management/password_reset_email.html',
+             subject_template_name='accounts/password-management/password_reset_subject.txt'
          ),
          name="password-reset"),
     path('password-reset/confirm/<uidb64>/<token>/',

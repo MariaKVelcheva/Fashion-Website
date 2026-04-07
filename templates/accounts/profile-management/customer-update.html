@@ -1,9 +1,24 @@
-{% extends "common/base.html" %}
+{% load static %}
+{% load socialaccount %}
 
-{% block content %}
-    <form method="post">
-    {% csrf_token %}
-    {{ form }}
-    <button> Please, update your profile now </button>
-    </form>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ella Prime - Login</title>
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}?v=2">
+    <link rel="stylesheet" href="{% static 'css/login-form.css' %}?v=2">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+<div class="container">
+     {% include "common/logo.html" %}
+
+    {% include "accounts/profile-management/update-form.html" %}
+    
+</div>
+
+
+
+</body>
+</html>
