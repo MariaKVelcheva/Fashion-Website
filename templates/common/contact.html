@@ -7,23 +7,5 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-
-<h1>Contact Us</h1>
-
-{% if messages %}
-  {% for message in messages %}
-    <div class="message">{{ message }}</div>
-  {% endfor %}
-{% endif %}
-
-<form method="post">
-    {% csrf_token %}
-        {{ form.non_field_errors }}
-    <div class="name">{{ form.name }}        {{ form.name.errors }}</div>
-    <div class="email">{{ form.email }}        {{ form.email.errors }}</div>
-    <div class="message">{{ form.message }}        {{ form.message.errors }}</div>
-    <button type="submit">Send</button>
-</form>
-    </div>
+{% include "common/contact-form.html" %}
 {% endblock %}

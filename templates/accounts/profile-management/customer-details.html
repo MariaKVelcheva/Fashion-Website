@@ -1,36 +1,101 @@
 {% extends "common/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}?v=2">
+    <link rel="stylesheet" href="{% static 'css/customer-detail.css' %}?v=4">
+{% endblock %}
 
 {% block content %}
-    <section class="personal-information">
-    <div class="business-card">
-        <div class="avatar">
-            {{ customer.first_name|truncatechars:1 }}{{ customer.last_name|truncatechars:1 }}
-        <form id="logout-form" method="post" action="{% url 'logout' %}" style="display: inline;">
-        {% csrf_token %}
-        <button type="submit" class="nav-link" style="background: none; border: none; cursor: pointer;">
-            Logout
-        </button>
-    </form>
+    <aside>
+    <div class="top">
+        {% if customer.full_name %}
+        <h3>{{ customer.full_name }}</h3>
+        {% else %}
+        <h1>{{ customer.user.email }}</h1>
+        {% endif %}
+    <div class="manage-profile">
+        <a href="{% url 'customer-update' %}">Update your account</a>
+        <a href="{% url 'user-delete' %}">Delete your account</a>
+    </div>
+    </div>
+    <ul class="details-list" type="none">
+        <li><a href="#" class="personal-information closed">Personal information</a>
+        <div class="secret">
+            {% include 'accounts/profile-management/update-form.html' %}
         </div>
+        </li>
+        <li><a href="#" class="points-information closed">Your points</a>
+        <div class="secret">
+            <h1>
+                <a href="{% url 'all-garments' %}">{{ customer.user.loyalty_points }} loyalty points - order now to earn more!</a>
+            </h1>
+        </div></li>
+        <li><a href="#" class="wishlist closed">Your wishlist</a><div class="secret">No wishlist yet.</div></li>
+        <li><a href="#" class="contact closed">Contact us</a>
+            <div class="secret">{% include "common/contact-form.html" with form=contact_form %}</div>
+        </li>
+    </ul>
+    </aside>
+
+    <section class="front open">
+    <h1>Hello, {% if customer.first_name %}{{ customer.first_name }}{% else %}{{ customer.user.email }}{% endif %}</h1>
+    <h2>Your <span class="logo">EllaPrimE</span> account</h2>
+
+    <div class="form">{% if not customer.is_profile_complete %}
+        <h4>In order to pass orders with us, please, fill your profile</h4>
+        {% include "accounts/profile-management/update-form.html" %}
+    {% endif %}</div>
+
+    <div class="orders">
+            {% if customer.past_orders %}
+        {% include "orders/orders/all-orders.html" %}
+        {% else %}
+    <h4>No orders yet.</h4>
+    {% endif %}
     </div>
-    <div class="list">
-        <ul>
-            <li><a href="#">Personal information</a></li>
-            <li><a href="#">Your purchases</a></li>
-            <li><a href="#">Your points</a></li>
-            <li><a href="#">Your wishlist</a></li>
-            <li><a href="#">Help</a></li>
-        </ul>
-    </div>
     </section>
-    <section class="greetings">
-    <h2>Hello, {{ customer.first_name }}</h2>
-    <div class="account">Your EllaPrime account</div>
-    </section>
-    <section class="orders">
-    <h3>Your purchases</h3>
-    {% for order in orders %}
-    {{ order }}
-    {% endfor %}
-    </section>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const toggles = document.querySelectorAll(".details-list li > a");
+    const frontSection = document.querySelector(".front");
+
+    toggles.forEach(toggle => {
+        toggle.addEventListener("click", (e) => {
+            if (toggle.getAttribute("href") === "#") {
+                e.preventDefault();
+            }
+
+            const secret = toggle.nextElementSibling;
+
+            if (!secret || !secret.classList.contains("secret")) return;
+
+            frontSection.innerHTML = "";
+
+            const content = secret.cloneNode(true);
+            content.style.display = "block";
+
+            const closeBtn = document.createElement("button");
+            closeBtn.innerText = "✖";
+            closeBtn.style.float = "right";
+            closeBtn.style.cursor = "pointer";
+            closeBtn.style.border = "none";
+            closeBtn.style.background = "transparent";
+            closeBtn.style.fontSize = "1.5rem";
+
+            closeBtn.addEventListener("click", () => {
+                frontSection.innerHTML = `
+                    <h1>Hello, ${document.querySelector(".front h1")?.innerText || ""}</h1>
+                    <h2>Your <span class="logo">EllaPrimE</span> account</h2>
+                `;
+                location.reload();
+            });
+
+            content.prepend(closeBtn);
+            frontSection.appendChild(content);
+        });
+    });
+});
+</script>
 {% endblock %}

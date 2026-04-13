@@ -28,6 +28,14 @@ class OrderItem(models.Model):
         decimal_places=2,
     )
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["order", "product"],
+                name="unique_order_product"
+            )
+        ]
+
     @property
     def line_total(self):
         return self.unit_price * self.quantity

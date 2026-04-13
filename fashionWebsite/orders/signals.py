@@ -26,7 +26,7 @@ def restore_stock(sender, instance, **kwargs):
 
 @receiver(post_save, sender=Order)
 def send_order_confirmation(sender, instance, created, **kwargs):
-    if not instance.user or not instance.user.email:
+    if not instance.customer or not instance.customer.email:
         return
 
     if created:
@@ -34,5 +34,5 @@ def send_order_confirmation(sender, instance, created, **kwargs):
             subject=f"Order Confirmation #{instance.id}",
             template_name="emails/order_confirmation.html",
             context={"order_id": instance.id},
-            recipient_list=[instance.user.email],
+            recipient_list=[instance.customer.email],
         )

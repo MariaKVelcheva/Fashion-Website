@@ -42,3 +42,11 @@ class ContactView(FormView):
         messages.success(self.request, "Your message has been successfully sent.")
         return super().form_valid(form)
 
+
+class FAQView(TemplateView):
+    template_name = "common/faq.html"
+
+
+class SalesConditionsView(TemplateView):
+    template_name = "common/sales-conditions.html"
+

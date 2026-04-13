@@ -16,6 +16,7 @@ class Category(models.Model):
     )
 
     profile_image = models.ImageField(
+        upload_to='categories/',
         null=True,
         blank=True,
     )

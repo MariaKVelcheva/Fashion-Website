@@ -36,6 +36,10 @@ a {
 
 }
 
+a {
+    color: black;
+}
+
 nav {
     position: sticky;
     display: flex;

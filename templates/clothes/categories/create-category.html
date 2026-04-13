@@ -12,7 +12,7 @@
 <body>
 <div class="container">
      {% include "common/logo.html" %}
-        <form method="post" class="create-category-form">
+        <form method="post" class="create-category-form" enctype="multipart/form-data">
     {% csrf_token %}
         <h3>Create a category</h3>
         <div class="name-form">{{ form.name }}</div>

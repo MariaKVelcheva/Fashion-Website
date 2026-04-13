@@ -5,11 +5,10 @@ from django.contrib.auth import get_user_model, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LogoutView, LoginView
 from django.http import HttpResponseRedirect, JsonResponse
-from django.views.generic import CreateView, UpdateView, DetailView, DeleteView
+from django.views.generic import CreateView, DeleteView
 from django.urls import reverse_lazy
 
-from fashionWebsite.accounts.forms import AppUserCreationForm, LoginForm, UpdateCustomerForm
-from fashionWebsite.accounts.models import Customer
+from fashionWebsite.accounts.forms import AppUserCreationForm, LoginForm
 from fashionWebsite.clothes.models import Product
 from fashionWebsite.orders.models import OrderItem
 from fashionWebsite.orders.utils import update_order_total, get_or_create_cart
@@ -59,8 +58,15 @@ class DeleteUserView(LoginRequiredMixin, DeleteView):
         messages.success(request, "Your account has been deleted.")
         return JsonResponse({"redirect_url": reverse_lazy("home")})
 
+    def get_object(self, queryset=None):
+        return self.request.user
+
 
 class LoginUserView(LoginView):
+    model = AppUser
+    form_class = LoginForm
+    template_name = "accounts/user-management/login.html"
+
     def form_valid(self, form):
         response = super().form_valid(form)
         user = self.request.user
@@ -96,5 +102,6 @@ class LoginUserView(LoginView):
 
 class LogoutUserView(LogoutView):
     next_page = reverse_lazy("home")
+
 
 

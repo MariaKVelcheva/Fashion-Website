@@ -1,19 +1,23 @@
-<button type="button" data-bs-toggle="modal" data-bs-target="#deleteModal">
-  Delete Account
-</button>
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}"> {% endblock %}
+
+{% block content %}
 
 <div id="deleteModal">
   <div>
-    <h5>Confirm Account Deletion</h5>
+    <h1>Confirm Account Deletion</h1>
     <p>Are you sure you want to deactivate your account? This action cannot be undone.</p>
-    <button type="button" data-bs-dismiss="modal">Cancel</button>
-    <button type="button" id="confirmDelete">Yes, delete my account.</button>
+      <button type="button" class="common-button" onclick="window.history.back()">Cancel</button>
+    <button type="button" id="confirmDelete" class="common-button">Yes, delete my account.</button>
   </div>
 </div>
 
 <script>
 document.getElementById("confirmDelete").addEventListener("click", function() {
-    fetch("{% url 'delete_user' %}", {
+    fetch("{% url 'user-delete' %}", {
         method: "POST",
         headers: {
             "X-CSRFToken": "{{ csrf_token }}",
@@ -25,3 +29,4 @@ document.getElementById("confirmDelete").addEventListener("click", function() {
     });
 });
 </script>
+{% endblock %}

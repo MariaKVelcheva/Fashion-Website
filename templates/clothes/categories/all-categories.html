@@ -1,19 +1,30 @@
 {% extends "common/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/forms.css'%}">
+{% endblock %}
 
 {% block content %}
-    {% include 'clothes/categories' %}
+    <section class="collection">
+     <h2>Latest Trends</h2>
+    <ul class="categories" type="none">
     {% for category in categories %}
-        <p>{{ category.name }} with {{ category.type }}</p>
-{% if request.user.is_staff %}
-                <p>Edit:</p> <form method="post" action="{% url 'update-category' category.slug %}">
-    {% csrf_token %}
-    <button class="btn btn-danger">🗑️Update</button>
-</form>
-        <p>Delete:</p> <form method="post" action="{% url 'delete-category' category.slug %}">
-    {% csrf_token %}
-    <button class="btn btn-danger">🗑️ Delete</button>
-</form>
+    <li>
+        <a href="{% url 'details-category' category.id %}">
+            <img src="{{ category.profile_image.url }}" alt="{{ category.name }}">
+            <h3 style="color: #000;">{{ category.name }}</h3>
+        </a>
+        {% if request.user.is_staff %}
+            <form method="post" action="{% url 'update-category' category.slug %}">
+                {% csrf_token %}<button class="common-button">&#9998;Update</button>
+            </form>
+            <form method="post" action="{% url 'delete-category' category.slug %}">
+                {% csrf_token %}<button class="common-button">🗑️ Delete</button>
+            </form>
         {% endif %}
-
-    {% endfor %}
+    </li>
+{% endfor %}
+    </ul>
+    </section>
 {% endblock %}

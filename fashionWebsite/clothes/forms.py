@@ -53,10 +53,9 @@ ProductFormSet = inlineformset_factory(
 
 
 class BaseGarmentForm(forms.ModelForm):
-    category = forms.ModelChoiceField(
+    category = forms.ModelMultipleChoiceField(
         queryset=Category.objects.all(),
-        widget=forms.RadioSelect(),
-        empty_label=None,
+        widget=forms.CheckboxSelectMultiple(),
     )
 
     class Meta:
@@ -68,6 +67,7 @@ class BaseGarmentForm(forms.ModelForm):
             "profile_image": "Image",
             "description": "Description",
             "price": "Price",
+            "main_image": "Main image",
         }
         widgets = {
             "description": forms.Textarea(attrs={"placeholder": "Description", "rows": 5, "cols": 10}),
@@ -102,7 +102,7 @@ class UpdateGarmentForm(BaseGarmentForm):
 
 class DeleteGarmentForm(BaseGarmentForm):
     class Meta(BaseGarmentForm.Meta):
-        exclude = ("image", )
+        exclude = ("main_image", )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

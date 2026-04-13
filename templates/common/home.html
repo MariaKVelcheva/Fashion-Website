@@ -8,7 +8,19 @@
             <h2> collection</h2>
     <button><a href="{% url 'all-garments' %}">Discover</a></button>
     </section>
-   {% include "clothes/categories/categories.html" %}
+   <section class="collection">
+     <h2>Latest Trends</h2>
+    <ul class="categories" type="none">
+    {% for category in categories %}
+    <li>
+        <a href="{% url 'details-category' category.id %}">
+            <img src="{{ category.profile_image.url }}" alt="{{ category.name }}">
+            <h3>{{ category.name }}</h3>
+        </a>
+    </li>
+{% endfor %}
+    </ul>
+    </section>
     <section class="trending" style="background-image: url('{% static 'images/denim 2.jpeg' %}')">
     <h2>DENIM!</h2>
     <button>Discover</button>

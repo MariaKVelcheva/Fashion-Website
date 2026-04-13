@@ -1,7 +1,7 @@
 <form class="wishlist-form" method="post" action="{% url 'toggle-wishlist' garment.id %}">
     {% csrf_token %}
-    <button type="submit" style="background: none; border: none; cursor: pointer;">
-        <i class="fa-heart {% if garment.id in user_wishlist %}fa-solid{% else %}fa-regular{% endif %}"></i>
+    <button type="submit" style="background: none; border: none; cursor: pointer; color: darkred;">
+        <i class="fa-heart {% if garment.id in user_wishlist %}fa-solid{% else %}fa-regular{% endif %}" style="font-size: 2rem"></i>
     </button>
 </form>
 

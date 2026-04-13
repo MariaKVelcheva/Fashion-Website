@@ -21,26 +21,26 @@
         <ul class="map-list" type="none">
             <li><h5>SHOP</h5>
                 <ul class="li-ul" type="none">
-                <li><a href="#">Collection</a></li>
-                <li><a href="#">Gift Card</a></li>
+                <li><a href="{% url 'all-garments' %}">Collection</a></li>
+                <li><a href="{% url 'contact' %}">Gift Card</a></li>
                 </ul>
             </li>
             <li><h5>HELP</h5>
             <ul class="li-ul" type="none">
-                <li><a href="#">Customer service</a></li>
-                <li><a href="#">My account</a></li>
-                <li><a href="#">My orders</a></li>
-                <li><a href="#">Returns and exchanges</a></li>
+                <li><a href="{% url 'contact' %}">Customer service</a></li>
+                <li><a href="{% url 'customer-details' %}">My account</a></li>
+                <li><a href="{% url 'customer-details' %}">My orders</a></li>
+                <li><a href="{% url 'contact' %}">Returns and exchanges</a></li>
             </ul></li>
             <li><h5>LEGAL AND PRIVACY</h5>
             <ul class="li-ul" type="none">
-                <li><a href="#">FAQ</a></li>
-                <li><a href="#">Sales conditions</a></li>
+                <li><a href="{% url 'faq' %}">FAQ</a></li>
+                <li><a href="{% url 'sales-conditions' %}">Sales conditions</a></li>
             </ul>
             </li>
         </ul>
     </div>
-    <div>&copy; Copyright Ella Prime &copy; 2026</div>
+    <div>&copy; Copyright Ella Prime &copy; {% now "Y" %}</div>
 </footer>
 </body>
 </html>

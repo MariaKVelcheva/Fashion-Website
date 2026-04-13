@@ -1,13 +1,24 @@
 {% extends "common/base.html" %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/garments-all.css' %}">
+{% endblock %}
 
 {% block content %}
 <h1>{{ category.name }}</h1>
 
 {% if garments %}
-    {% include "clothes/garments/garments.html" %}
-{% else %}
-    <p>No garments available.</p>
-{% endif %}
+<section class="catalogue-header">
+    <h2>Our {{ category.name }} collection</h2>
+</section>
+
+<section class="catalogue">
+ {% include "clothes/garments/garments.html" %}
+    {% else %}
+        <p>No {{ category.name }} products available.</p>
+    {% endif %}
+
+</section>
 
 {% endblock %}
 

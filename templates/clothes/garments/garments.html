@@ -4,12 +4,10 @@
                     
                     <div class="garment-image">
                         {% if garment.main_image %}
-                            <img src="{{ garment.main_image.image.url }}" alt="{{ garment.name }}">
-                        {% else %}
-                            <img src="{% static 'images/placeholder.jpeg' %}" alt="placeholder">
+                            <img src="{{ garment.main_image.url }}" alt="{{ garment.name }}" style="max-width: 350px;">
                         {% endif %}
                     </div>
-{% include 'common/wishlist-heart.html' %}
+                    {% include 'common/wishlist-heart.html' %}
                     <div class="garment-info">
                         <h3>{{ garment.name }}</h3>
 
@@ -19,7 +17,7 @@
                             <p class="out-stock">Out of stock</p>
                         {% endif %}
 
-                        <a href="{% url 'details-garment' garment.pk %}" class="view-btn">View</a>
+                        <a href="{% url 'details-garment' garment.slug %}" class="view-btn">View</a>
                     </div>
 
                 </div>

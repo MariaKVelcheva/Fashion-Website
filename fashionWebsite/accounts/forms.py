@@ -96,7 +96,7 @@ class LoginForm(AuthenticationForm):
 class UpdateCustomerForm(forms.ModelForm):
     class Meta:
         model = Customer
-        exclude = ("user", )
+        exclude = ("user", "favorites")
         widgets = {
             "telephone_number": forms.TextInput(attrs={"placeholder": "Phone"}),
             "address": forms.Textarea(attrs={"rows": 3})

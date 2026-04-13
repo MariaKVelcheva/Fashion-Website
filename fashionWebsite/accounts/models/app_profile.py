@@ -56,6 +56,10 @@ class Customer(models.Model):
     )
 
     @property
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}"
+
+    @property
     def past_orders(self):
         return self.user.orders.order_by('-created_at')
 
