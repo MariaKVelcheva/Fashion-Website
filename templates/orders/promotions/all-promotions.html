@@ -1,7 +1,0 @@
-{% extends "common/base.html" %}
-
-{% block content %}
-    {% for promotion in promotions %}
-        <p>{{ promotion.code }} from {{ promotion.valid_from }}</p>
-    {% endfor %}
-{% endblock %}

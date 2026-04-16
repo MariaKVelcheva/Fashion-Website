@@ -1,6 +1,8 @@
+from datetime import timedelta
 from decimal import Decimal
 
 from django.db import models
+from django.utils import timezone
 from django.utils.text import slugify
 
 
@@ -39,6 +41,15 @@ class Garment(models.Model):
         null=True,
         blank=True,
     )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        null=True,
+        blank=True,)
+
+    @property
+    def is_new(self):
+        return timezone.now() - self.created_at < timedelta(days=60)
 
     @property
     def is_available(self):

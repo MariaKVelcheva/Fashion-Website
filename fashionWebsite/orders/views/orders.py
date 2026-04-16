@@ -9,6 +9,7 @@ class OrderSuccessView(TemplateView):
 class OrderListView(ListView):
     model = Order
     template_name = "orders/orders/all-orders.html"
+    context_object_name = "orders"
 
     def get_queryset(self):
         return Order.objects.filter(

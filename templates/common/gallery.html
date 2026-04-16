@@ -1,0 +1,120 @@
+{% extends "common/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/gallery.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="gallery-page">
+
+    <div class="gallery-header">
+        <h1 class="gallery-title">Gallery</h1>
+        <p class="gallery-subtitle">{{ images|length }} image{% if images|length != 1 %}s{% endif %}</p>
+    </div>
+
+    {% if images %}
+
+        <div class="slideshow" aria-label="Image gallery">
+
+            <button class="slide-arrow slide-arrow--prev" aria-label="Previous image">
+                &#8592;
+            </button>
+        
+            <div class="slides-track">
+                {% for image in images %}
+                    <div class="slide {% if forloop.first %}active{% endif %}"
+                         data-index="{{ forloop.counter0 }}">
+                        <img src="{{ image.image.url }}"
+                             alt="{% if image.caption %}{{ image.caption }}{% else %}Lookbook image {{ forloop.counter }}{% endif %}"
+                             class="slide-img">
+                        {% if image.caption %}
+                            <p class="slide-caption">{{ image.caption }}</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <button class="slide-arrow slide-arrow--next" aria-label="Next image">
+                &#8594;
+            </button>
+
+            <div class="slide-counter">
+                <span class="slide-current">1</span>
+                <span class="slide-sep">/</span>
+                <span class="slide-total">{{ images|length }}</span>
+            </div>
+
+        </div>
+        
+        <div class="slide-dots" aria-hidden="true">
+            {% for image in images %}
+                <button class="dot {% if forloop.first %}active{% endif %}"
+                        data-index="{{ forloop.counter0 }}"
+                        aria-label="Go to image {{ forloop.counter }}">
+                </button>
+            {% endfor %}
+        </div>
+
+    {% else %}
+        <p class="gallery-empty">No images yet.</p>
+    {% endif %}
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const slides  = document.querySelectorAll(".slide");
+    const dots    = document.querySelectorAll(".dot");
+    const current = document.querySelector(".slide-current");
+    const total   = parseInt(document.querySelector(".slide-total")?.textContent || "0");
+
+    if (!slides.length) return;
+
+    let index = 0;
+
+    function goTo(n) {
+        index = (n + slides.length) % slides.length;
+
+        slides.forEach(s => s.classList.remove("active"));
+        dots.forEach(d => d.classList.remove("active"));
+
+        slides[index].classList.add("active");
+        dots[index].classList.add("active");
+
+        if (current) current.textContent = index + 1;
+    }
+
+    document.querySelector(".slide-arrow--prev")
+        ?.addEventListener("click", () => goTo(index - 1));
+    document.querySelector(".slide-arrow--next")
+        ?.addEventListener("click", () => goTo(index + 1));
+
+    dots.forEach(dot => {
+        dot.addEventListener("click", function () {
+            goTo(parseInt(this.dataset.index));
+        });
+    });
+
+    document.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowLeft")  goTo(index - 1);
+        if (e.key === "ArrowRight") goTo(index + 1);
+    });
+
+    let touchStartX = 0;
+
+    document.querySelector(".slideshow")?.addEventListener("touchstart", function (e) {
+        touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+
+    document.querySelector(".slideshow")?.addEventListener("touchend", function (e) {
+        const diff = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) {
+            goTo(diff > 0 ? index + 1 : index - 1);
+        }
+    }, { passive: true });
+});
+</script>
+
+{% endblock %}

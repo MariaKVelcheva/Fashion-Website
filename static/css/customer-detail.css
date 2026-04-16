@@ -1,74 +1,548 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap');
+/* ============================================================
+   customer-detail.css — Profile Page
+   Same design system as cart.css / garment-details.css
+   ============================================================ */
 
-main {
-    display: flex;
-    justify-content: space-evenly;
-    padding: 2rem;
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+
+:root {
+    --color-bg:          #f7f4f0;
+    --color-surface:     #ffffff;
+    --color-border:      #e4ddd5;
+    --color-text:        #1a1714;
+    --color-muted:       #8a8078;
+    --color-accent:      #b85c38;
+    --color-accent-dark: #8f3f20;
+    --color-success:     #4a7c59;
+    --color-danger:      #9b3a3a;
+
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body:    'DM Sans', sans-serif;
+
+    --radius:    4px;
+    --radius-lg: 8px;
+    --shadow:    0 2px 12px rgba(26, 23, 20, 0.07);
+    --shadow-lg: 0 8px 32px rgba(26, 23, 20, 0.12);
+
+    --transition: 0.2s ease;
 }
 
-
-span {
-    font-family: "Cinzel", sans-serif;
-    font-size: clamp(1.5rem, 4vw, 2.5rem);
-    letter-spacing: 0.05em;
-    text-decoration: none;
-    color: inherit;
+*, *::before, *::after {
+    box-sizing: border-box;
 }
 
-h4, div a, .logout button {
-    text-decoration: none;
-    display: block;
-    color: #bf2929;
-    text-transform: uppercase;
+/* Scoped resets — only inside the profile layout, not global */
+.profile-layout,
+.profile-layout * {
+    text-align: left;
+    font-family: var(--font-body);
 }
 
-h4 {
-    margin: 2rem;
+/* ============================================================
+   PAGE LAYOUT
+   ============================================================ */
+
+.profile-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: calc(100vh - 80px);
 }
 
-h3 {
-    color: black;
-}
+/* ============================================================
+   ASIDE
+   ============================================================ */
 
-.secret {
-    display: none;
-}
-
-.form, .orders {
-    max-width: 750px;
-    margin-top: 1rem;
-}
-
-.details-list  {
-    display: inline-block;
-}
-
-.details-list li {
-    margin-bottom: 0.5rem;
-}
-
-.details-list li a {
-    color: black;
-    font-weight: 600;
-}
-
-aside {
-    border-right: 2px solid #bf2929;
-    padding-right:5rem;
+.profile-aside {
+    background-color: var(--color-surface);
+    border-right: 1px solid var(--color-border);
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    padding: 2.5rem 1.8rem;
+    gap: 2rem;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
 }
 
-button {
+.aside-header {
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.aside-name {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--color-text);
+    margin-bottom: 0.2rem;
+}
+
+.aside-email {
+    font-size: 0.78rem;
+    color: var(--color-muted);
+    letter-spacing: 0.04em;
+}
+
+/* ============================================================
+   ASIDE NAV — panel triggers
+   ============================================================ */
+
+.aside-nav {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.aside-trigger {
+    width: 100%;
+    display: block;
+    padding: 0.75rem 1rem;
+    background: none;
     border: none;
+    border-radius: var(--radius);
     cursor: pointer;
-    border-radius: 15px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    padding: 0.5rem 1rem;
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: var(--color-muted);
+    text-align: left;
+    transition: background-color var(--transition), color var(--transition);
+    position: relative;
+    z-index: 2;
 }
 
-button:hover {
-    color: #bf2929;
+.aside-trigger:hover {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+}
+
+.aside-trigger.active {
+    background-color: var(--color-bg);
+    color: var(--color-accent);
+    font-weight: 500;
+}
+
+/* Accent bar on active trigger */
+.aside-trigger.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 20%;
+    height: 60%;
+    width: 2px;
+    background-color: var(--color-accent);
+    border-radius: 1px;
+}
+
+.aside-footer {
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+}
+
+.aside-link {
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    text-decoration: none;
+    transition: color var(--transition);
+}
+
+.aside-link--danger:hover {
+    color: var(--color-danger);
+}
+
+/* ============================================================
+   MAIN + PANELS
+   ============================================================ */
+
+.profile-main {
+    padding: 3rem 4rem;
+    background-color: var(--color-bg);
+}
+
+/* All panels hidden by default */
+.profile-panel {
+    display: none;
+    flex-direction: column;
+    gap: 2rem;
+    animation: fadeIn 0.2s ease;
+}
+
+/* Only the active panel is visible */
+.profile-panel.active {
+    display: flex;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================
+   OVERVIEW PANEL
+   ============================================================ */
+
+.profile-greeting h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--color-text);
+    margin-bottom: 0.3rem;
+}
+
+.profile-subtitle {
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+}
+
+.profile-incomplete-banner {
+    padding: 1rem 1.4rem;
+    border: 1px solid var(--color-accent);
+    border-radius: var(--radius-lg);
+    background-color: #fdf6f3;
+}
+
+.profile-incomplete-banner p {
+    font-size: 0.85rem;
+    color: var(--color-accent);
+    letter-spacing: 0.04em;
+}
+
+.section-title {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--color-text);
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+/* ============================================================
+   ORDER CARDS
+   ============================================================ */
+
+.orders-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.order-card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.4rem 1.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.order-card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.order-status {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+    background-color: var(--color-border);
+    color: var(--color-muted);
+}
+
+.order-status--confirmed { background-color: #e8f4ec; color: var(--color-success); }
+.order-status--shipped   { background-color: #e8eef8; color: #3a5f9b; }
+.order-status--received  { background-color: #f0f0f0; color: var(--color-text); }
+.order-status--cancelled { background-color: #fdf0f0; color: var(--color-danger); }
+
+.order-date {
+    font-size: 0.8rem;
+    color: var(--color-muted);
+    margin-left: auto;
+}
+
+.order-total {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-text);
+}
+
+.order-address {
+    font-size: 0.82rem;
+    color: var(--color-muted);
+}
+
+.order-items {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding-top: 0.6rem;
+    border-top: 1px solid var(--color-border);
+}
+
+.order-items li {
+    font-size: 0.85rem;
+    color: var(--color-text);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.order-item-variant {
+    font-size: 0.75rem;
+    color: var(--color-muted);
+    letter-spacing: 0.04em;
+}
+
+/* ============================================================
+   PROFILE FORM (personal information panel)
+   ============================================================ */
+
+.profile-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem 2rem;
+    max-width: 700px;
+}
+
+/* Save button spans full width */
+.profile-form .save-btn {
+    grid-column: 1 / -1;
+}
+
+.profile-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.profile-field label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+}
+
+.profile-field input,
+.profile-field textarea,
+.profile-field select {
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-bg);
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    font-weight: 300;
+    color: var(--color-text);
+    transition: border-color var(--transition);
+    resize: vertical;
+}
+
+.profile-field input:focus,
+.profile-field textarea:focus {
+    outline: none;
+    border-color: var(--color-accent);
+}
+
+.field--error input,
+.field--error textarea {
+    border-color: var(--color-danger);
+    background-color: #fdf4f4;
+}
+
+.field-error {
+    font-size: 0.72rem;
+    color: var(--color-danger);
+}
+
+.save-btn {
+    padding: 0.85rem 1.6rem;
+    background-color: var(--color-text);
+    color: var(--color-bg);
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background-color var(--transition);
+    align-self: flex-start;
+}
+
+.save-btn:hover {
+    background-color: var(--color-accent);
+}
+
+/* ============================================================
+   LOYALTY POINTS PANEL
+   ============================================================ */
+
+.points-display {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 3rem 0;
+}
+
+.points-value {
+    font-family: var(--font-display);
+    font-size: 5rem;
+    font-weight: 300;
+    color: var(--color-text);
+    line-height: 1;
+}
+
+.points-label {
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    margin-bottom: 1.5rem;
+}
+
+.points-cta {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    text-decoration: none;
+    align-self: flex-start;
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--transition);
+}
+
+.points-cta:hover {
+    border-color: var(--color-accent);
+}
+
+/* ============================================================
+   WISHLIST PANEL
+   ============================================================ */
+
+.wishlist-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1rem;
+}
+
+.wishlist-list a {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: var(--color-text);
+    transition: color var(--transition);
+}
+
+.wishlist-list a:hover {
+    color: var(--color-accent);
+}
+
+.wishlist-thumb {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    border-radius: var(--radius);
+    border: 1px solid var(--color-border);
+}
+
+.wishlist-list span {
+    font-size: 0.82rem;
+    font-weight: 400;
+}
+
+/* ============================================================
+   CONTACT PANEL
+   ============================================================ */
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 560px;
+}
+
+.contact-form textarea {
+    min-height: 140px;
+}
+
+.contact-success {
+    padding: 0.9rem 1.2rem;
+    background-color: #e8f4ec;
+    border: 1px solid var(--color-success);
+    border-radius: var(--radius);
+    font-size: 0.85rem;
+    color: var(--color-success);
+    letter-spacing: 0.04em;
+}
+
+/* ============================================================
+   SHARED
+   ============================================================ */
+
+.empty-note {
+    font-size: 0.88rem;
+    color: var(--color-muted);
+    font-style: italic;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 900px) {
+    .profile-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-aside {
+        position: static;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .aside-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .aside-trigger {
+        width: auto;
+        flex: 1 1 auto;
+        text-align: center;
+        font-size: 0.75rem;
+    }
+
+    .profile-main {
+        padding: 2rem 1.5rem;
+    }
+
+    .profile-form {
+        grid-template-columns: 1fr;
+    }
 }

@@ -1,11 +1,12 @@
+from datetime import timedelta
+
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.shortcuts import redirect, get_object_or_404
-from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, UpdateView, DeleteView, ListView
-from fashionWebsite.clothes.forms import CreateGarmentForm, UpdateGarmentForm, DeleteGarmentForm, ProductFormSet
-from fashionWebsite.clothes.models import Garment, Color, Size, Category, GarmentImage, WishlistItem
-from fashionWebsite.common.mixins import AdminRequiredMixin
+from django.utils import timezone
+from django.views.generic import DetailView, ListView
+from fashionWebsite.clothes.models import Garment, Color, Size, Category, WishlistItem, LookbookImage
 from django.http import JsonResponse
 
 
@@ -28,6 +29,20 @@ def toggle_wishlist(request, garment_id):
         return JsonResponse({'status': status, 'garment_id': garment.id})
 
     return redirect(request.META.get('HTTP_REFERER', 'home'))
+
+
+class WishlistView(LoginRequiredMixin, ListView):
+    model = WishlistItem
+    template_name = "clothes/garments/wishlist.html"
+    context_object_name = "wishlist_items"
+
+    def get_queryset(self):
+        return (
+            WishlistItem.objects
+            .filter(user=self.request.user)
+            .select_related("garment")
+            .order_by("-created_at")
+        )
 
 
 class GarmentSearchView(ListView):
@@ -79,47 +94,6 @@ class GarmentSearchView(ListView):
         return context
 
 
-class CreateGarmentView(AdminRequiredMixin, CreateView):
-    model = Garment
-    form_class = CreateGarmentForm
-    template_name = "clothes/garments/create-garment.html"
-
-    def form_valid(self, form):
-        context = self.get_context_data()
-        formset = context["formset"]
-
-        if formset.is_valid():
-            self.object = form.save()
-            self.object.save()
-
-            formset.instance = self.object
-            formset.save()
-
-            files = self.request.FILES.getlist("gallery_images")
-            for file in files:
-                GarmentImage.objects.create(
-                    garment=self.object,
-                    image=file
-                )
-
-            return redirect(self.get_success_url())
-
-        return self.form_invalid(form)
-
-    def get_success_url(self):
-        return reverse_lazy("details-garment", kwargs={"slug": self.object.slug})
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        if self.request.POST:
-            context["formset"] = ProductFormSet(self.request.POST)
-        else:
-            context["formset"] = ProductFormSet()
-
-        return context
-
-
 class DetailsGarmentView(DetailView):
     model = Garment
     slug_field = 'slug'
@@ -139,26 +113,6 @@ class DetailsGarmentView(DetailView):
         else:
             context['user_wishlist'] = []
         return context
-
-
-class UpdateGarmentView(AdminRequiredMixin, UpdateView):
-    model = Garment
-    form_class = UpdateGarmentForm
-    slug_url_kwarg = "slug"
-    slug_field = "slug"
-    template_name = "clothes/garments/update-garment.html"
-
-    def get_success_url(self):
-        return reverse_lazy("details-garment", kwargs={"slug": self.object.slug})
-
-
-class DeleteGarmentView(AdminRequiredMixin, DeleteView):
-    model = Garment
-    form_class = DeleteGarmentForm
-    slug_field = 'slug'
-    slug_url_kwarg = "slug"
-    template_name = "clothes/garments/delete-garment.html"
-    success_url = reverse_lazy("all-garments")
 
 
 class GarmentCatalogueView(ListView):
@@ -182,3 +136,19 @@ class GarmentCatalogueView(ListView):
             context['user_wishlist'] = []
 
         return context
+
+
+class NewArrivalsView(ListView):
+    model = Garment
+    template_name = "clothes/garments/new_in.html"
+
+    def get_queryset(self):
+        newest = timezone.now() - timedelta(days=60)
+        return Garment.objects.filter(created_at__gte=newest)
+
+
+class GalleryView(ListView):
+    model = LookbookImage
+    template_name = "common/gallery.html"
+    context_object_name = "images"
+    queryset = LookbookImage.objects.all()

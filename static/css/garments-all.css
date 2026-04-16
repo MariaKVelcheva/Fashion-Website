@@ -1,77 +1,250 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+
+:root {
+    --color-bg:          #f7f4f0;
+    --color-surface:     #ffffff;
+    --color-border:      #e4ddd5;
+    --color-text:        #1a1714;
+    --color-muted:       #8a8078;
+    --color-accent:      #b85c38;
+    --color-accent-dark: #8f3f20;
+    --color-success:     #4a7c59;
+    --color-danger:      #9b3a3a;
+
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body:    'DM Sans', sans-serif;
+
+    --radius:    4px;
+    --radius-lg: 8px;
+    --shadow:    0 2px 12px rgba(26, 23, 20, 0.07);
+    --shadow-lg: 0 8px 32px rgba(26, 23, 20, 0.12);
+
+    --transition: 0.2s ease;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+
 .catalogue-header {
-    margin: 3rem;
-    text-align: left;
-}
-
-.catalogue-header h2 {
-    text-transform: uppercase;
-    font-size: 2rem;
-}
-
-/* GRID */
-.garment-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    padding: 2rem;
-}
-
-/* CARD */
-.garment-card {
-    border: 1px solid #e5e5e5;
-    border-radius: 10px;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    background-color: #fff;
-}
-
-.garment-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-}
-
-/* IMAGE */
-.garment-image img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-}
-
-/* INFO */
-.garment-info {
-    padding: 1.5rem;
-}
-
-.garment-info h3 {
-    text-transform: uppercase;
+    padding: 3rem 4rem 1rem;
+    border-bottom: 1px solid var(--color-border);
     margin-bottom: 0.5rem;
 }
 
-/* STOCK STATUS */
+.catalogue-header h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 4vw, 3.4rem);
+    font-weight: 300;
+    font-style: italic;
+    letter-spacing: 0.01em;
+    text-transform: none;
+}
+
+
+.catalogue {
+    padding: 2rem 4rem 4rem;
+}
+
+.catalogue > p {
+    font-size: 0.9rem;
+    color: var(--color-muted);
+    text-align: center;
+    padding: 4rem 0;
+}
+
+.garment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+}
+
+.garment-card {
+    position: relative;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: box-shadow var(--transition), transform var(--transition);
+    animation: fadeSlideIn 0.35s ease both;
+}
+
+.garment-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.garment-card:nth-child(1)  { animation-delay: 0.04s; }
+.garment-card:nth-child(2)  { animation-delay: 0.08s; }
+.garment-card:nth-child(3)  { animation-delay: 0.12s; }
+.garment-card:nth-child(4)  { animation-delay: 0.16s; }
+.garment-card:nth-child(5)  { animation-delay: 0.20s; }
+.garment-card:nth-child(6)  { animation-delay: 0.24s; }
+.garment-card:nth-child(7)  { animation-delay: 0.28s; }
+.garment-card:nth-child(8)  { animation-delay: 0.32s; }
+
+@keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+
+.garment-image {
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+    background-color: var(--color-border);
+}
+
+.garment-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+    max-width: none !important;
+}
+
+.garment-card:hover .garment-image img {
+    transform: scale(1.04);
+}
+
+
+.garment-card .wishlist,
+.garment-card .wishlist-heart {
+    position: absolute;
+    top: 0.85rem;
+    right: 0.85rem;
+    background: rgba(247, 244, 240, 0.85);
+    backdrop-filter: blur(4px);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--transition), transform var(--transition);
+    z-index: 1;
+}
+
+.garment-card .wishlist:hover,
+.garment-card .wishlist-heart:hover {
+    background: rgba(247, 244, 240, 1);
+    transform: scale(1.1);
+}
+
+.garment-card .wishlist i,
+.garment-card .wishlist-heart i {
+    font-size: 0.95rem;
+    color: var(--color-text);
+}
+
+
+.garment-info {
+    padding: 1.2rem 1.4rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.garment-info h3 {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    color: var(--color-text);
+    text-transform: none;
+}
+
+
 .in-stock {
-    color: #89c324;
-    font-weight: 600;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-success);
 }
 
 .out-stock {
-    color: #bf2929;
-    font-weight: 600;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-danger);
 }
 
-/* BUTTON */
+
 .view-btn {
     display: inline-block;
-    margin-top: 1rem;
-    padding: 0.7rem 1.5rem;
-    background-color: #bf2929;
-    color: white;
-    border-radius: 5px;
+    margin-top: 0.8rem;
+    padding: 0.7rem 1.4rem;
+    background-color: var(--color-text);
+    color: var(--color-bg);
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    font-weight: 600;
-    transition: all 0.3s ease;
+    text-decoration: none;
+    border-radius: var(--radius);
+    align-self: flex-start;
+    transition: background-color var(--transition), transform var(--transition);
 }
 
 .view-btn:hover {
-    background-color: #f6d003;
-    color: black;
+    background-color: var(--color-accent);
+    transform: translateY(-1px);
+}
+
+.view-btn:active {
+    transform: translateY(0);
+}
+
+
+@media (max-width: 900px) {
+    .catalogue-header {
+        padding: 2rem 1.5rem 1rem;
+    }
+
+    .catalogue {
+        padding: 1.5rem 1.5rem 3rem;
+    }
+
+    .garment-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .garment-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+    }
+
+    .garment-info {
+        padding: 0.9rem 1rem 1rem;
+    }
+
+    .garment-info h3 {
+        font-size: 1rem;
+    }
+
+    .view-btn {
+        width: 100%;
+        text-align: center;
+        align-self: stretch;
+    }
 }

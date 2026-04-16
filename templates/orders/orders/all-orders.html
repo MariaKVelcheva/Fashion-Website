@@ -1,12 +1,9 @@
-{% extends "common/base.html" %}
-
-{% block content %}
 
 <h1>My Orders</h1>
 <p>Shipping address: {{ order.shipping_address }}</p>
 <p>Phone: {{ order.phone_number }}</p>
-{% if object_list %}
-    {% for order in object_list %}
+{% if orders %}
+    {% for order in orders %}
         <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
             <p>Status: {{ order.get_status_display }}</p>
             <p>Total: {{ order.total_amount }}€</p>
@@ -27,5 +24,3 @@
 {% else %}
     <p>No orders yet.</p>
 {% endif %}
-
-{% endblock %}

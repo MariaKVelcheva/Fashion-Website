@@ -1,94 +1,140 @@
 {% extends "common/base.html" %}
+{% load static %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/cart.css' %}?=v3">
+{% endblock %}
 
 {% block content %}
 
-<h1>Your Cart</h1>
+<h1 class="title">Your Cart</h1>
 
-{% if items %}
-    <ul>
-        {% for item in items %}
-            <li>
-                <strong>{{ item.product.garment.name }}</strong><br>
+{% if not items %}
+    <h2 class="empty">Your cart is empty</h2>
+    <a href="{% url 'all-garments' %}" class="shop-button">Shop now</a>
 
-                Size: {{ item.product.size.name }}<br>
-                Color: {{ item.product.color.name }}<br>
-
-                Quantity: {{ item.quantity }}<br>
-                Price: {{ item.unit_price }}€<br>
-                Total: {{ item.line_total }}€
-<form method="post" action="{% url 'remove-from-cart' item.id %}">
-    {% csrf_token %}
-    <button type="submit" class="remove-btn"
-            data-url="{% url 'remove-from-cart' item.id %}"
-            data-item-id="{{ item.id }}">
-        Remove
-    </button>
-</form>
-            </li>
-        {% endfor %}
-    </ul>
-
-    <h2>Total: {{ order.total_amount }}€</h2>
-    <form method="post">
-    {% csrf_token %}
-    <input type="text" name="first_name"
-           value="{{ request.user.customer.first_name }}">     <input type="text" name="middle_name"
-           value="{{ request.user.customer.middle_name }}"> <input type="text" name="last_name"
-           value="{{ request.user.customer.last_name }}">
-    <textarea name="address">{{ request.user.customer.address }}</textarea>
-
-    <input type="text" name="phone"
-           value="{{ request.user.customer.phone_number }}">
-
-    <button type="submit">Confirm Order</button>
-</form>
-    <form method="post" action="{% url 'checkout' %}">
-    {% csrf_token %}
-    {% if not items %}
-        <button disabled> Checkout</button>
 {% else %}
+    <h3>{{ items|length }} item(s)</h3>
+
+    <div class="cart-layout">
+        <div class="gallery">
+
+            {% for item in items %}
+            <div class="item-card" id="item-{% if session_cart %}{{ item.product.id }}{% else %}{{ item.id }}{% endif %}">
+            <img src="{{ item.product.garment.main_image.url }}"
+                         alt="{{ item.product.garment.name }}"
+                         class="item-image" style="max-width: 350px"/>
+                <div class="item-info">
+                    <a href="{% url 'details-garment' item.product.garment.slug %}" class="item-name">{{ item.product.garment.name }}</a>
+                    <p class="price">{{ item.unit_price }} €</p>
+                    <p class="item-variant">
+                        {{ item.product.size.name }} &mdash; {{ item.product.color.name }}
+                    </p><form method="post"
+      action="{% url 'remove-from-cart' item.id %}"
+      class="remove-form">
+    {% csrf_token %}
+    <button type="submit">Remove</button>
+</form>
+
+                    <p class="line-total">Subtotal: {{ item.line_total }} €</p>
+
+                </div>
+
+            </div>
+            {% endfor %}
+
+            <div class="order-total">
+                <strong>
+                    Total:
+                    {% if session_cart %}
+                        {{ total }}
+                    {% else %}
+                        {{ order.total_amount }}
+                    {% endif %}
+                    €
+                </strong>
+            </div>
+
+            {% if delivery_gap %}
+                <p class="delivery-message">
+                    Add {{ delivery_gap }} € more for free delivery.
+                </p>
+            {% else %}
+                <p class="delivery-message delivery-message--free">
+                    You qualify for free delivery!
+                </p>
+            {% endif %}
+
+        </div>
+        <div class="payment-options">
     {% if user.is_authenticated %}
-    <form method="post" action="{% url 'checkout' %}">
-        {% csrf_token %}
-        <button type="submit">Checkout</button>
-    </form>
-{% else %}
-    <p>Please log in to checkout.</p>
-{% endif %}
-{% endif %}
-</form>
 
-{% else %}
-    <p>Your cart is empty.</p>
+        <form method="post" action="{% url 'update-customer-from-cart' %}">
+            {% csrf_token %}
+
+            <p class="profile-form-title">Delivery details</p>
+
+            {% for field in customer_form %}
+                <div class="profile-field
+                    {% if field.errors %}field--error{% endif %}
+                    {% if not profile_complete and field.value == '' or field.value == None %}field--empty{% endif %}">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        {% for error in field.errors %}
+                            <span class="field-error">{{ error }}</span>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="save-profile-btn">
+                Save details
+            </button>
+        </form>
+        {% if profile_complete %}
+            <form method="post" action="{% url 'checkout' %}">
+                {% csrf_token %}
+
+                <fieldset class="payment-fieldset">
+                    <legend>Payment method</legend>
+                    <label class="payment-label">
+                        <input type="radio" name="payment_type" value="pod" checked>
+                        Pay on delivery
+                    </label>
+                    {# <label class="payment-label">                   #}
+                    {#   <input type="radio" name="payment_type"       #}
+                    {#          value="card">                          #}
+                    {#   Card payment                                  #}
+                    {# </label>                                        #}
+                </fieldset>
+
+                <button type="submit" class="checkout-btn">Checkout</button>
+            </form>
+
+        {% else %}
+            <p class="profile-warning">
+                Please fill in all required fields above to proceed.
+            </p>
+        {% endif %}
+
+    {% else %}
+        <p>Please <a href="{% url 'login' %}">log in</a> to checkout.</p>
+    {% endif %}
+</div>
+    </div>
 {% endif %}
-
-{% endblock %}
-
 <script>
-document.querySelectorAll(".remove-btn").forEach(button => {
-    button.addEventListener("click", function () {
+document.addEventListener("DOMContentLoaded", function () {
 
-        const url = this.dataset.url;
-        const itemId = this.dataset.itemId;
+    function getCSRFToken() {
+        const cookie = document.cookie
+            .split(";")
+            .map(c => c.trim())
+            .find(c => c.startsWith("csrftoken="));
+        return cookie ? cookie.split("=")[1] : "";
+    }
 
-        fetch(url, {
-            method: "POST",
-            headers: {
-                "X-CSRFToken": getCSRFToken(),
-            }
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.success) {
-                document.getElementById("item-" + itemId).remove();
-
-                const cartCount = document.getElementById("cart-count");
-                if (cartCount) {
-                    cartCount.textContent = data.cart_count;
-                }
-            }
-        });
-    });
 });
 </script>
+{% endblock %}

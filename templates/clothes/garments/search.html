@@ -1,60 +1,124 @@
 {% extends 'common/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/search.css' %}">
+{% endblock %}
 
 {% block content %}
-<section>
-    <h1>Search garments</h1>
 
-    <form method="get">
-    <input type="text" name="q" value="{{ q }}" placeholder="Search...">
-        <select name="category">
-            <option value="">All categories</option>
-            {% for category in categories %}
-                <option value="{{ category.id }}"
-                    {% if selected_category == category.id|stringformat:"s" %}selected{% endif %}>
-                    {{ category.name }}
-                </option>
-            {% endfor %}
-        </select>
+<div class="search-page">
+    <aside class="search-filters">
+        <h2 class="filters-title">Filter</h2>
 
-        <select name="color">
-            <option value="">All colors</option>
-            {% for color in colors %}
-                <option value="{{ color.id }}"
-                    {% if selected_color == color.id|stringformat:"s" %}selected{% endif %}>
-                    {{ color.name }}
-                </option>
-            {% endfor %}
-        </select>
+        <form method="get" id="search-form">
+            <div class="filter-group">
+                <label class="filter-label" for="search-q">Search</label>
+                <input type="text"
+                       id="search-q"
+                       name="q"
+                       value="{{ q }}"
+                       placeholder="Name or description..."
+                       class="filter-input">
+            </div>
 
-        <select name="size">
-            <option value="">All sizes</option>
-            {% for size in sizes %}
-                <option value="{{ size.id }}"
-                    {% if selected_size == size.id|stringformat:"s" %}selected{% endif %}>
-                    {{ size.name }}
-                </option>
-            {% endfor %}
-        </select>
+            <div class="filter-group">
+                <p class="filter-label">Category</p>
+                {% for category in categories %}
+                    <label class="filter-check">
+                        <input type="checkbox"
+                               name="category"
+                               value="{{ category.id }}"
+                               {% if category.id|stringformat:"s" in selected_categories %}checked{% endif %}>
+                        <span>{{ category.name }}</span>
+                    </label>
+                {% endfor %}
+            </div>
 
-        <button type="submit">Search</button>
-        <a href="{% url 'garment-search' %}">Clear</a>
-    </form>
-</section>
+            <div class="filter-group">
+                <p class="filter-label">Color</p>
+                {% for color in colors %}
+                    <label class="filter-check">
+                        <input type="checkbox"
+                               name="color"
+                               value="{{ color.id }}"
+                               {% if color.id|stringformat:"s" in selected_colors %}checked{% endif %}>
+                        <span class="color-dot"
+                              style="background-color: {{ color.hex_code }}"></span>
+                        <span>{{ color.name }}</span>
+                    </label>
+                {% endfor %}
+            </div>
 
-<section>
-    {% for garment in garments %}
-        <article>
-            <h2>{{ garment.name }}</h2>
-            <p>{{ garment.category.name }}</p>
-            <p>{{ garment.description }}</p>
-            <p>{{ garment.price }} lv</p>
+            <div class="filter-group">
+                <p class="filter-label">Size</p>
+                <div class="size-checks">
+                    {% for size in sizes %}
+                        <label class="size-check">
+                            <input type="checkbox"
+                                   name="size"
+                                   value="{{ size.id }}"
+                                   {% if size.id|stringformat:"s" in selected_sizes %}checked{% endif %}>
+                            <span>{{ size.name }}</span>
+                        </label>
+                    {% endfor %}
+                </div>
+            </div>
 
-            {% if garment.main_image %}
-                <img src="{{ garment.main_image.url }}" alt="{{ garment.name }}">
-            {% endif %}
-        </article>
-    {% empty %}
-        <p>No garments match these filters.</p>
-    {% endfor %}
-</section>
+            <button type="submit" class="filter-submit">Apply</button>
+            <a href="{% url 'garment-search' %}" class="filter-clear">Clear all</a>
+
+        </form>
+    </aside>
+
+    <section class="search-results">
+
+        <div class="results-header">
+            <h1 class="results-title">
+                {% if q %}
+                    Results for &ldquo;{{ q }}&rdquo;
+                {% else %}
+                    All garments
+                {% endif %}
+            </h1>
+            <p class="results-count">{{ garments|length }} item{% if garments|length != 1 %}s{% endif %}</p>
+        </div>
+
+        {% if garments %}
+            <div class="results-grid">
+                {% for garment in garments %}
+                    <a href="{% url 'details-garment' garment.slug %}" class="result-card">
+
+                        {% if garment.main_image %}
+                            <div class="result-image">
+                                <img src="{{ garment.main_image.url }}"
+                                     alt="{{ garment.name }}">
+                            </div>
+                        {% endif %}
+
+                        <div class="result-info">
+                            <h3 class="result-name">{{ garment.name }}</h3>
+                            <p class="result-price">{{ garment.price }} €</p>
+                            {% if garment.is_available %}
+                                <p class="result-stock result-stock--in">Available</p>
+                            {% else %}
+                                <p class="result-stock result-stock--out">Out of stock</p>
+                            {% endif %}
+                        </div>
+
+                    </a>
+                {% endfor %}
+            </div>
+
+        {% else %}
+            <div class="results-empty">
+                <p>No garments match your search.</p>
+                <a href="{% url 'garment-search' %}" class="filter-clear">Clear filters</a>
+            </div>
+        {% endif %}
+
+    </section>
+
+</div>
+
 {% endblock %}

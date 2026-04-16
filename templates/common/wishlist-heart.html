@@ -1,40 +1,54 @@
-<form class="wishlist-form" method="post" action="{% url 'toggle-wishlist' garment.id %}">
-    {% csrf_token %}
-    <button type="submit" style="background: none; border: none; cursor: pointer; color: darkred;">
-        <i class="fa-heart {% if garment.id in user_wishlist %}fa-solid{% else %}fa-regular{% endif %}" style="font-size: 2rem"></i>
-    </button>
-</form>
+{% if request.user.is_authenticated %}
+<button type="button"
+        class="wishlist-btn"
+        data-url="{% url 'toggle-wishlist' garment.id %}"
+        data-garment-id="{{ garment.id }}"
+        aria-label="{% if garment.id in user_wishlist %}Remove from wishlist{% else %}Add to wishlist{% endif %}">
+    <i class="fa-heart {% if garment.id in user_wishlist %}fa-solid{% else %}fa-regular{% endif %}"></i>
+</button>
+{% endif %}
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-    const forms = document.querySelectorAll(".wishlist-form");
+if (!window._wishlistInitialised) {
+    window._wishlistInitialised = true;
 
-    forms.forEach(form => {
-        form.addEventListener("submit", function(e) {
-            e.preventDefault();
+    function getCSRFToken() {
+        const cookie = document.cookie
+            .split(";")
+            .map(c => c.trim())
+            .find(c => c.startsWith("csrftoken="));
+        return cookie ? cookie.split("=")[1] : "";
+    }
 
-            const csrfToken = form.querySelector('[name=csrfmiddlewaretoken]').value;
-            const garmentId = form.action.split('/').slice(-2, -1)[0];
-            const icon = form.querySelector('i');
+    document.addEventListener("click", function (e) {
+        const btn = e.target.closest(".wishlist-btn");
+        if (!btn) return;
 
-            fetch(form.action, {
-                method: "POST",
-                headers: {
-                    "X-CSRFToken": csrfToken,
-                    "X-Requested-With": "XMLHttpRequest",
-                },
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === "added") {
-                    icon.classList.remove("fa-regular");
-                    icon.classList.add("fa-solid");
-                } else {
-                    icon.classList.remove("fa-solid");
-                    icon.classList.add("fa-regular");
-                }
-            });
-        });
+        e.preventDefault();
+
+        const url       = btn.dataset.url;
+        const icon      = btn.querySelector("i");
+
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": getCSRFToken(),
+                "X-Requested-With": "XMLHttpRequest",
+            },
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.status === "added") {
+                icon.classList.remove("fa-regular");
+                icon.classList.add("fa-solid");
+                btn.setAttribute("aria-label", "Remove from wishlist");
+            } else {
+                icon.classList.remove("fa-solid");
+                icon.classList.add("fa-regular");
+                btn.setAttribute("aria-label", "Add to wishlist");
+            }
+        })
+        .catch(err => console.error("Wishlist toggle failed:", err));
     });
-});
+}
 </script>

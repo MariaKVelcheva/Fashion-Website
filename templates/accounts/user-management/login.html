@@ -1,46 +1,62 @@
 {% load static %}
-{% load socialaccount %}
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Ella Prime - Login</title>
-    <link rel="stylesheet" href="{% static 'css/forms.css' %}?v=2">
-    <link rel="stylesheet" href="{% static 'css/login-form.css' %}?v=2">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Ella Prime — Sign in</title>
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+          integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
 <body>
-<div class="container">
-     {% include "common/logo.html" %}
-        <form method="post" class="login-form">
 
-    {% csrf_token %}
-    <div class="traditional-login">
-        <h3>Sign in</h3>
+<div class="auth-card">
+
+    <div class="auth-logo">
+        {% include "common/logo.html" %}
+    </div>
+
+    <div class="auth-header">
+        <h1>Welcome back</h1>
+        <p>Sign in to your EllaPrimE account</p>
+    </div>
 
     {% if form.non_field_errors %}
-    <div class="form-errors">
-        {% for error in form.non_field_errors %}
-            <p>{{ error }}</p>
-        {% endfor %}
-    </div>
-        {% endif %}
-        <p>{{ form.username }}</p>
-        <p>{{ form.password }}</p>
+        <div class="auth-errors">
+            {% for error in form.non_field_errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
 
+    <form method="post" class="auth-form">
+        {% csrf_token %}
 
-    <p>
-        <button type="submit" class="common-button register-button">
-    Log in
-</button>
+        <div class="auth-field">
+            <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+            {{ form.username }}
+            {% for error in form.username.errors %}
+                <span class="field-error">{{ error }}</span>
+            {% endfor %}
+        </div>
+
+        <div class="auth-field">
+            <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+            {{ form.password }}
+            {% for error in form.password.errors %}
+                <span class="field-error">{{ error }}</span>
+            {% endfor %}
+        </div>
+
+        <button type="submit" class="auth-btn">Sign in</button>
+    </form>
+    <p class="auth-footer">
+        Don't have an account yet? <a href="{% url 'register' %}">Create one</a>
     </p>
-        <p>Don't have an account yet? <a href="{% url 'register' %}">Create one</a></p></div>
-            </form>     
-    
+
 </div>
-
-
 
 </body>
 </html>

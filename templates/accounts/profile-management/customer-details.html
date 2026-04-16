@@ -2,100 +2,220 @@
 {% load static %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/forms.css' %}?v=2">
-    <link rel="stylesheet" href="{% static 'css/customer-detail.css' %}?v=4">
+    <link rel="stylesheet" href="{% static 'css/customer-detail.css' %}?v=1">
 {% endblock %}
 
 {% block content %}
-    <aside>
-    <div class="top">
-        {% if customer.full_name %}
-        <h3>{{ customer.full_name }}</h3>
-        {% else %}
-        <h1>{{ customer.user.email }}</h1>
-        {% endif %}
-    <div class="manage-profile">
-        <a href="{% url 'customer-update' %}">Update your account</a>
-        <a href="{% url 'user-delete' %}">Delete your account</a>
-    </div>
-    </div>
-    <ul class="details-list" type="none">
-        <li><a href="#" class="personal-information closed">Personal information</a>
-        <div class="secret">
-            {% include 'accounts/profile-management/update-form.html' %}
+
+<div class="profile-layout">
+
+    <aside class="profile-aside">
+
+        <div class="aside-header">
+            {% if customer.full_name %}
+                <h3 class="aside-name">{{ customer.full_name }}</h3>
+            {% else %}
+                <h3 class="aside-name">{{ customer.user.email }}</h3>
+            {% endif %}
+            <p class="aside-email">{{ customer.user.email }}</p>
         </div>
-        </li>
-        <li><a href="#" class="points-information closed">Your points</a>
-        <div class="secret">
-            <h1>
-                <a href="{% url 'all-garments' %}">{{ customer.user.loyalty_points }} loyalty points - order now to earn more!</a>
-            </h1>
-        </div></li>
-        <li><a href="#" class="wishlist closed">Your wishlist</a><div class="secret">No wishlist yet.</div></li>
-        <li><a href="#" class="contact closed">Contact us</a>
-            <div class="secret">{% include "common/contact-form.html" with form=contact_form %}</div>
-        </li>
-    </ul>
+
+        <nav class="aside-nav">
+            <button class="aside-trigger active" data-panel="home">
+                Overview
+            </button>
+            <button class="aside-trigger" data-panel="personal">
+                Personal information
+            </button>
+            <button class="aside-trigger" data-panel="points">
+                Loyalty points
+            </button>
+            <button class="aside-trigger" data-panel="wishlist">
+                Wishlist
+            </button>
+            <button class="aside-trigger" data-panel="contact">
+                Contact us
+            </button>
+        </nav>
+
+        <div class="aside-footer">
+            <a href="{% url 'user-delete' %}" class="aside-link aside-link--danger">
+                Delete account
+            </a>
+        </div>
+
     </aside>
 
-    <section class="front open">
-    <h1>Hello, {% if customer.first_name %}{{ customer.first_name }}{% else %}{{ customer.user.email }}{% endif %}</h1>
-    <h2>Your <span class="logo">EllaPrimE</span> account</h2>
+    <main class="profile-main">
 
-    <div class="form">{% if not customer.is_profile_complete %}
-        <h4>In order to pass orders with us, please, fill your profile</h4>
-        {% include "accounts/profile-management/update-form.html" %}
-    {% endif %}</div>
+        <div class="profile-panel active" id="panel-home">
+            <div class="profile-greeting">
+                <h1>Hello, {% if customer.first_name %}{{ customer.first_name }}{% else %}{{ customer.user.email }}{% endif %}</h1>
+                <p class="profile-subtitle">Your EllaPrimE account</p>
+            </div>
 
-    <div class="orders">
-            {% if customer.past_orders %}
-        {% include "orders/orders/all-orders.html" %}
-        {% else %}
-    <h4>No orders yet.</h4>
-    {% endif %}
-    </div>
-    </section>
+            {% if not profile_complete %}
+                <div class="profile-incomplete-banner">
+                    <p>Please complete your profile to place orders.</p>
+                </div>
+            {% endif %}
+
+            <section class="orders-section">
+                <h2 class="section-title">Order history</h2>
+
+                {% if orders %}
+                    {% for order in orders %}
+                        <div class="order-card">
+                            <div class="order-card-header">
+                                <span class="order-status order-status--{{ order.status }}">
+                                    {{ order.get_status_display }}
+                                </span>
+                                <span class="order-date">
+                                    {{ order.created_at|date:"d M Y" }}
+                                </span>
+                                <span class="order-total">
+                                    {{ order.total_amount }} €
+                                </span>
+                            </div>
+
+                            {% if order.shipping_address %}
+                                <p class="order-address">{{ order.shipping_address }}</p>
+                            {% endif %}
+
+                            <ul class="order-items">
+                                {% for item in order.items.all %}
+                                    <li>
+                                        {{ item.product.garment.name }}
+                                        <span class="order-item-variant">
+                                            {{ item.product.size.name }} /
+                                            {{ item.product.color.name }}
+                                        </span>
+                                        &times; {{ item.quantity }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="empty-note">No orders yet.</p>
+                {% endif %}
+            </section>
+        </div>
+    
+        <div class="profile-panel" id="panel-personal">
+            <h2 class="section-title">Personal information</h2>
+
+            <form method="post" action="{% url 'customer-update' %}" class="profile-form">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="profile-field {% if field.errors %}field--error{% endif %}">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% for error in field.errors %}
+                            <span class="field-error">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+                <button type="submit" class="save-btn">Save changes</button>
+            </form>
+        </div>
+
+        <div class="profile-panel" id="panel-points">
+            <h2 class="section-title">Loyalty points</h2>
+
+            <div class="points-display">
+                <p class="points-value">{{ customer.user.loyalty_points }}</p>
+                <p class="points-label">points accumulated</p>
+                <a href="{% url 'all-garments' %}" class="points-cta">
+                    Shop now to earn more →
+                </a>
+            </div>
+        </div>
+
+        <div class="profile-panel" id="panel-wishlist">
+            <h2 class="section-title">Your wishlist</h2>
+
+            {% if customer.favorites.exists %}
+                {% include "clothes/garments/_wishlist-items.html" %}
+            {% else %}
+                <p class="empty-note">No saved items yet.</p>
+            {% endif %}
+        </div>
+    
+        <div class="profile-panel" id="panel-contact">
+            <h2 class="section-title">Contact us</h2>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="contact-success">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="post" action="{% url 'contact' %}" class="contact-form">
+                {% csrf_token %}
+
+                {{ contact_form.non_field_errors }}
+
+                <div class="profile-field">
+                    <label for="{{ contact_form.name.id_for_label }}">
+                        {{ contact_form.name.label }}
+                    </label>
+                    {{ contact_form.name }}
+                    {% for error in contact_form.name.errors %}
+                        <span class="field-error">{{ error }}</span>
+                    {% endfor %}
+                </div>
+
+                <div class="profile-field">
+                    <label for="{{ contact_form.email.id_for_label }}">
+                        {{ contact_form.email.label }}
+                    </label>
+                    {{ contact_form.email }}
+                    {% for error in contact_form.email.errors %}
+                        <span class="field-error">{{ error }}</span>
+                    {% endfor %}
+                </div>
+
+                <div class="profile-field">
+                    <label for="{{ contact_form.message.id_for_label }}">
+                        {{ contact_form.message.label }}
+                    </label>
+                    {{ contact_form.message }}
+                    {% for error in contact_form.message.errors %}
+                        <span class="field-error">{{ error }}</span>
+                    {% endfor %}
+                </div>
+
+                <button type="submit" class="save-btn">Send message</button>
+            </form>
+        </div>
+
+    </main>
+
+</div>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-    const toggles = document.querySelectorAll(".details-list li > a");
-    const frontSection = document.querySelector(".front");
+document.addEventListener("DOMContentLoaded", function () {
+    const triggers = document.querySelectorAll(".aside-trigger");
+    const panels   = document.querySelectorAll(".profile-panel");
 
-    toggles.forEach(toggle => {
-        toggle.addEventListener("click", (e) => {
-            if (toggle.getAttribute("href") === "#") {
-                e.preventDefault();
-            }
+    triggers.forEach(function (trigger) {
+        trigger.addEventListener("click", function () {
+            const target = this.dataset.panel;
 
-            const secret = toggle.nextElementSibling;
+            triggers.forEach(t => t.classList.remove("active"));
+            this.classList.add("active");
 
-            if (!secret || !secret.classList.contains("secret")) return;
-
-            frontSection.innerHTML = "";
-
-            const content = secret.cloneNode(true);
-            content.style.display = "block";
-
-            const closeBtn = document.createElement("button");
-            closeBtn.innerText = "✖";
-            closeBtn.style.float = "right";
-            closeBtn.style.cursor = "pointer";
-            closeBtn.style.border = "none";
-            closeBtn.style.background = "transparent";
-            closeBtn.style.fontSize = "1.5rem";
-
-            closeBtn.addEventListener("click", () => {
-                frontSection.innerHTML = `
-                    <h1>Hello, ${document.querySelector(".front h1")?.innerText || ""}</h1>
-                    <h2>Your <span class="logo">EllaPrimE</span> account</h2>
-                `;
-                location.reload();
+            panels.forEach(function (panel) {
+                if (panel.id === "panel-" + target) {
+                    panel.classList.add("active");
+                } else {
+                    panel.classList.remove("active");
+                }
             });
-
-            content.prepend(closeBtn);
-            frontSection.appendChild(content);
         });
     });
 });
 </script>
+
 {% endblock %}

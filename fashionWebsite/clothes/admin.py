@@ -1,5 +1,12 @@
 from django.contrib import admin
-from fashionWebsite.clothes.models import Category, Size, Color, Garment, Product
+from fashionWebsite.clothes.models import Category, Size, Color, Garment, Product, LookbookImage, GarmentImage
+
+
+@admin.register(LookbookImage)
+class LookbookImageAdmin(admin.ModelAdmin):
+    list_display = ("__str__", "order")
+    list_editable = ("order",)
+    ordering = ("order",)
 
 
 @admin.register(Category)
@@ -28,10 +35,17 @@ class ProductInline(admin.TabularInline):
     autocomplete_fields = ("size", "color")
 
 
+class GarmentImageInline(admin.TabularInline):
+    model = GarmentImage
+    extra = 3
+    fields = ("image",)
+
+
 @admin.register(Garment)
 class GarmentAdmin(admin.ModelAdmin):
-    inlines = [ProductInline]
-    list_display = ("name", "category__name", "price", )
-    search_fields = ("name", "category__name", "price", "size__name", "color__name")
-    list_filter = ("category__name", )
+    inlines = [GarmentImageInline, ProductInline]
+    prepopulated_fields = {"slug": ("name",)}
+    list_display = ("name", "price", "is_available")
+    search_fields = ("name", "price")
+    list_filter = ("category",)
 

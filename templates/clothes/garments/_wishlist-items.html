@@ -1,0 +1,92 @@
+{% if wishlist_items %}
+    <ul class="wishlist-grid">
+        {% for item in wishlist_items %}
+            <li class="wishlist-card" id="wishlist-item-{{ item.garment.id }}">
+
+                {# Image #}
+                <a href="{% url 'details-garment' item.garment.slug %}"
+                   class="wishlist-card-image">
+                    {% if item.garment.main_image %}
+                        <img src="{{ item.garment.main_image.url }}"
+                             alt="{{ item.garment.name }}">
+                    {% endif %}
+                </a>
+
+                {# Info #}
+                <div class="wishlist-card-info">
+                    <a href="{% url 'details-garment' item.garment.slug %}"
+                       class="wishlist-card-name">
+                        {{ item.garment.name }}
+                    </a>
+                    <p class="wishlist-card-price">{{ item.garment.price }} €</p>
+
+                    {% if item.garment.is_available %}
+                        <p class="wishlist-stock wishlist-stock--in">Available</p>
+                    {% else %}
+                        <p class="wishlist-stock wishlist-stock--out">Out of stock</p>
+                    {% endif %}
+                </div>
+
+                <button class="wishlist-remove-btn"
+                        data-url="{% url 'toggle-wishlist' item.garment.id %}"
+                        data-item-id="{{ item.garment.id }}"
+                        aria-label="Remove from wishlist">
+                    &times;
+                </button>
+
+            </li>
+        {% endfor %}
+    </ul>
+
+{% else %}
+    <div class="wishlist-empty">
+        <p>Your wishlist is empty.</p>
+        <a href="{% url 'all-garments' %}" class="wishlist-shop-link">
+            Browse the collection →
+        </a>
+    </div>
+{% endif %}
+
+{# ---- Remove JS ---- #}
+<script>
+if (!window._wishlistRemoveInitialised) {
+    window._wishlistRemoveInitialised = true;
+
+    function getCSRFToken() {
+        const cookie = document.cookie
+            .split(";")
+            .map(c => c.trim())
+            .find(c => c.startsWith("csrftoken="));
+        return cookie ? cookie.split("=")[1] : "";
+    }
+
+    document.addEventListener("click", function (e) {
+        const btn = e.target.closest(".wishlist-remove-btn");
+        if (!btn) return;
+
+        const url    = btn.dataset.url;
+        const itemId = btn.dataset.itemId;
+
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": getCSRFToken(),
+                "X-Requested-With": "XMLHttpRequest",
+            },
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.status === "removed") {
+                const card = document.getElementById("wishlist-item-" + itemId);
+                if (card) {
+                    card.style.transition = "opacity 0.25s ease, transform 0.25s ease";
+                    card.style.opacity = "0";
+                    card.style.transform = "translateY(6px)";
+                    setTimeout(() => card.remove(), 260);
+                }
+            }
+        })
+        .catch(err => console.error("Wishlist remove failed:", err));
+    });
+}
+</script>

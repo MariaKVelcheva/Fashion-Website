@@ -1,15 +1,10 @@
 {% load static %}
 <nav>
     <ul class="navigation" type="none">
-        {% if request.user.is_staff %}
-        <li><a href="{% url 'create-garment' %}">Add garment</a></li>
-        {% endif %}
-        <li><a href="#">New in</a></li>
-        <li><a href="#">Promo</a></li>
+        <li><a href="{% url 'new' %}">New in</a></li>
         <li><a href="{% url 'all-garments' %}">Collection</a></li>
-        <li><a href="#" id="custom-nav-li">Gallery</a></li>
+        <li><a href="{% url 'gallery' %}" id="custom-nav-li">Gallery</a></li>
         <li><a href="{% url 'contact' %}">Contact</a></li>
-
     </ul>
 {% include "common/logo.html" %}
     <ul class="customer" type="none">
@@ -48,7 +43,6 @@
 {% endif %}
     </ul>
 </nav>
-
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const toggle = document.getElementById("search-toggle");
@@ -62,11 +56,11 @@ document.addEventListener("DOMContentLoaded", function () {
             input.focus();
         }
     });
-});
 
-document.addEventListener("click", function (e) {
-    if (!input.contains(e.target) && !toggle.contains(e.target)) {
-        input.classList.remove("active");
-    }
+    document.addEventListener("click", function (e) {
+        if (!input.contains(e.target) && !toggle.contains(e.target)) {
+            input.classList.remove("active");
+        }
+    });
 });
 </script>

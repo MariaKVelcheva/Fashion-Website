@@ -5,9 +5,9 @@ User = get_user_model()
 
 
 class WishlistItem(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='favorites')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="wishlist_items")
     garment = models.ForeignKey(to="clothes.Garment", on_delete=models.CASCADE,
-                                related_name="favorites", blank=True, null=True)
+                                related_name="favorited_by", blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

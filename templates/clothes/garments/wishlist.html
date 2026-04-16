@@ -1,0 +1,25 @@
+{% extends "common/base.html" %}
+{% load static %}
+ 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/wishlist.css' %}">
+{% endblock %}
+ 
+{% block content %}
+ 
+<div class="wishlist-page">
+ 
+    <div class="wishlist-header">
+        <h1 class="wishlist-title">Your Wishlist</h1>
+        <p class="wishlist-subtitle">
+            {{ wishlist_items|length }}
+            saved item{% if wishlist_items|length != 1 %}s{% endif %}
+        </p>
+    </div>
+ 
+    {% include "accounts/wishlist/_wishlist-items.html" %}
+ 
+</div>
+ 
+{% endblock %}
+ 
