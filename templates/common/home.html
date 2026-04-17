@@ -13,7 +13,7 @@
     <ul class="categories" type="none">
     {% for category in categories %}
     <li>
-        <a href="{% url 'details-category' category.id %}">
+        <a href="{% url 'details-category' category.slug %}">
             <img src="{{ category.profile_image.url }}" alt="{{ category.name }}">
             <h3>{{ category.name }}</h3>
         </a>
@@ -24,13 +24,6 @@
     <section class="trending" style="background-image: url('{% static 'images/denim 2.jpeg' %}')">
     <h2>DENIM!</h2>
     <button>Discover</button>
-    </section>
-    <section class="ad">
-            <ul class="store-ad" style="list-style-type:square">
-        <li><div class="main">Free delivery</div> over 60€</li>
-        <li><a href="#" class="new"><div class="main">New items</div></a> every week</li>
-        <li><div class="main">Safe payment</div> Credit Card, Debit Card, PayPal, Payment on Delivery</li>
-    </ul>
     </section>
      <section class="subscribe">
     <h2>10% OFF YOUR NEXT ORDER</h2>

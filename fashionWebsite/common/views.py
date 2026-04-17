@@ -22,9 +22,14 @@ class ContactView(FormView):
 
     def form_valid(self, form):
         send_custom_email(
-            subject=f"New Contact Form Submission from {form.cleaned_data['name']}",
+            subject=f"EllaPrimE contact — {form.cleaned_data['name']} ({form.cleaned_data['email']})",
             message=form.cleaned_data['message'],
-            html_message=form.cleaned_data['message'],
+            html_message=f"""
+                <p><strong>From:</strong> {form.cleaned_data['name']}</p>
+                <p><strong>Email:</strong> {form.cleaned_data['email']}</p>
+                <hr>
+                <p>{form.cleaned_data['message']}</p>
+            """,
             recipient_list=[settings.DEFAULT_FROM_EMAIL],
             reply_to=form.cleaned_data['email'],
         )

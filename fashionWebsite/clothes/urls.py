@@ -10,6 +10,6 @@ urlpatterns = [
     path("product/<slug:slug>/details/", views.DetailsGarmentView.as_view(), name="details-garment"),
     path("category/<slug:slug>/details/", views.CategoryDetailView.as_view(), name="details-category"),
     path('search/', views.GarmentSearchView.as_view(), name='garment-search'),
-    path('wishlist/toggle/<int:product_id>/', views.toggle_wishlist, name='toggle-wishlist'),
+    path('wishlist/toggle/<int:garment_id>/', views.toggle_wishlist, name='toggle-wishlist'),
     path("wishlist/", views.WishlistView.as_view(), name="wishlist"),
 ]

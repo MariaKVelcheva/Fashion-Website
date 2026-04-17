@@ -1,57 +1,120 @@
 <!DOCTYPE html>
 <html>
-  <body style="margin:0; padding:0; background-color:#f4f4f4; font-family: Arial, sans-serif;">
+<body style="margin:0; padding:0; background-color:#f7f4f0; font-family:'Georgia', serif;">
 
-    <table width="100%" cellpadding="0" cellspacing="0" style="padding:20px;">
-      <tr>
-        <td align="center">
+  <table width="100%" cellpadding="0" cellspacing="0" style="padding:40px 20px;">
+    <tr>
+      <td align="center">
 
-          <table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff; padding:30px; border-radius:8px;">
-            
-            <tr>
-              <td style="text-align:center; padding-bottom:20px;">
-                <a href="https://ella-prime.com" style="text-decoration:none; font-size:24px; font-weight:bold; color:#000;">
-                  EllaPrimE
-                </a>
-              </td>
-            </tr>
+        <table width="580" cellpadding="0" cellspacing="0"
+               style="background:#ffffff; border-radius:6px;
+                      border:1px solid #e4ddd5; overflow:hidden;">
 
-            <tr>
-              <td style="color:#333; font-size:16px; line-height:1.5;">
-                <h2>Order Confirmation #{{ order.id }}</h2>
+          <tr>
+            <td style="background:#b85c38; padding:24px 40px; text-align:center;">
+              <p style="margin:0; color:#fff; font-size:13px;
+                        letter-spacing:0.14em; text-transform:uppercase;">
+                New order received
+              </p>
+              <p style="margin:6px 0 0; color:#fff; font-size:22px;
+                        font-weight:300; font-style:italic;">
+                Order #{{ order_id }}
+              </p>
+            </td>
+          </tr>
 
-                <p>Hi {{ order.user.email }},</p>
-                <p>Thank you for your order! Here are the details:</p>
+          <tr>
+            <td style="padding:32px 40px; color:#1a1714;
+                       font-size:15px; line-height:1.7;">
 
-                <table width="100%" cellpadding="8" cellspacing="0" style="border-collapse: collapse; margin:15px 0;">
-                  <tr style="background:#f4f4f4;">
-                    <th align="left">Product</th>
-                    <th align="left">Qty</th>
-                    <th align="left">Price</th>
-                  </tr>
+              <table width="100%" cellpadding="0" cellspacing="0"
+                     style="background:#f7f4f0; border-radius:4px;
+                            padding:16px 20px; margin-bottom:24px;">
+                <tr>
+                  <td>
+                    <p style="margin:0 0 6px; font-size:11px; letter-spacing:0.12em;
+                               text-transform:uppercase; color:#8a8078;">Customer</p>
+                    <p style="margin:0 0 12px; font-size:14px;">
+                      {{ customer_name }} — {{ user_email }}
+                    </p>
+                    <p style="margin:0 0 6px; font-size:11px; letter-spacing:0.12em;
+                               text-transform:uppercase; color:#8a8078;">
+                      Delivery address
+                    </p>
+                    <p style="margin:0 0 12px; font-size:14px;">
+                      {{ shipping_address }}
+                    </p>
+                    <p style="margin:0 0 6px; font-size:11px; letter-spacing:0.12em;
+                               text-transform:uppercase; color:#8a8078;">Phone</p>
+                    <p style="margin:0 0 12px; font-size:14px;">{{ phone_number }}</p>
+                    <p style="margin:0 0 6px; font-size:11px; letter-spacing:0.12em;
+                               text-transform:uppercase; color:#8a8078;">Payment</p>
+                    <p style="margin:0; font-size:14px;">{{ payment_type }}</p>
+                  </td>
+                </tr>
+              </table>
 
-                  {% for item in order.items.all %}
-                  <tr style="border-bottom:1px solid #eee;">
-                    <td>{{ item.product.name }}</td>
-                    <td>{{ item.quantity }}</td>
-                    <td>${{ item.price }}</td>
-                  </tr>
-                  {% endfor %}
-                </table>
+              <table width="100%" cellpadding="10" cellspacing="0"
+                     style="border-collapse:collapse; margin-bottom:24px;">
+                <tr style="background:#f7f4f0; border-bottom:1px solid #e4ddd5;">
+                  <th align="left" style="font-size:11px; letter-spacing:0.12em;
+                                          text-transform:uppercase; font-weight:500;
+                                          color:#8a8078;">Item</th>
+                  <th align="left" style="font-size:11px; letter-spacing:0.12em;
+                                          text-transform:uppercase; font-weight:500;
+                                          color:#8a8078;">Details</th>
+                  <th align="center" style="font-size:11px; letter-spacing:0.12em;
+                                            text-transform:uppercase; font-weight:500;
+                                            color:#8a8078;">Qty</th>
+                  <th align="right" style="font-size:11px; letter-spacing:0.12em;
+                                           text-transform:uppercase; font-weight:500;
+                                           color:#8a8078;">Price</th>
+                </tr>
 
-                <p><strong>Total: ${{ order.total_amount }}</strong></p>
+                {% for item in items %}
+                <tr style="border-bottom:1px solid #e4ddd5;">
+                  <td style="font-size:14px;">{{ item.name }}</td>
+                  <td style="font-size:13px; color:#8a8078;">
+                    {{ item.size }} / {{ item.color }}
+                  </td>
+                  <td align="center" style="font-size:14px;">{{ item.quantity }}</td>
+                  <td align="right" style="font-size:14px;">{{ item.line_total }} €</td>
+                </tr>
+                {% endfor %}
 
-                <p>We’ll notify you when your order is shipped.</p>
+                <tr>
+                  <td colspan="3" align="right"
+                      style="padding-top:14px; font-size:13px;
+                             letter-spacing:0.08em; color:#8a8078;">
+                    TOTAL
+                  </td>
+                  <td align="right"
+                      style="padding-top:14px; font-size:16px;
+                             font-weight:500; color:#1a1714;">
+                    {{ total_amount }} €
+                  </td>
+                </tr>
+              </table>
 
-                <p>Thank you,<br>EllaPrimE Team</p>
-              </td>
-            </tr>
+              <p style="margin:0; font-size:13px; color:#8a8078;">
+                Log into the admin to update the order status once dispatched.
+              </p>
 
-          </table>
+            </td>
+          </tr>
+          <tr>
+            <td style="background:#f7f4f0; padding:16px 40px;
+                       text-align:center; border-top:1px solid #e4ddd5;">
+              <p style="margin:0; font-size:12px; color:#8a8078;">
+                EllaPrimE internal notification
+              </p>
+            </td>
+          </tr>
 
-        </td>
-      </tr>
-    </table>
+        </table>
+      </td>
+    </tr>
+  </table>
 
-  </body>
+</body>
 </html>

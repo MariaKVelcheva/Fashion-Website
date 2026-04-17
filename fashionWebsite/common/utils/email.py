@@ -1,23 +1,25 @@
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.conf import settings
 from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
 
 def send_custom_email(subject, message, recipient_list, html_message=None, reply_to=None):
-    send_mail(
+    email = EmailMultiAlternatives(
         subject=subject,
-        message=message,
+        body=message,
         from_email=settings.DEFAULT_FROM_EMAIL,
-        recipient_list=recipient_list,
-        fail_silently=False,
-        html_message=html_message,
-        reply_to=reply_to,
+        to=recipient_list,
+        reply_to=[reply_to] if reply_to else None,
     )
+    if html_message:
+        email.attach_alternative(html_message, "text/html")
+    email.send(fail_silently=False)
 
 
-def send_html_email(subject: str, template_name: str, context: dict, recipient_list: list):
+def send_html_email(subject, template_name, context, recipient_list):
     html_content = render_to_string(template_name, context)
-    text_content = render_to_string(template_name, context).replace('<br>', '\n')
+    text_content = strip_tags(html_content)
 
     email = EmailMultiAlternatives(
         subject=subject,

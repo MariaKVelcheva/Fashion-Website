@@ -157,18 +157,7 @@ document.querySelectorAll(".thumbnail").forEach(img => {
         document.querySelector(".main-image img").src = this.src;
     });
 });
-document.getElementById("add-to-cart-btn").addEventListener("click", function () {
 
-    const url = this.dataset.url;
-
-    const color = document.querySelector('input[name="color"]:checked');
-    const size = document.querySelector('input[name="size"]:checked');
-
-    if (!color || !size) {
-        alert("Please select size and color.");
-        return;
-    }
-});
 
 function getCSRFToken() {
     return document.cookie

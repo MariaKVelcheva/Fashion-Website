@@ -1,26 +1,67 @@
+{% extends "common/base.html" %}
+{% load static %}
 
-<h1>My Orders</h1>
-<p>Shipping address: {{ order.shipping_address }}</p>
-<p>Phone: {{ order.phone_number }}</p>
-{% if orders %}
-    {% for order in orders %}
-        <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
-            <p>Status: {{ order.get_status_display }}</p>
-            <p>Total: {{ order.total_amount }}€</p>
-            <p>Created: {{ order.created_at }}</p>
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/static-pages.css' %}?v=1">
+{% endblock %}
 
-            <ul>
-                {% for item in order.items.all %}
-                    <li>
-                        {{ item.product.garment.name }}
-                        ({{ item.product.size.name }} /
-                        {{ item.product.color.name }})
-                        × {{ item.quantity }}
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-    {% endfor %}
-{% else %}
-    <p>No orders yet.</p>
-{% endif %}
+{% block content %}
+
+<div class="order-history-page">
+
+    <div class="order-history-header">
+        <h1 class="order-history-title">Order history</h1>
+        <p class="order-history-subtitle">
+            {{ orders|length }} order{% if orders|length != 1 %}s{% endif %}
+        </p>
+    </div>
+
+    {% if orders %}
+        {% for order in orders %}
+            <div class="order-card">
+                <div class="order-card-header">
+                    <span class="order-status order-status--{{ order.status }}">
+                        {{ order.get_status_display }}
+                    </span>
+                    <span class="order-date">
+                        {{ order.created_at|date:"d M Y" }}
+                    </span>
+                    <span class="order-total">
+                        {{ order.total_amount }} €
+                    </span>
+                </div>
+
+                {% if order.shipping_address %}
+                    <p class="order-address">
+                        <span>Delivery:</span> {{ order.shipping_address }}
+                    </p>
+                {% endif %}
+
+                {% if order.phone_number %}
+                    <p class="order-address">
+                        <span>Phone:</span> {{ order.phone_number }}
+                    </p>
+                {% endif %}
+
+                <ul class="order-items">
+                    {% for item in order.items.all %}
+                        <li>
+                            {{ item.product.garment.name }}
+                            <span class="order-item-variant">
+                                {{ item.product.size.name }} /
+                                {{ item.product.color.name }}
+                            </span>
+                            &times; {{ item.quantity }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+
+    {% else %}
+        <p class="empty-note">No orders yet.</p>
+    {% endif %}
+
+</div>
+
+{% endblock %}

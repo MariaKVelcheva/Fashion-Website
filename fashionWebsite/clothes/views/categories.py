@@ -17,7 +17,7 @@ class CategoryDetailView(ListView):
 
     def get_queryset(self):
         category_pk = self.kwargs.get('slug')
-        self.category = get_object_or_404(Category, pk=category_pk)
+        self.category = get_object_or_404(Category, slug=self.kwargs.get('slug'))
 
         return Garment.objects.filter(category=self.category, products__stock__gt=0).distinct()
 

@@ -4,15 +4,18 @@ from fashionWebsite.orders.models import Order, Promotion, OrderItem
 
 class OrderItemInline(admin.TabularInline):
     model = OrderItem
+    readonly_fields = ("product", "quantity", "unit_price", "line_total")
     extra = 0
 
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     inlines = [OrderItemInline]
-    list_display = ("status", "payment_type", "total_amount")
-    list_filter = ("status", "payment_type", "created_at", "customer__email")
-    raw_id_fields = ("customer", )
+    list_display = ("id", "customer", "status", "total_amount", "created_at")
+    list_filter = ("status",)
+    list_editable = ("status",)
+    readonly_fields = ("created_at", "total_amount")
+    ordering = ("-created_at",)
 
 
 @admin.register(Promotion)

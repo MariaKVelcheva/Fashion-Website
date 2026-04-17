@@ -2,7 +2,7 @@ from datetime import timedelta
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Q
+from django.db.models import Q, Case, When, IntegerField
 from django.shortcuts import redirect, get_object_or_404
 from django.utils import timezone
 from django.views.generic import DetailView, ListView
@@ -12,23 +12,20 @@ from django.http import JsonResponse
 
 @login_required
 def toggle_wishlist(request, garment_id):
-    garment = get_object_or_404(Garment, id=garment_id)
-
-    item, created = WishlistItem.objects.get_or_create(
-        user=request.user,
-        garment=garment
-    )
-
-    if not created:
-        item.delete()
-        status = 'removed'
-    else:
-        status = 'added'
-
-    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+    try:
+        garment = get_object_or_404(Garment, id=garment_id)
+        item, created = WishlistItem.objects.get_or_create(
+            user=request.user,
+            garment=garment
+        )
+        if not created:
+            item.delete()
+            status = 'removed'
+        else:
+            status = 'added'
         return JsonResponse({'status': status, 'garment_id': garment.id})
-
-    return redirect(request.META.get('HTTP_REFERER', 'home'))
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
 
 
 class WishlistView(LoginRequiredMixin, ListView):
@@ -51,7 +48,13 @@ class GarmentSearchView(ListView):
     context_object_name = 'garments'
 
     def get_queryset(self):
-        queryset = Garment.objects.filter(products__stock__gt=0).distinct()
+        queryset = Garment.objects.all().annotate(
+            in_stock=Case(
+                When(products__stock__gt=0, then=0),
+                default=1,
+                output_field=IntegerField(),
+            )
+        ).order_by("in_stock", "name").distinct()
 
         q = self.request.GET.get('q')
 
@@ -121,7 +124,14 @@ class GarmentCatalogueView(ListView):
     context_object_name = "garments"
 
     def get_queryset(self):
-        return Garment.objects.filter(products__stock__gt=0).distinct()
+        queryset = Garment.objects.all().annotate(
+            in_stock=Case(
+                When(products__stock__gt=0, then=0),
+                default=1,
+                output_field=IntegerField(),
+            )
+        ).order_by("in_stock", "name").distinct()
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -141,10 +151,19 @@ class GarmentCatalogueView(ListView):
 class NewArrivalsView(ListView):
     model = Garment
     template_name = "clothes/garments/new_in.html"
+    context_object_name = "garments"
 
     def get_queryset(self):
         newest = timezone.now() - timedelta(days=60)
-        return Garment.objects.filter(created_at__gte=newest)
+        return Garment.objects.filter(
+            created_at__gte=newest
+        ).prefetch_related("category").annotate(
+            in_stock=Case(
+                When(products__stock__gt=0, then=0),
+                default=1,
+                output_field=IntegerField(),
+            )
+        ).order_by("in_stock", "name").distinct()
 
 
 class GalleryView(ListView):

@@ -74,6 +74,8 @@ body {
 
 .garment-card {
     position: relative;
+    display: flex;
+    flex-direction: column;
     background-color: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
@@ -121,6 +123,25 @@ body {
     transform: scale(1.04);
 }
 
+.garment-card .wishlist-btn {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 1;
+    background: rgba(247, 244, 240, 0.85);
+    backdrop-filter: blur(4px);
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background var(--transition), transform var(--transition);
+    padding: 0;
+}
+
 
 .garment-card .wishlist,
 .garment-card .wishlist-heart {
@@ -133,6 +154,7 @@ body {
     width: 36px;
     height: 36px;
     display: flex;
+    border: none;
     align-items: center;
     justify-content: center;
     transition: background var(--transition), transform var(--transition);
@@ -145,6 +167,23 @@ body {
     transform: scale(1.1);
 }
 
+.garment-card--out {
+    opacity: 0.5;
+    filter: grayscale(30%);
+}
+
+.garment-card--out:hover {
+    opacity: 0.65;
+    transform: none;
+    box-shadow: none;
+}
+
+.garment-card--out .view-btn {
+    background-color: var(--color-muted);
+    pointer-events: none;
+    cursor: default;
+}
+
 .garment-card .wishlist i,
 .garment-card .wishlist-heart i {
     font-size: 0.95rem;
@@ -155,6 +194,7 @@ body {
 .garment-info {
     padding: 1.2rem 1.4rem 1.4rem;
     display: flex;
+    flex: 1;
     flex-direction: column;
     gap: 0.4rem;
 }
@@ -187,7 +227,9 @@ body {
 
 
 .view-btn {
-    display: inline-block;
+    display: block;
+    width: 100%;
+    text-align: center;
     margin-top: 0.8rem;
     padding: 0.7rem 1.4rem;
     background-color: var(--color-text);

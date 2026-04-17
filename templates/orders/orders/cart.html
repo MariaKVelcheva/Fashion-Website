@@ -91,32 +91,29 @@
             <button type="submit" class="save-profile-btn">
                 Save details
             </button>
-        </form>
-        {% if profile_complete %}
-            <form method="post" action="{% url 'checkout' %}">
-                {% csrf_token %}
+        </form>{% if profile_complete %}
 
-                <fieldset class="payment-fieldset">
-                    <legend>Payment method</legend>
-                    <label class="payment-label">
-                        <input type="radio" name="payment_type" value="pod" checked>
-                        Pay on delivery
-                    </label>
-                    {# <label class="payment-label">                   #}
-                    {#   <input type="radio" name="payment_type"       #}
-                    {#          value="card">                          #}
-                    {#   Card payment                                  #}
-                    {# </label>                                        #}
-                </fieldset>
+    <form method="post" action="{% url 'checkout' %}">
+        {% csrf_token %}
+        <input type="hidden" name="payment_type" value="pod">
+        <button type="submit" class="checkout-btn checkout-btn--pod">
+            Pay on delivery
+        </button>
+    </form>
+    <a href="{% url 'stripe-checkout' %}" class="checkout-btn checkout-btn--card">
+        <i class="fa-regular fa-credit-card"></i>
+        Pay by card
+    </a>
 
-                <button type="submit" class="checkout-btn">Checkout</button>
-            </form>
+    <p class="payment-note">
+        Card payments are processed securely by Stripe.
+    </p>
 
-        {% else %}
-            <p class="profile-warning">
-                Please fill in all required fields above to proceed.
-            </p>
-        {% endif %}
+{% else %}
+    <p class="profile-warning">
+        Please fill in all required fields above to proceed.
+    </p>
+{% endif %}
 
     {% else %}
         <p>Please <a href="{% url 'login' %}">log in</a> to checkout.</p>

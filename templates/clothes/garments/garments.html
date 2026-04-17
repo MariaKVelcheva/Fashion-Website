@@ -1,6 +1,6 @@
        <div class="garment-grid">
             {% for garment in garments %}
-                <div class="garment-card">
+                <div class="garment-card {% if not garment.is_available %}garment-card--out{% endif %}">
                     
                     <div class="garment-image">
                         {% if garment.main_image %}

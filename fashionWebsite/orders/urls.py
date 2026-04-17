@@ -11,5 +11,7 @@ urlpatterns = [
     path("cart/order-completed/", views.OrderSuccessView.as_view(), name="order-completed"),
     path("cart/order-history/", views.OrderListView.as_view(), name="order-history"),
     path("cart/update-profile/", views.update_customer_form_cart, name="update-customer-from-cart"),
+    path("stripe/checkout/", views.create_stripe_checkout, name="stripe-checkout"),
+    path("stripe/webhook/", views.stripe_webhook, name="stripe-webhook"),
 ]
 

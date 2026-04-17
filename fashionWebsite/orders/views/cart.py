@@ -1,15 +1,23 @@
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import redirect, get_object_or_404, render
-from django.views.generic import ListView, TemplateView
-
+from django.views.generic import TemplateView
 from fashionWebsite.accounts.forms import UpdateCustomerForm
 from fashionWebsite.clothes.models import Product, Garment
 from fashionWebsite.orders.models import OrderItem, Order
-
 from fashionWebsite.orders.utils import get_or_create_cart, update_order_total
+from fashionWebsite.common.tasks import send_email_task
+import stripe
+from django.conf import settings
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import redirect
+from django.contrib import messages
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 def add_to_cart(request, garment_id):
@@ -80,6 +88,7 @@ def add_to_cart(request, garment_id):
         "success": True,
         "message": "Added to cart!",
     })
+
 
 class CartView(TemplateView):
     template_name = "orders/orders/cart.html"
@@ -197,8 +206,11 @@ def checkout(request):
 
     for item in order.items.all():
         if item.product.stock < item.quantity:
-            messages.error(request, "Sorry, only {item.product.stock} unit(s)"
-                                    " of {item.product.garment.name} are available.")
+            messages.error(
+                request,
+                f"Sorry, only {item.product.stock} unit(s) of "
+                f"{item.product.garment.name} are available."
+            )
             return redirect("cart")
 
     for item in order.items.all():
@@ -206,11 +218,65 @@ def checkout(request):
         item.product.save()
 
     customer = request.user.customer
+
     order.shipping_address = request.POST.get("address") or customer.address
     order.phone_number = request.POST.get("phone") or customer.telephone_number
-    order.status = "confirmed"
 
+    order.payment_type = request.POST.get("payment_type", "pod")
+
+    order.status = "confirmed"
     order.save()
+
+    send_email_task.delay(
+        subject=f"EllaPrimE — Order confirmation #{order.id}",
+        template_name="emails/order_confirmation.html",
+        context={
+            "order_id": order.id,
+            "user_email": request.user.email,
+            "items": [
+                {
+                    "name": item.product.garment.name,
+                    "size": item.product.size.name,
+                    "color": item.product.color.name,
+                    "quantity": item.quantity,
+                    "unit_price": str(item.unit_price),
+                    "line_total": str(item.line_total),
+                }
+                for item in order.items.all()
+            ],
+            "total_amount": str(order.total_amount),
+            "shipping_address": order.shipping_address,
+            "phone_number": order.phone_number,
+            "payment_type": order.get_payment_type_display(),
+        },
+        recipient_list=[request.user.email],
+    )
+
+    send_email_task.delay(
+        subject=f"New order #{order.id} — {request.user.email}",
+        template_name="emails/admin_order_notification.html",
+        context={
+            "order_id": order.id,
+            "user_email": request.user.email,
+            "customer_name": customer.full_name,
+            "items": [
+                {
+                    "name": item.product.garment.name,
+                    "size": item.product.size.name,
+                    "color": item.product.color.name,
+                    "quantity": item.quantity,
+                    "unit_price": str(item.unit_price),
+                    "line_total": str(item.line_total),
+                }
+                for item in order.items.all()
+            ],
+            "total_amount": str(order.total_amount),
+            "shipping_address": order.shipping_address,
+            "phone_number": order.phone_number,
+            "payment_type": order.get_payment_type_display(),
+        },
+        recipient_list=[settings.DEFAULT_FROM_EMAIL],
+    )
 
     return redirect("order-completed")
 
@@ -218,3 +284,156 @@ def checkout(request):
 class OrderSuccessView(TemplateView):
     template_name = "orders/orders/success.html"
 
+
+def create_stripe_checkout(request):
+    print("API KEY BEING USED:", stripe.api_key[:7] if stripe.api_key else "NONE")
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+
+    if not request.user.is_authenticated:
+        return redirect("login")
+
+    if not request.user.customer.is_profile_complete():
+        messages.error(request, "Please complete your profile before checking out.")
+        return redirect("cart")
+
+    order = get_or_create_cart(request.user)
+
+    if not order.items.exists():
+        messages.error(request, "Your cart is empty.")
+        return redirect("cart")
+
+    for item in order.items.all():
+        if item.product.stock < item.quantity:
+            messages.error(
+                request,
+                f"Sorry, only {item.product.stock} unit(s) of "
+                f"{item.product.garment.name} are available."
+            )
+            return redirect("cart")
+
+    line_items = []
+    for item in order.items.all():
+        line_items.append({
+            "price_data": {
+                "currency": "eur",
+                "unit_amount": int(item.unit_price * 100),  # Stripe uses cents
+                "product_data": {
+                    "name": item.product.garment.name,
+                    "description": f"{item.product.size.name} / {item.product.color.name}",
+                },
+            },
+            "quantity": item.quantity,
+        })
+
+    customer = request.user.customer
+    order.shipping_address = customer.address
+    order.phone_number = customer.telephone_number
+    order.payment_type = "card"
+    order.save()
+
+    points_earned = int(order.total_amount)
+    request.user.loyalty_points += points_earned
+    request.user.save()
+
+    session = stripe.checkout.Session.create(
+        payment_method_types=["card"],
+        line_items=line_items,
+        mode="payment",
+        success_url=request.build_absolute_uri("/orders/cart/order-completed/"),
+        cancel_url=request.build_absolute_uri("/orders/cart/"),
+        metadata={
+            "order_id": order.id,
+            "user_id": request.user.id,
+        },
+        customer_email=request.user.email,
+    )
+
+    return redirect(session.url, code=303)
+
+
+@csrf_exempt
+def stripe_webhook(request):
+    payload = request.body
+    sig_header = request.META.get("HTTP_STRIPE_SIGNATURE")
+
+    try:
+        event = stripe.Webhook.construct_event(
+            payload, sig_header, settings.STRIPE_WEBHOOK_SECRET
+        )
+    except ValueError:
+        return HttpResponse(status=400)
+    except stripe.error.SignatureVerificationError:
+        return HttpResponse(status=400)
+
+    if event["type"] == "checkout.session.completed":
+        session = event["data"]["object"]
+        order_id = session["metadata"].get("order_id")
+
+        try:
+            order = Order.objects.get(id=order_id, status="pending")
+        except Order.DoesNotExist:
+            return HttpResponse(status=200)
+
+        for item in order.items.all():
+            item.product.stock -= item.quantity
+            item.product.save()
+
+        order.status = "confirmed"
+        User = get_user_model()
+        user = User.objects.get(id=order.customer.id)
+        user.loyalty_points += int(order.total_amount)
+        user.save()
+        order.save()
+
+        send_email_task.delay(
+            subject=f"EllaPrimE — Order confirmation #{order.id}",
+            template_name="emails/order_confirmation.html",
+            context={
+                "order_id": order.id,
+                "user_email": order.customer.email,
+                "items": [
+                    {
+                        "name": item.product.garment.name,
+                        "size": item.product.size.name,
+                        "color": item.product.color.name,
+                        "quantity": item.quantity,
+                        "unit_price": str(item.unit_price),
+                        "line_total": str(item.line_total),
+                    }
+                    for item in order.items.all()
+                ],
+                "total_amount": str(order.total_amount),
+                "shipping_address": order.shipping_address,
+                "phone_number": order.phone_number,
+                "payment_type": order.get_payment_type_display(),
+            },
+            recipient_list=[order.customer.email],
+        )
+
+        send_email_task.delay(
+            subject=f"New order #{order.id} — {order.customer.email}",
+            template_name="emails/admin_order_notification.html",
+            context={
+                "order_id": order.id,
+                "user_email": order.customer.email,
+                "customer_name": order.customer.customer.full_name,
+                "items": [
+                    {
+                        "name": item.product.garment.name,
+                        "size": item.product.size.name,
+                        "color": item.product.color.name,
+                        "quantity": item.quantity,
+                        "unit_price": str(item.unit_price),
+                        "line_total": str(item.line_total),
+                    }
+                    for item in order.items.all()
+                ],
+                "total_amount": str(order.total_amount),
+                "shipping_address": order.shipping_address,
+                "phone_number": order.phone_number,
+                "payment_type": order.get_payment_type_display(),
+            },
+            recipient_list=[settings.DEFAULT_FROM_EMAIL],
+        )
+
+    return HttpResponse(status=200)

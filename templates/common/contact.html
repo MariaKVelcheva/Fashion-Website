@@ -2,19 +2,18 @@
 {% load static %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+    <link rel="stylesheet" href="{% static 'css/contact.css' %}">
 {% endblock %}
 
 {% block content %}
 
-<div class="auth-card contact-card">
+<div class="auth-card contact-card container">
 
     <div class="auth-header">
         <h1>Contact us</h1>
         <p>We'll get back to you as soon as possible</p>
     </div>
 
-    {# Success message #}
     {% if messages %}
         {% for message in messages %}
             <div class="contact-success">{{ message }}</div>
