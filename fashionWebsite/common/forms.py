@@ -1,5 +1,7 @@
 from django import forms
 
+from fashionWebsite.common.models import NewsletterSubscriber
+
 
 class ContactForm(forms.Form):
     name = forms.CharField(
@@ -21,3 +23,19 @@ class ContactForm(forms.Form):
         )
     )
 
+
+class NewsletterForm(forms.ModelForm):
+    class Meta:
+        model = NewsletterSubscriber
+        fields = ("email",)
+        widgets = {
+            "email": forms.EmailInput(attrs={
+                "placeholder": "Enter your email address",
+            })
+        }
+
+    def clean_email(self):
+        email = self.cleaned_data["email"].lower()
+        if NewsletterSubscriber.objects.filter(email=email, is_active=True).exists():
+            raise forms.ValidationError("This email is already subscribed.")
+        return email

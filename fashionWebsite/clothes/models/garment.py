@@ -45,7 +45,9 @@ class Garment(models.Model):
     created_at = models.DateTimeField(
         auto_now_add=True,
         null=True,
-        blank=True,)
+        blank=True,
+        editable=True,
+    )
 
     @property
     def is_new(self):

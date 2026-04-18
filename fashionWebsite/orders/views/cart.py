@@ -63,6 +63,7 @@ def add_to_cart(request, garment_id):
         return JsonResponse({
             "success": True,
             "message": "Added to cart!",
+            "cart_count": sum(cart.values()),
         })
 
     order = get_or_create_cart(request.user)
@@ -84,9 +85,12 @@ def add_to_cart(request, garment_id):
         order_item.save()
 
     update_order_total(order)
+    cart_count = sum(i.quantity for i in order.items.all())
+
     return JsonResponse({
         "success": True,
         "message": "Added to cart!",
+        "cart_count": cart_count,
     })
 
 
@@ -278,6 +282,10 @@ def checkout(request):
         recipient_list=[settings.DEFAULT_FROM_EMAIL],
     )
 
+    points_earned = int(order.total_amount)
+    request.user.loyalty_points += points_earned
+    request.user.save()
+
     return redirect("order-completed")
 
 
@@ -286,9 +294,6 @@ class OrderSuccessView(TemplateView):
 
 
 def create_stripe_checkout(request):
-    print("API KEY BEING USED:", stripe.api_key[:7] if stripe.api_key else "NONE")
-    stripe.api_key = settings.STRIPE_SECRET_KEY
-
     if not request.user.is_authenticated:
         return redirect("login")
 
@@ -330,10 +335,6 @@ def create_stripe_checkout(request):
     order.phone_number = customer.telephone_number
     order.payment_type = "card"
     order.save()
-
-    points_earned = int(order.total_amount)
-    request.user.loyalty_points += points_earned
-    request.user.save()
 
     session = stripe.checkout.Session.create(
         payment_method_types=["card"],
@@ -437,3 +438,5 @@ def stripe_webhook(request):
         )
 
     return HttpResponse(status=200)
+
+

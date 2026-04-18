@@ -57,28 +57,28 @@ class GarmentSearchView(ListView):
         ).order_by("in_stock", "name").distinct()
 
         q = self.request.GET.get('q')
-
         category_ids = self.request.GET.getlist('category')
         color_ids = self.request.GET.getlist('color')
         size_ids = self.request.GET.getlist('size')
 
-        query = Q()
-
         if q:
-            query |= Q(name__icontains=q)
-            query |= Q(description__icontains=q)
+            q_singular = q.rstrip('s') if q.endswith('s') and len(q) > 2 else q
+            queryset = queryset.filter(
+                Q(name__icontains=q) |
+                Q(description__icontains=q) |
+                Q(name__icontains=q_singular) |
+                Q(description__icontains=q_singular) |
+                Q(category__name__icontains=q)
+            )
 
         if category_ids:
-            query |= Q(category_id__in=category_ids)
+            queryset = queryset.filter(category__id__in=category_ids)
 
         if color_ids:
-            query |= Q(products__color_id__in=color_ids)
+            queryset = queryset.filter(products__color_id__in=color_ids)
 
         if size_ids:
-            query |= Q(products__size_id__in=size_ids)
-
-        if query:
-            queryset = queryset.filter(query)
+            queryset = queryset.filter(products__size_id__in=size_ids)
 
         return queryset.distinct()
 
@@ -88,9 +88,9 @@ class GarmentSearchView(ListView):
         context['colors'] = Color.objects.all()
         context['sizes'] = Size.objects.all()
 
-        context['selected_category'] = self.request.GET.get('category', '')
-        context['selected_color'] = self.request.GET.get('color', '')
-        context['selected_size'] = self.request.GET.get('size', '')
+        context['selected_categories'] = self.request.GET.getlist('category')
+        context['selected_colors'] = self.request.GET.getlist('color')
+        context['selected_sizes'] = self.request.GET.getlist('size')
 
         context['q'] = self.request.GET.get('q', '')
 
@@ -166,8 +166,24 @@ class NewArrivalsView(ListView):
         ).order_by("in_stock", "name").distinct()
 
 
+class TrendingView(ListView):
+    model = Garment
+    context_object_name = "garments"
+
+    def get_queryset(self):
+        queryset = Garment.objects.filter(category__trending=True)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["category"] = Category.objects.filter(trending=True).first()
+        return context
+
+
 class GalleryView(ListView):
     model = LookbookImage
     template_name = "common/gallery.html"
     context_object_name = "images"
     queryset = LookbookImage.objects.all()
+
+

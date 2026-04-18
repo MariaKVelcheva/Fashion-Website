@@ -84,20 +84,24 @@ class LoginUserView(LoginView):
             return
         order = get_or_create_cart(user)
         for product_id, quantity in cart.items():
-            product = Product.objects.get(id=product_id)
+            try:
+                product = Product.objects.get(id=product_id)
+            except Product.DoesNotExist:
+                continue
+
             order_item, created = OrderItem.objects.get_or_create(
                 order=order,
                 product=product,
                 defaults={
                     "quantity": quantity,
-                    "unit_price": product.price,
+                    "unit_price": product.garment.price,
                 }
             )
             if not created:
                 order_item.quantity += quantity
                 order_item.save()
         update_order_total(order)
-        self.request.session["cart"] = {}
+        self.request.session.pop("cart", None)
 
 
 class LogoutUserView(LogoutView):

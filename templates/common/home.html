@@ -25,16 +25,29 @@
     <h2>DENIM!</h2>
     <button>Discover</button>
     </section>
-     <section class="subscribe">
-    <h2>10% OFF YOUR NEXT ORDER</h2>
-    <p>Get fashion news and Ella Prime offers</p>
-    <form action="#" method="post">
+    
+    <section class="subscribe">
+    <h2>10% off your next order</h2>
+    <p>Subscribe for fashion news and exclusive EllaPrimE offers</p>
+ 
+    {% if messages %}
+        {% for message in messages %}
+            <p style="font-size:0.85rem; color:#4a7c59; margin-bottom:0.5rem;">
+                {{ message }}
+            </p>
+        {% endfor %}
+    {% endif %}
+ 
+    <form method="post" action="{% url 'newsletter-subscribe' %}">
         {% csrf_token %}
-        <label for="emailSubscription"></label>
-        <input type="email" name="emailSubscription" id="emailSubscription" placeholder="Enter your email address">
-        <button>Subscribe</button>
+        <input type="email"
+               name="email"
+               placeholder="Enter your email address"
+               required>
+        <button type="submit">Subscribe</button>
     </form>
 </section>
+    
 <section class="social">
     <h2>Join Now</h2>
     <ul class="social-list" type="none">

@@ -1,3 +1,5 @@
+import sys
+
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -148,6 +150,9 @@ CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_TASK_ALWAYS_EAGER = False
 CELERY_RESULT_BACKEND = "redis://127.0.0.1:6379/0"
+
+if 'test' in sys.argv:
+    CELERY_TASK_ALWAYS_EAGER = True
 
 STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY")
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")

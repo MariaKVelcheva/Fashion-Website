@@ -29,9 +29,15 @@
                     <p class="price">{{ item.unit_price }} €</p>
                     <p class="item-variant">
                         {{ item.product.size.name }} &mdash; {{ item.product.color.name }}
-                    </p><form method="post"
-      action="{% url 'remove-from-cart' item.id %}"
-      class="remove-form">
+                    </p>{% if session_cart %}
+    <form method="post"
+          action="{% url 'remove-from-cart' item.product.id %}"
+          class="remove-form">
+{% else %}
+    <form method="post"
+          action="{% url 'remove-from-cart' item.id %}"
+          class="remove-form">
+{% endif %}
     {% csrf_token %}
     <button type="submit">Remove</button>
 </form>

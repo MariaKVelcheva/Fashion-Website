@@ -2,9 +2,10 @@ import os
 
 from django.contrib import messages
 from django.core.mail import send_mail
+from django.shortcuts import redirect
 from django.views.generic import TemplateView, FormView
 from django.urls import reverse_lazy
-from fashionWebsite.common.forms import ContactForm
+from fashionWebsite.common.forms import ContactForm, NewsletterForm
 from django.conf import settings
 
 from fashionWebsite.common.tasks import send_email_task
@@ -55,3 +56,34 @@ class FAQView(TemplateView):
 class SalesConditionsView(TemplateView):
     template_name = "common/sales-conditions.html"
 
+
+class NewsletterSubscribeView(FormView):
+    form_class = NewsletterForm
+    success_url = reverse_lazy("home")
+
+    def form_valid(self, form):
+        subscriber = form.save()
+        send_email_task.delay(
+            subject="Welcome to EllaPrimE — you're in!",
+            template_name="emails/newsletter_welcome.html",
+            context={
+                "email": subscriber.email,
+            },
+            recipient_list=[subscriber.email],
+        )
+
+        messages.success(
+            self.request,
+            "You're subscribed! Check your inbox for a welcome email."
+        )
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.info(
+            self.request,
+            form.errors.get("email", ["Something went wrong."])[0]
+        )
+        return redirect("home")
+
+    def get(self, request, *args, **kwargs):
+        return redirect("home")

@@ -1,3 +1,12 @@
 from django.contrib import admin
 
-# Register your models here.
+from fashionWebsite.common.models import NewsletterSubscriber
+
+
+@admin.register(NewsletterSubscriber)
+class NewsletterSubscriberAdmin(admin.ModelAdmin):
+    list_display = ("email", "subscribed_at", "is_active")
+    list_filter = ("is_active",)
+    search_fields = ("email",)
+    list_editable = ("is_active",)
+    ordering = ("-subscribed_at",)
