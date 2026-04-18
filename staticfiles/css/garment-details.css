@@ -1,0 +1,460 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+
+:root {
+    --color-bg:          #f7f4f0;
+    --color-surface:     #ffffff;
+    --color-border:      #e4ddd5;
+    --color-text:        #1a1714;
+    --color-muted:       #8a8078;
+    --color-accent:      #b85c38;
+    --color-accent-dark: #8f3f20;
+    --color-success:     #4a7c59;
+    --color-danger:      #9b3a3a;
+
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body:    'DM Sans', sans-serif;
+
+    --radius:    4px;
+    --radius-lg: 8px;
+    --shadow:    0 2px 12px rgba(26, 23, 20, 0.07);
+    --shadow-lg: 0 8px 32px rgba(26, 23, 20, 0.12);
+
+    --transition: 0.2s ease;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr;
+    grid-template-areas: "gallery main-image garment-info";
+    gap: 2.5rem;
+    align-items: start;
+    padding: 3rem 4rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* ============================================================
+   Add to garment-details.css AND garments-all.css
+   ============================================================ */
+
+.wishlist-btn {
+    background: rgba(247, 244, 240, 0.85);
+    backdrop-filter: blur(4px);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background var(--transition), transform var(--transition);
+    flex-shrink: 0;
+}
+
+.wishlist-btn:hover {
+    background: rgba(247, 244, 240, 1);
+    transform: scale(1.08);
+}
+
+.wishlist-btn i {
+    font-size: 1rem;
+    color: var(--color-accent);
+    line-height: 1;
+}
+
+.garment-card .wishlist-btn,
+.result-card .wishlist-btn {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 1;
+}
+
+.garment-card {
+    position: relative;
+}
+
+
+.gallery {
+    grid-area: gallery;
+    background: transparent;
+}
+
+.gallery ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    list-style: none;
+    padding: 0;
+}
+
+.thumbnail {
+    width: 72px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: var(--radius);
+    cursor: pointer;
+    opacity: 0.6;
+    border: 1px solid transparent;
+    transition: opacity var(--transition), border-color var(--transition);
+}
+
+.thumbnail:hover {
+    opacity: 1;
+    border-color: var(--color-border);
+}
+
+.thumbnail.active {
+    opacity: 1;
+    border-color: var(--color-accent);
+}
+
+
+.main-image {
+    grid-area: main-image;
+    position: relative;
+}
+
+.main-image img {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    display: block;
+}
+.wishlist,
+.delete {
+    position: absolute;
+    top: 1rem;
+    background: rgba(247, 244, 240, 0.85);
+    backdrop-filter: blur(4px);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--transition), transform var(--transition);
+}
+
+.wishlist {
+    right: 1rem;
+}
+
+.wishlist:hover {
+    background: rgba(247, 244, 240, 1);
+    transform: scale(1.08);
+}
+
+.wishlist i,
+.wishlist a {
+    font-size: 1.1rem;
+    color: var(--color-text);
+    text-decoration: none;
+    line-height: 1;
+}
+
+.delete {
+    right: 3.5rem;
+}
+
+.delete form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1;
+    padding: 0;
+    color: var(--color-text);
+    transition: color var(--transition);
+}
+
+.delete button:hover {
+    color: var(--color-danger);
+}
+
+
+.garment-info {
+    grid-area: garment-info;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    padding-top: 0.5rem;
+}
+
+.garment-info h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 300;
+    font-style: italic;
+    letter-spacing: 0.01em;
+    color: var(--color-text);
+    line-height: 1.2;
+}
+
+.garment-info h3,
+.price {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: var(--color-text);
+}
+
+.old-price {
+    text-decoration: line-through;
+    color: var(--color-muted);
+    margin-right: 0.5rem;
+    font-weight: 300;
+}
+
+.new-price {
+    color: var(--color-accent);
+    font-weight: 500;
+}
+
+.garment-info h3 + * {
+    border-top: 1px solid var(--color-border);
+    padding-top: 1.2rem;
+}
+
+
+.cart form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+    align-items: flex-start;
+}
+
+.cart form p,
+.option-group > p {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    margin-bottom: 0.6rem;
+}
+
+.color-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
+.color-option input {
+    display: none;
+}
+
+.color-square {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius);
+    border: 2px solid var(--color-border);
+    cursor: pointer;
+    display: inline-block;
+    transition: border-color var(--transition), transform var(--transition),
+                box-shadow var(--transition);
+}
+
+.color-square:hover {
+    border-color: var(--color-muted);
+    transform: scale(1.08);
+}
+
+.color-option input:checked + .color-square {
+    border-color: var(--color-text);
+    transform: scale(1.12);
+    box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 3px var(--color-text);
+}
+
+.color-option input:disabled + .color-square {
+    opacity: 0.25;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.size-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.size-option input {
+    display: none;
+}
+
+.size-option span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 48px;
+    padding: 0.45rem 0.9rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    font-size: 0.82rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    transition: border-color var(--transition), background var(--transition),
+                color var(--transition);
+    user-select: none;
+}
+
+.size-option span:hover {
+    border-color: var(--color-text);
+}
+
+.size-option input:checked + span {
+    background-color: var(--color-text);
+    border-color: var(--color-text);
+    color: var(--color-bg);
+}
+
+.size-option input:disabled + span {
+    opacity: 0.25;
+    cursor: not-allowed;
+    border-color: var(--color-border);
+}
+
+#add-to-cart-btn,
+.common-button {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--color-text);
+    color: var(--color-bg);
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background-color var(--transition), transform var(--transition);
+}
+
+#add-to-cart-btn:hover,
+.common-button:hover {
+    background-color: var(--color-accent);
+    transform: translateY(-1px);
+}
+
+#add-to-cart-btn:active,
+.common-button:active {
+    transform: translateY(0);
+}
+
+#add-to-cart-btn:disabled {
+    background-color: var(--color-muted);
+    cursor: not-allowed;
+    transform: none;
+}
+
+.is_available {
+    margin-top: 0.2rem;
+}
+
+.in-stock {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-success);
+}
+
+.out-of-stock {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-danger);
+}
+
+
+.description {
+    border-top: 1px solid var(--color-border);
+    padding-top: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.description h3 {
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+}
+
+.description p {
+    font-size: 0.9rem;
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--color-text);
+}
+
+@media (max-width: 1024px) {
+    main {
+        grid-template-columns: 70px 1fr 1fr;
+        gap: 1.5rem;
+        padding: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    main {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "main-image"
+            "gallery"
+            "garment-info";
+        padding: 1.5rem;
+        gap: 1.5rem;
+    }
+
+    .gallery ul {
+        flex-direction: row;
+        overflow-x: auto;
+    }
+
+    .thumbnail {
+        width: 60px;
+        height: 75px;
+        flex-shrink: 0;
+    }
+
+    .main-image img {
+        aspect-ratio: 4 / 3;
+    }
+
+    #add-to-cart-btn,
+    .common-button {
+        width: 100%;
+    }
+}

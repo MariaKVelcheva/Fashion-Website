@@ -1,0 +1,316 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+
+:root {
+    --color-bg:          #f7f4f0;
+    --color-surface:     #ffffff;
+    --color-border:      #e4ddd5;
+    --color-text:        #1a1714;
+    --color-muted:       #8a8078;
+    --color-accent:      #b85c38;
+    --color-accent-dark: #8f3f20;
+    --color-danger:      #9b3a3a;
+
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body:    'DM Sans', sans-serif;
+
+    --radius:    4px;
+    --radius-lg: 8px;
+    --shadow:    0 2px 12px rgba(26, 23, 20, 0.07);
+    --shadow-lg: 0 8px 32px rgba(26, 23, 20, 0.12);
+
+    --transition: 0.2s ease;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+a {
+    text-decoration: none;
+    color: var(--color-accent);
+    transition: color var(--transition);
+}
+
+a:hover {
+    color: var(--color-accent-dark);
+}
+
+.auth-card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: 3rem 3.5rem;
+    width: 100%;
+    max-width: 440px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.auth-logo {
+    text-align: center;
+}
+
+.auth-logo a {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    font-style: italic;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    color: var(--color-text);
+}
+
+.auth-logo a:hover {
+    color: var(--color-accent);
+}
+
+.auth-header {
+    text-align: center;
+    width: 100%;
+}
+
+.auth-header h1 {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--color-text);
+    margin-bottom: 0.3rem;
+}
+
+.auth-header p {
+    font-size: 0.82rem;
+    color: var(--color-muted);
+    letter-spacing: 0.04em;
+}
+
+.auth-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.auth-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.auth-field label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+}
+
+.auth-field input {
+    width: 100%;
+    padding: 0.7rem 0.9rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-bg);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--color-text);
+    transition: border-color var(--transition);
+}
+
+.auth-field input:focus {
+    outline: none;
+    border-color: var(--color-accent);
+}
+
+.auth-field input::placeholder {
+    color: var(--color-muted);
+    font-weight: 300;
+}
+
+.auth-errors {
+    width: 100%;
+    background-color: #fdf4f4;
+    border: 1px solid var(--color-danger);
+    border-radius: var(--radius);
+    padding: 0.75rem 1rem;
+}
+
+.auth-errors p {
+    font-size: 0.82rem;
+    color: var(--color-danger);
+    margin: 0;
+}
+
+.field-error {
+    font-size: 0.72rem;
+    color: var(--color-danger);
+}
+
+.auth-btn {
+    width: 100%;
+    padding: 0.9rem;
+    margin-top: 0.5rem;
+    background-color: var(--color-text);
+    color: var(--color-bg);
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background-color var(--transition), transform var(--transition);
+}
+
+.auth-btn:hover {
+    background-color: var(--color-accent);
+    transform: translateY(-1px);
+}
+
+.auth-btn:active {
+    transform: translateY(0);
+}
+
+.auth-btn--danger {
+    background-color: var(--color-danger);
+}
+
+.auth-btn--danger:hover {
+    background-color: #7a2a2a;
+}
+
+.auth-btn--ghost {
+    background-color: transparent;
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+}
+
+.auth-btn--ghost:hover {
+    background-color: var(--color-bg);
+    border-color: var(--color-text);
+    transform: translateY(-1px);
+}
+
+.auth-footer {
+    font-size: 0.82rem;
+    color: var(--color-muted);
+    text-align: center;
+}
+
+.auth-footer a {
+    color: var(--color-accent);
+    font-weight: 400;
+}
+
+.auth-btn--google {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: var(--color-text);
+    cursor: pointer;
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.auth-btn--google:hover {
+    border-color: var(--color-muted);
+    box-shadow: var(--shadow);
+}
+
+.auth-divider {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--color-muted);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background-color: var(--color-border);
+}
+
+.delete-card {
+    max-width: 480px;
+    text-align: center;
+    gap: 1.5rem;
+}
+
+.delete-card .auth-header h1 {
+    color: var(--color-danger);
+}
+
+.delete-warning {
+    font-size: 0.88rem;
+    color: var(--color-muted);
+    line-height: 1.7;
+}
+
+.delete-actions {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+
+.contact-card {
+    max-width: 560px;
+}
+
+.contact-card textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+.contact-success {
+    width: 100%;
+    padding: 0.9rem 1.2rem;
+    background-color: #e8f4ec;
+    border: 1px solid #4a7c59;
+    border-radius: var(--radius);
+    font-size: 0.85rem;
+    color: #4a7c59;
+    letter-spacing: 0.04em;
+}
+
+
+@media (max-width: 480px) {
+    .auth-card {
+        margin: 1rem;
+        padding: 2rem 1.5rem;
+    }
+}
