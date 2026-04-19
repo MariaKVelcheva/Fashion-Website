@@ -1,8 +1,3 @@
-/* ============================================================
-   customer-detail.css — Profile Page
-   Same design system as cart.css / garment-details.css
-   ============================================================ */
-
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
 
 :root {
@@ -31,26 +26,17 @@
     box-sizing: border-box;
 }
 
-/* Scoped resets — only inside the profile layout, not global */
 .profile-layout,
 .profile-layout * {
     text-align: left;
     font-family: var(--font-body);
 }
 
-/* ============================================================
-   PAGE LAYOUT
-   ============================================================ */
-
 .profile-layout {
     display: grid;
     grid-template-columns: 280px 1fr;
     min-height: calc(100vh - 80px);
 }
-
-/* ============================================================
-   ASIDE
-   ============================================================ */
 
 .profile-aside {
     background-color: var(--color-surface);
@@ -84,10 +70,6 @@
     color: var(--color-muted);
     letter-spacing: 0.04em;
 }
-
-/* ============================================================
-   ASIDE NAV — panel triggers
-   ============================================================ */
 
 .aside-nav {
     flex: 1;
@@ -126,7 +108,6 @@
     font-weight: 500;
 }
 
-/* Accent bar on active trigger */
 .aside-trigger.active::before {
     content: '';
     position: absolute;
@@ -157,16 +138,11 @@
     color: var(--color-danger);
 }
 
-/* ============================================================
-   MAIN + PANELS
-   ============================================================ */
-
 .profile-main {
     padding: 3rem 4rem;
     background-color: var(--color-bg);
 }
 
-/* All panels hidden by default */
 .profile-panel {
     display: none;
     flex-direction: column;
@@ -174,7 +150,7 @@
     animation: fadeIn 0.2s ease;
 }
 
-/* Only the active panel is visible */
+
 .profile-panel.active {
     display: flex;
 }
@@ -183,10 +159,6 @@
     from { opacity: 0; transform: translateY(6px); }
     to   { opacity: 1; transform: translateY(0); }
 }
-
-/* ============================================================
-   OVERVIEW PANEL
-   ============================================================ */
 
 .profile-greeting h1 {
     font-family: var(--font-display);
@@ -227,10 +199,6 @@
     padding-bottom: 1rem;
     border-bottom: 1px solid var(--color-border);
 }
-
-/* ============================================================
-   ORDER CARDS
-   ============================================================ */
 
 .orders-section {
     display: flex;
@@ -311,10 +279,6 @@
     letter-spacing: 0.04em;
 }
 
-/* ============================================================
-   PROFILE FORM (personal information panel)
-   ============================================================ */
-
 .profile-form {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -322,7 +286,6 @@
     max-width: 700px;
 }
 
-/* Save button spans full width */
 .profile-form .save-btn {
     grid-column: 1 / -1;
 }
@@ -394,10 +357,6 @@
     background-color: var(--color-accent);
 }
 
-/* ============================================================
-   LOYALTY POINTS PANEL
-   ============================================================ */
-
 .points-display {
     display: flex;
     flex-direction: column;
@@ -437,10 +396,6 @@
     border-color: var(--color-accent);
 }
 
-/* ============================================================
-   WISHLIST PANEL
-   ============================================================ */
-
 .wishlist-list {
     list-style: none;
     display: grid;
@@ -474,10 +429,6 @@
     font-weight: 400;
 }
 
-/* ============================================================
-   CONTACT PANEL
-   ============================================================ */
-
 .contact-form {
     display: flex;
     flex-direction: column;
@@ -499,19 +450,12 @@
     letter-spacing: 0.04em;
 }
 
-/* ============================================================
-   SHARED
-   ============================================================ */
-
 .empty-note {
     font-size: 0.88rem;
     color: var(--color-muted);
     font-style: italic;
 }
 
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
 
 @media (max-width: 900px) {
     .profile-layout {

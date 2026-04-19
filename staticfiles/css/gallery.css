@@ -125,7 +125,6 @@
     transition: background-color var(--transition),
                 border-color var(--transition),
                 transform var(--transition);
-    /* Keep arrows outside the image area */
     flex-shrink: 0;
 }
 

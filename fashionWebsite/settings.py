@@ -36,9 +36,10 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'django.contrib.staticfiles',
     'cloudinary_storage',
     'cloudinary',
-    'django.contrib.staticfiles',
+
 ] + MY_APPS
 
 
@@ -132,7 +133,7 @@ STORAGES = {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
     },
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
     },
     "staticfiles_manifest": {
         "BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage",
@@ -144,8 +145,10 @@ CLOUDINARY_STORAGE = {
     'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
     'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
     'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
+    "STATICFILES": False,
 }
 
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 cloudinary.config(
     cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME'),
@@ -154,6 +157,9 @@ cloudinary.config(
     secure=True,
 )
 
+WHITENOISE_SKIP_COMPRESS_EXTENSIONS = [
+    'html', 'map', 'gz', 'br'
+]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
