@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class LookbookImage(models.Model):
     image = models.ImageField(upload_to="lookbook/")
     caption = models.CharField(max_length=200, blank=True)

@@ -7,4 +7,6 @@ class GarmentImage(models.Model):
         on_delete=models.CASCADE,
         related_name="images",
     )
-    image = models.ImageField(upload_to="garments/")
+    image = models.ImageField(
+        upload_to="garmentImages/",
+    )
