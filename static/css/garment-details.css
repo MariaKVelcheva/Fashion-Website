@@ -49,10 +49,6 @@ main {
     margin: 0 auto;
 }
 
-/* ============================================================
-   Add to garment-details.css AND garments-all.css
-   ============================================================ */
-
 .wishlist-btn {
     background: rgba(247, 244, 240, 0.85);
     backdrop-filter: blur(4px);

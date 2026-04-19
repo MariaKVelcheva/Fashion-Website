@@ -5,6 +5,7 @@ from fashionWebsite.clothes import views
 urlpatterns = [
     path("gallery/", views.GalleryView.as_view(), name="gallery"),
     path("new/", views.NewArrivalsView.as_view(), name="new"),
+    path("trending/", views.TrendingView.as_view(), name="trending"),
     path("all-categories/", views.CategoryCatalogueView.as_view(), name="all-categories"),
     path("all-products/", views.GarmentCatalogueView.as_view(), name="all-garments"),
     path("product/<slug:slug>/details/", views.DetailsGarmentView.as_view(), name="details-garment"),

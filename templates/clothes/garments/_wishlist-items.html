@@ -3,7 +3,6 @@
         {% for item in wishlist_items %}
             <li class="wishlist-card" id="wishlist-item-{{ item.garment.id }}">
 
-                {# Image #}
                 <a href="{% url 'details-garment' item.garment.slug %}"
                    class="wishlist-card-image">
                     {% if item.garment.main_image %}
@@ -11,8 +10,6 @@
                              alt="{{ item.garment.name }}">
                     {% endif %}
                 </a>
-
-                {# Info #}
                 <div class="wishlist-card-info">
                     <a href="{% url 'details-garment' item.garment.slug %}"
                        class="wishlist-card-name">
@@ -47,7 +44,6 @@
     </div>
 {% endif %}
 
-{# ---- Remove JS ---- #}
 <script>
 if (!window._wishlistRemoveInitialised) {
     window._wishlistRemoveInitialised = true;

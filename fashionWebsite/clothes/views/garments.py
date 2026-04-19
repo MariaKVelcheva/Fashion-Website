@@ -168,6 +168,7 @@ class NewArrivalsView(ListView):
 
 class TrendingView(ListView):
     model = Garment
+    template_name = "clothes/garments/trending.html"
     context_object_name = "garments"
 
     def get_queryset(self):

@@ -123,7 +123,7 @@
     border-color: var(--color-accent);
 }
 
-/* Checkbox rows */
+
 .filter-check {
     display: flex;
     align-items: center;
@@ -324,7 +324,6 @@
 .result-stock--in  { color: var(--color-success); }
 .result-stock--out { color: var(--color-danger); }
 
-/* ---- Empty state ---- */
 .results-empty {
     display: flex;
     flex-direction: column;

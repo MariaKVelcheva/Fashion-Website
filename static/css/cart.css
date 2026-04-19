@@ -488,7 +488,6 @@ h3 {
     border-color: var(--color-accent);
 }
 
-/* Red highlight for fields with errors */
 .field--error input,
 .field--error textarea {
     border-color: var(--color-danger);
@@ -531,4 +530,43 @@ h3 {
 .save-profile-btn:hover {
     border-color: var(--color-text);
     background-color: var(--color-bg);
+}
+
+@media (max-width: 900px) {
+    .cart-layout {
+        flex-direction: column;
+        padding: 0 1.5rem 3rem;
+        gap: 2rem;
+    }
+
+    .payment-options {
+        flex: none;
+        width: 100%;
+        position: static;
+    }
+
+    .title {
+        padding: 2rem 1.5rem 0.5rem;
+    }
+
+    h3 {
+        padding: 0.6rem 1.5rem 1.5rem;
+    }
+
+    .gallery {
+        padding: 1rem;
+        max-height: none;    /* remove height limit on mobile */
+        overflow-y: visible;
+    }
+}
+
+@media (max-width: 480px) {
+    .item-card {
+        flex-direction: column;
+    }
+
+    .item-image {
+        width: 100%;
+        height: 220px;
+    }
 }
