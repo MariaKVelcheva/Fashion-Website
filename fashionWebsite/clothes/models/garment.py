@@ -1,6 +1,4 @@
 from datetime import timedelta
-from decimal import Decimal
-
 from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
@@ -38,8 +36,7 @@ class Garment(models.Model):
     price = models.DecimalField(
         max_digits=10,
         decimal_places=2,
-        null=True,
-        blank=True,
+        default=0,
     )
 
     created_at = models.DateTimeField(

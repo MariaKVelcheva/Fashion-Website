@@ -1,15 +1,10 @@
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
-from django.views.generic import UpdateView, DetailView, FormView
+from django.views.generic import UpdateView
 from django.urls import reverse_lazy
-from werkzeug.utils import redirect
-
 from fashionWebsite.accounts.forms import UpdateCustomerForm
 from fashionWebsite.accounts.models import Customer
 from fashionWebsite.common.forms import ContactForm
-from fashionWebsite.orders.utils import get_or_create_cart
 
 
 class UpdateCustomerView(LoginRequiredMixin, UpdateView):

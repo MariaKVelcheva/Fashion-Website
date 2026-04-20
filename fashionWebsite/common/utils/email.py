@@ -12,13 +12,16 @@ def send_custom_email(subject, message, recipient_list, html_message=None, reply
         to=recipient_list,
         reply_to=[reply_to] if reply_to else None,
     )
+
     if html_message:
         email.attach_alternative(html_message, "text/html")
+
     email.send(fail_silently=False)
 
 
 def send_html_email(subject, template_name, context, recipient_list):
     html_content = render_to_string(template_name, context)
+
     text_content = strip_tags(html_content)
 
     email = EmailMultiAlternatives(
@@ -27,6 +30,8 @@ def send_html_email(subject, template_name, context, recipient_list):
         from_email=settings.DEFAULT_FROM_EMAIL,
         to=recipient_list,
     )
+
     email.attach_alternative(html_content, "text/html")
+
     email.send(fail_silently=False)
 

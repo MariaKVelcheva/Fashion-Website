@@ -4,9 +4,7 @@ from fashionWebsite.clothes.models import Category, Size, Color, Garment, Produc
 
 @admin.register(LookbookImage)
 class LookbookImageAdmin(admin.ModelAdmin):
-    list_display = ("__str__", "order")
-    list_editable = ("order",)
-    ordering = ("order",)
+    list_display = ("__str__",)
 
 
 @admin.register(Category)

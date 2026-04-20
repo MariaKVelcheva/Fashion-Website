@@ -87,3 +87,4 @@ class NewsletterSubscribeView(FormView):
 
     def get(self, request, *args, **kwargs):
         return redirect("home")
+

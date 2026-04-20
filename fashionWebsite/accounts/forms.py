@@ -16,12 +16,12 @@ class AppUserCreationForm(UserCreationForm):
 
     password1 = forms.CharField(
         widget=forms.PasswordInput(attrs={
-            'placeholder': 'Password',
+            "placeholder": "Password",
         })
     )
     password2 = forms.CharField(
         widget=forms.PasswordInput(attrs={
-            'placeholder': 'Confirm Password',
+            "placeholder": "Confirm Password",
         })
     )
 

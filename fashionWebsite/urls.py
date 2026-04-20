@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from django.conf import settings
-from django.conf.urls.static import static
+
 
 urlpatterns = [
     path('', include("fashionWebsite.common.urls")),
@@ -10,6 +9,7 @@ urlpatterns = [
     path('clothes/', include("fashionWebsite.clothes.urls")),
     path('orders/', include("fashionWebsite.orders.urls")),
     path('accounts/', include('allauth.urls')),
+    path("reviews/", include("fashionWebsite.reviews.urls")),
 ]
 
 

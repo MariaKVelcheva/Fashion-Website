@@ -1,6 +1,5 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.core.validators import MinLengthValidator
 from django.db import models
 
 from fashionWebsite.accounts.validators import name_validator

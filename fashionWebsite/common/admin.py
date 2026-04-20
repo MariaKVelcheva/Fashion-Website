@@ -10,3 +10,4 @@ class NewsletterSubscriberAdmin(admin.ModelAdmin):
     search_fields = ("email",)
     list_editable = ("is_active",)
     ordering = ("-subscribed_at",)
+

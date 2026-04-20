@@ -17,7 +17,7 @@ def create_test_garment():
     garment = Garment.objects.create(
         name="Test Dress",
         slug="test-dress",
-        price=Decimal("50.00"),
+        price=Decimal("50.0"),
     )
     garment.category.add(category)
     product = Product.objects.create(
@@ -31,10 +31,10 @@ def create_test_garment():
 
 def create_complete_customer(user):
     customer, _ = Customer.objects.get_or_create(user=user)
-    customer.first_name = "Jane"
-    customer.last_name = "Doe"
-    customer.address = "123 Main St"
-    customer.telephone_number = "0612345678"
+    customer.first_name = "Ivan"
+    customer.last_name = "Ivanov"
+    customer.address = "123 Sophia"
+    customer.telephone_number = "123456789"
     customer.save()
     return customer
 
@@ -42,24 +42,23 @@ def create_complete_customer(user):
 class OrderItemTest(TestCase):
     def setUp(self):
         self.user = AppUser.objects.create_user(
-            email="test@example.com",
-            password="testpass123",
+            email="test@test.com",
+            password="testingtest123",
         )
         _, self.product = create_test_garment()
         self.order = Order.objects.create(
             customer=self.user,
             status="pending",
-            total_amount=Decimal("0.00"),
-        )
+            total_amount=Decimal("0.0"),)
 
     def test_line_total(self):
         item = OrderItem.objects.create(
             order=self.order,
             product=self.product,
             quantity=3,
-            unit_price=Decimal("50.00"),
-        )
-        self.assertEqual(item.line_total, Decimal("150.00"))
+            unit_price=Decimal("50.00"),)
+
+        self.assertEqual(item.line_total, Decimal("150.0"))
 
     def test_update_order_total(self):
         OrderItem.objects.create(
@@ -68,6 +67,7 @@ class OrderItemTest(TestCase):
             quantity=2,
             unit_price=Decimal("50.00"),
         )
+
         update_order_total(self.order)
         self.order.refresh_from_db()
         self.assertEqual(self.order.total_amount, Decimal("100.00"))
@@ -76,8 +76,8 @@ class OrderItemTest(TestCase):
 class GetOrCreateCartTest(TestCase):
     def setUp(self):
         self.user = AppUser.objects.create_user(
-            email="test@example.com",
-            password="testpass123",
+            email="test@test.com",
+            password="testingtest123",
         )
 
     def test_creates_pending_order_if_none_exists(self):
@@ -89,8 +89,9 @@ class GetOrCreateCartTest(TestCase):
         existing = Order.objects.create(
             customer=self.user,
             status="pending",
-            total_amount=Decimal("0.00"),
+            total_amount=Decimal("0.0"),
         )
+
         order = get_or_create_cart(self.user)
         self.assertEqual(order.id, existing.id)
 
@@ -98,8 +99,9 @@ class GetOrCreateCartTest(TestCase):
         Order.objects.create(
             customer=self.user,
             status="confirmed",
-            total_amount=Decimal("50.00"),
+            total_amount=Decimal("50.0"),
         )
+
         order = get_or_create_cart(self.user)
         self.assertEqual(order.status, "pending")
 
@@ -107,10 +109,12 @@ class GetOrCreateCartTest(TestCase):
 class AddToCartViewTest(TestCase):
     def setUp(self):
         self.client = Client()
+
         self.user = AppUser.objects.create_user(
-            email="test@example.com",
-            password="testpass123",
+            email="test@test.com",
+            password="testingtest123",
         )
+
         self.garment, self.product = create_test_garment()
 
     def test_anonymous_user_add_to_session_cart(self):
@@ -119,14 +123,15 @@ class AddToCartViewTest(TestCase):
             {
                 "color": self.product.color.id,
                 "size": self.product.size.id,
-            }
-        )
+            })
+
         self.assertEqual(response.status_code, 200)
         cart = self.client.session.get("cart", {})
         self.assertIn(str(self.product.id), cart)
 
     def test_authenticated_user_add_to_db_cart(self):
-        self.client.login(username="test@example.com", password="testpass123")
+        self.client.login(username="test@test.com", password="testingtest123")
+
         response = self.client.post(
             reverse("add-to-cart", kwargs={"garment_id": self.garment.id}),
             {
@@ -134,6 +139,7 @@ class AddToCartViewTest(TestCase):
                 "size": self.product.size.id,
             }
         )
+
         self.assertEqual(response.status_code, 200)
         order = Order.objects.filter(customer=self.user, status="pending").first()
         self.assertIsNotNone(order)
@@ -142,23 +148,24 @@ class AddToCartViewTest(TestCase):
     def test_out_of_stock_returns_error(self):
         self.product.stock = 0
         self.product.save()
+
         response = self.client.post(
             reverse("add-to-cart", kwargs={"garment_id": self.garment.id}),
             {
                 "color": self.product.color.id,
                 "size": self.product.size.id,
-            }
-        )
+            })
+
         self.assertEqual(response.status_code, 400)
         data = response.json()
         self.assertIn("error", data)
 
     def test_auto_select_single_color_and_size(self):
-        self.client.login(username="test@example.com", password="testpass123")
+        self.client.login(username="test@test.com", password="testingtest123")
+
         response = self.client.post(
-            reverse("add-to-cart", kwargs={"garment_id": self.garment.id}),
-            {}
-        )
+            reverse("add-to-cart", kwargs={"garment_id": self.garment.id}), {})
+
         self.assertEqual(response.status_code, 200)
         data = response.json()
         self.assertTrue(data.get("success"))
@@ -167,27 +174,32 @@ class AddToCartViewTest(TestCase):
 class CheckoutViewTest(TestCase):
     def setUp(self):
         self.client = Client()
+
         self.user = AppUser.objects.create_user(
-            email="test@example.com",
-            password="testpass123",
+            email="test@test.com",
+            password="testingtest123",
         )
+
         self.customer = create_complete_customer(self.user)
         self.garment, self.product = create_test_garment()
-        self.client.login(username="test@example.com", password="testpass123")
+        self.client.login(username="test@test.com", password="testingtest123")
 
         self.order = get_or_create_cart(self.user)
+
         OrderItem.objects.create(
             order=self.order,
             product=self.product,
             quantity=1,
             unit_price=self.product.garment.price,
         )
+
         update_order_total(self.order)
 
     def test_checkout_confirms_order(self):
         response = self.client.post(reverse("checkout"), {
             "payment_type": "pod",
         })
+
         self.order.refresh_from_db()
         self.assertEqual(self.order.status, "confirmed")
 
@@ -203,33 +215,47 @@ class CheckoutViewTest(TestCase):
 
     def test_checkout_blocked_if_profile_incomplete(self):
         self.customer.first_name = ""
+
         self.customer.save()
+
         response = self.client.post(reverse("checkout"), {"payment_type": "pod"})
         self.assertRedirects(response, reverse("cart"))
+
         self.order.refresh_from_db()
+
         self.assertEqual(self.order.status, "pending")
 
     def test_checkout_blocked_if_cart_empty(self):
         self.order.items.all().delete()
+
         response = self.client.post(reverse("checkout"), {"payment_type": "pod"})
+
         self.assertRedirects(response, reverse("cart"))
 
     def test_checkout_blocked_if_insufficient_stock(self):
         self.product.stock = 0
+
         self.product.save()
+
         response = self.client.post(reverse("checkout"), {"payment_type": "pod"})
         self.order.refresh_from_db()
+
         self.assertEqual(self.order.status, "pending")
 
     def test_checkout_awards_loyalty_points(self):
         initial_points = self.user.loyalty_points
+
         self.client.post(reverse("checkout"), {"payment_type": "pod"})
+
         self.user.refresh_from_db()
+
         self.assertGreater(self.user.loyalty_points, initial_points)
 
     def test_unauthenticated_checkout_redirects_to_login(self):
         self.client.logout()
+
         response = self.client.post(reverse("checkout"), {"payment_type": "pod"})
+
         self.user.refresh_from_db()
         self.assertRedirects(response, reverse("login"))
 
@@ -237,18 +263,24 @@ class CheckoutViewTest(TestCase):
 class MergeSessionCartTest(TestCase):
     def setUp(self):
         self.user = AppUser.objects.create_user(
-            email="merge@example.com",
-            password="testpass123",
+            email="test@test.com",
+            password="testingtest123",
         )
-        category = Category.objects.create(name="Tops", slug="tops")
+
+        category = Category.objects.create(name="Shirts", slug="shirts")
+
         color = Color.objects.create(name="Green", hex_code="#00ff00")
+
         size = Size.objects.create(name="L")
+
         self.garment = Garment.objects.create(
-            name="Green Top",
-            slug="green-top",
-            price=Decimal("30.00"),
+            name="Green Shirt",
+            slug="green-shirt",
+            price=Decimal("30.0"),
         )
+
         self.garment.category.add(category)
+
         self.product = Product.objects.create(
             garment=self.garment,
             color=color,
@@ -258,45 +290,54 @@ class MergeSessionCartTest(TestCase):
 
     def test_session_cart_merges_on_login(self):
         session = self.client.session
+
         session["cart"] = {str(self.product.id): 2}
+
         session.save()
 
         self.client.post(reverse("login"), {
-            "username": "merge@example.com",
-            "password": "testpass123",
+            "username": "test@test.com",
+            "password": "testingtest123",
         })
 
         order = get_or_create_cart(self.user)
+
         item = order.items.filter(product=self.product).first()
+
         self.assertIsNotNone(item)
+
         self.assertEqual(item.quantity, 2)
 
     def test_session_cart_cleared_after_login(self):
         session = self.client.session
+
         session["cart"] = {str(self.product.id): 1}
+
         session.save()
 
         self.client.post(reverse("login"), {
-            "username": "merge@example.com",
-            "password": "testpass123",
+            "username": "test@test.com",
+            "password": "testingtest123",
         })
 
         self.assertNotIn("cart", self.client.session)
 
     def test_empty_session_cart_does_nothing(self):
         self.client.post(reverse("login"), {
-            "username": "merge@example.com",
-            "password": "testpass123",
+            "username": "test@test.com",
+            "password": "testingtest123",
         })
 
         order = Order.objects.filter(
             customer=self.user,
             status="pending"
         ).first()
+
         self.assertIsNone(order)
 
     def test_merge_increments_existing_db_item(self):
         order = get_or_create_cart(self.user)
+
         OrderItem.objects.create(
             order=order,
             product=self.product,
@@ -304,16 +345,21 @@ class MergeSessionCartTest(TestCase):
             unit_price=self.product.garment.price,
         )
 
-        # Session has 3 more of the same product
         session = self.client.session
+
         session["cart"] = {str(self.product.id): 3}
+
         session.save()
 
         self.client.post(reverse("login"), {
-            "username": "merge@example.com",
-            "password": "testpass123",
+            "username": "test@test.com",
+            "password": "testingtest123",
         })
 
         order.refresh_from_db()
+
         item = order.items.filter(product=self.product).first()
+
         self.assertEqual(item.quantity, 4)
+
+

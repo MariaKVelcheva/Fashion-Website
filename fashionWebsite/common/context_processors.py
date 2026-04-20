@@ -21,3 +21,4 @@ def global_filters(request):
         'sizes': Size.objects.all(),
         'cart_count': cart_count,
     }
+

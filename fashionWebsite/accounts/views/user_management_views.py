@@ -1,5 +1,4 @@
 from urllib.parse import urlparse
-
 from django.contrib import messages
 from django.contrib.auth import get_user_model, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -7,7 +6,6 @@ from django.contrib.auth.views import LogoutView, LoginView
 from django.http import HttpResponseRedirect, JsonResponse
 from django.views.generic import CreateView, DeleteView
 from django.urls import reverse_lazy
-
 from fashionWebsite.accounts.forms import AppUserCreationForm, LoginForm
 from fashionWebsite.clothes.models import Product
 from fashionWebsite.orders.models import OrderItem

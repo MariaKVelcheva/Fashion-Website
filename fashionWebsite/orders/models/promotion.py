@@ -21,6 +21,7 @@ class Promotion(models.Model):
     discount_percent = models.DecimalField(max_digits=5, decimal_places=2)
 
     valid_from = models.DateTimeField()
+
     valid_until = models.DateTimeField()
 
     min_order_amount = models.DecimalField(
@@ -31,6 +32,7 @@ class Promotion(models.Model):
     )
 
     max_uses = models.PositiveIntegerField(null=True, blank=True)
+
     times_used = models.PositiveIntegerField(default=0)
 
     garments = models.ManyToManyField(
@@ -60,9 +62,9 @@ class Promotion(models.Model):
         return self.is_active and not self.is_exhausted
 
     def apply_to_order(self, order):
-        """Returns the discounted total for a given order."""
         discount = order.total_amount * (self.discount_percent / 100)
         return max(order.total_amount - discount, 0)
 
     def __str__(self):
         return f"{self.code} ({self.discount_percent}%)"
+

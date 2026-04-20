@@ -1,15 +1,10 @@
 from fashionWebsite.common.tasks import send_email_task
-from django.contrib.auth.models import Group
-from django.dispatch import receiver
 from django.db.models.signals import post_save, post_migrate
-from django.conf import settings
-from fashionWebsite.accounts.models import Customer
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.conf import settings
 from django.contrib.auth.models import Group
 from fashionWebsite.accounts.models import Customer
-from fashionWebsite.common.utils.email import send_custom_email, send_html_email
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
@@ -18,7 +13,8 @@ def create_customer_and_assign_group(sender, instance, created, **kwargs):
         customer_group, _ = Group.objects.get_or_create(name="Customers")
         instance.groups.add(customer_group)
 
-        first = last = ""
+        first, last = "", ""
+
         try:
             social_account = instance.socialaccount_set.first()
             if social_account:

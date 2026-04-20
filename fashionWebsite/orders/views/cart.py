@@ -11,11 +11,8 @@ from fashionWebsite.orders.models import OrderItem, Order
 from fashionWebsite.orders.utils import get_or_create_cart, update_order_total
 from fashionWebsite.common.tasks import send_email_task
 import stripe
-from django.conf import settings
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import redirect
-from django.contrib import messages
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
