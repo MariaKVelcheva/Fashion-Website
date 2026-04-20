@@ -96,14 +96,11 @@ WSGI_APPLICATION = 'fashionWebsite.wsgi.application'
 
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("PGDATABASE", "fashion_db"),
-        "USER": os.getenv("PGUSER", "postgres"),
-        "PASSWORD": os.getenv("PGPASSWORD", "new_password"),
-        "HOST": os.getenv("PGHOST", "localhost"),
-        "PORT": os.getenv("PGPORT", "5432"),
-    }
+    "default": dj_database_url.config(
+        env="DATABASE_PUBLIC_URL",
+        default="postgresql://postgres:new_password@localhost:5432/fashion_db",
+        conn_max_age=600,
+    )
 }
 
 
