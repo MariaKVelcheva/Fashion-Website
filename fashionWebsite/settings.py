@@ -96,9 +96,9 @@ WSGI_APPLICATION = 'fashionWebsite.wsgi.application'
 
 DATABASES = {
     "default": dj_database_url.config(
+        env="POSTGRES_URL",
         default="postgresql://postgres:new_password@localhost:5432/fashion_db",
         conn_max_age=600,
-        ssl_require=True,
     )
 }
 
