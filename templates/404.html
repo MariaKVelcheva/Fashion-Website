@@ -1,0 +1,119 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ella Prime — Page not found</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        body {
+            background-color: #f7f4f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .error-page {
+            text-align: center;
+            padding: 2rem;
+            max-width: 560px;
+        }
+
+        .error-code {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: clamp(6rem, 20vw, 12rem);
+            font-weight: 300;
+            font-style: italic;
+            color: #e4ddd5;
+            line-height: 1;
+            margin-bottom: 0;
+        }
+
+        .error-title {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            font-weight: 300;
+            font-style: italic;
+            color: #1a1714;
+            margin-bottom: 1rem;
+        }
+
+        .error-message {
+            font-size: 0.88rem;
+            font-weight: 300;
+            color: #8a8078;
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+        }
+
+        .error-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            max-width: 280px;
+            margin: 0 auto;
+        }
+
+        .error-btn {
+            display: block;
+            padding: 0.9rem;
+            background-color: #1a1714;
+            color: #f7f4f0;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+        }
+
+        .error-btn:hover {
+            background-color: #b85c38;
+        }
+
+        .error-btn--ghost {
+            background-color: transparent;
+            color: #1a1714;
+            border: 1px solid #e4ddd5;
+        }
+
+        .error-btn--ghost:hover {
+            background-color: #f7f4f0;
+            border-color: #1a1714;
+        }
+
+        .error-logo {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            letter-spacing: 0.08em;
+            color: #1a1714;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 3rem;
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Cinzel&family=DM+Sans:wght@300;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="error-page">
+        <a href="{% url 'home' %}" class="error-logo">EllaPrimE</a>
+
+        <p class="error-code">404</p>
+        <h1 class="error-title">Page not found</h1>
+        <p class="error-message">
+            The page you're looking for doesn't exist or has been moved.
+            Let us help you find what you're looking for.
+        </p>
+
+        <div class="error-actions">
+            <a href="{% url 'home' %}" class="error-btn">Go to homepage</a>
+            <a href="{% url 'all-garments' %}" class="error-btn error-btn--ghost">Browse collection</a>
+        </div>
+    </div>
+</body>
+</html>
