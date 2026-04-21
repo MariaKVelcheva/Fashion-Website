@@ -4,7 +4,7 @@
     "builder": "NIXPACKS"
   },
   "deploy": {
-    "startCommand": "$START_COMMAND",
+    "startCommand": "celery -A fashionWebsite worker --loglevel=info",
     "restartPolicyType": "ON_FAILURE"
   }
 }

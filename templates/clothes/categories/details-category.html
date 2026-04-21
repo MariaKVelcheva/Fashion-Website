@@ -5,13 +5,10 @@
 {% endblock %}
 
 {% block content %}
-<h1>{{ category.name }}</h1>
-
-{% if garments %}
-<section class="catalogue-header">
+    <section class="catalogue-header">
     <h2>Our {{ category.name }} collection</h2>
 </section>
-
+{% if garments %}
 <section class="catalogue">
  {% include "clothes/garments/garments.html" %}
     {% else %}
