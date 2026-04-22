@@ -21,9 +21,11 @@ CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS", "").split(",")
 
 MY_APPS = [
     "fashionWebsite.accounts.apps.AccountsConfig",
-    "fashionWebsite.clothes",
-    "fashionWebsite.common",
+    "fashionWebsite.clothes.apps.ClothesConfig",
+    "fashionWebsite.common.apps.CommonConfig",
     "fashionWebsite.orders.apps.OrdersConfig",
+    "fashionWebsite.reviews.apps.ReviewsConfig",
+    "fashionWebsite.promotions.apps.PromotionsConfig",
 ]
 
 
