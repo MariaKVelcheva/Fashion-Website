@@ -36,7 +36,7 @@ class Order(models.Model):
     )
 
     promotion = models.ForeignKey(
-        to="orders.Promotion",
+        to="promotions.Promotion",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,

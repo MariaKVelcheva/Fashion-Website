@@ -396,6 +396,8 @@
     border-color: var(--color-accent);
 }
 
+
+
 .wishlist-list {
     list-style: none;
     display: grid;
@@ -490,3 +492,4 @@
         grid-template-columns: 1fr;
     }
 }
+

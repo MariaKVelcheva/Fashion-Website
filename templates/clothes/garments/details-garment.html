@@ -94,6 +94,8 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
+                        const badge = document.querySelector(".cart-badge");
+                    if (badge) badge.textContent = data.cart_count;
                     showToast(data.message, "success");
                 } else {
                     showToast(data.error, "error");
@@ -165,6 +167,8 @@ function getCSRFToken() {
         .find(row => row.startsWith("csrftoken"))
         ?.split("=")[1];
 }
+
+
 
 const productData = [
     {% for product in products %}

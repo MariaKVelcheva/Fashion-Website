@@ -24,6 +24,8 @@ MY_APPS = [
     "fashionWebsite.clothes",
     "fashionWebsite.common",
     "fashionWebsite.orders.apps.OrdersConfig",
+    "fashionWebsite.promotions"
+    "fashionWebsite.reviews.apps.ReviewsConfig",
 ]
 
 

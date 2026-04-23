@@ -49,7 +49,24 @@
             </div>
             {% endfor %}
 
-            <div class="order-total">
+<div class="checkout-info">
+{% if user.is_authenticated %}
+<div class="promo-section">
+    {% if order.promotion %}
+        <p class="promo-applied">
+            ✓ Promo code <strong>{{ order.promotion.code }}</strong> applied 
+            ({{ order.promotion.discount_percent }}% off)
+        </p>
+    {% else %}
+        <div class="promo-row">
+            <input type="text" id="promo-input" placeholder="Promo code" class="promo-input">
+            <button id="promo-btn" class="promo-btn">Apply</button>
+        </div>
+        <p id="promo-message" class="promo-message"></p>
+    {% endif %}
+</div>
+{% endif %}
+                <div class="order-total">
                 <strong>
                     Total:
                     {% if session_cart %}
@@ -60,6 +77,8 @@
                     €
                 </strong>
             </div>
+
+</div>
 
             {% if delivery_gap %}
                 <p class="delivery-message">
@@ -138,6 +157,45 @@ document.addEventListener("DOMContentLoaded", function () {
         return cookie ? cookie.split("=")[1] : "";
     }
 
+    const promoBtn = document.getElementById("promo-btn");
+
+if (promoBtn) {
+    promoBtn.addEventListener("click", function () {
+        const code = document.getElementById("promo-input").value.trim();
+        const messageEl = document.getElementById("promo-message");
+
+        if (!code) {
+            messageEl.textContent = "Please enter a promo code.";
+            messageEl.className = "promo-message promo-message--error";
+            return;
+        }
+
+        fetch("{% url 'apply-promo-code' %}", {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": getCSRFToken(),
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: new URLSearchParams({ promo_code: code }),
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                messageEl.textContent = data.message;
+                messageEl.className = "promo-message promo-message--success";
+                document.querySelector(".order-total strong").textContent = 
+                    "Total: " + data.new_total + " €";
+            } else {
+                messageEl.textContent = data.error;
+                messageEl.className = "promo-message promo-message--error";
+            }
+        })
+        .catch(() => {
+            messageEl.textContent = "Something went wrong. Please try again.";
+            messageEl.className = "promo-message promo-message--error";
+        });
+    });
+}
 });
 </script>
 {% endblock %}

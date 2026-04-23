@@ -16,13 +16,6 @@ class OrderItem(models.Model):
 
     quantity = models.PositiveIntegerField()
 
-    promotion = models.ForeignKey(
-        to="orders.Promotion",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-    )
-
     unit_price = models.DecimalField(
         max_digits=10,
         decimal_places=2,

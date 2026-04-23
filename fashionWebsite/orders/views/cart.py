@@ -14,81 +14,124 @@ import stripe
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
+from fashionWebsite.promotions.models import Promotion
+
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
-def add_to_cart(request, garment_id):
+@login_required(login_url="login")
+def apply_promo_code(request):
     if request.method != "POST":
-        return JsonResponse({"error": "Invalid request."}, status=400)
+        return JsonResponse({"error": "Invalid request"}, status=400)
 
-    garment = get_object_or_404(Garment, id=garment_id)
+    promo_code = request.POST.get("promo_code")
 
-    color_id = request.POST.get("color")
-    size_id = request.POST.get("size")
+    promotion = Promotion.objects.filter(code=promo_code, type="code").first()
 
-    available_products = Product.objects.filter(garment=garment, stock__gt=0)
+    if promotion is None:
+        return JsonResponse({"error": "Promotion not found"}, status=400)
 
-    if not color_id:
-        colors = available_products.values_list("color_id", flat=True).distinct()
-        if colors.count() == 1:
-            color_id = colors.first()
-        else:
-            return JsonResponse({"error": "Please select a colour."}, status=400)
+    if promotion.is_valid:
+        order = get_or_create_cart(request.user)
 
-    if not size_id:
-        sizes = available_products.filter(color_id=color_id).values_list("size_id", flat=True).distinct()
-        if sizes.count() == 1:
-            size_id = sizes.first()
-        else:
-            return JsonResponse({"error": "Please select a size."}, status=400)
+        if order.promotion:
+            return JsonResponse({"error": "A promo code is already applied to your order."}, status=400)
 
-    product = get_object_or_404(
-        Product,
-        garment=garment,
-        color_id=color_id,
-        size_id=size_id,
-    )
+        if promotion.min_order_amount and order.total_amount < promotion.min_order_amount:
+            return JsonResponse({"error": "Minimum order amount not reached"}, status=400)
 
-    if product.stock < 1:
-        return JsonResponse({"error": "This item is out of stock."}, status=400)
+        order.promotion = promotion
+        promotion.times_used += 1
+        order.total_amount = promotion.apply_to_order(order)
+        promotion.save()
+        order.save()
 
-    if not request.user.is_authenticated:
-        cart = request.session.get("cart", {})
-        product_id = str(product.id)
-        cart[product_id] = cart.get(product_id, 0) + 1
-        request.session["cart"] = cart
+        return JsonResponse({
+            "success": True,
+            "message": "Promo code applied!",
+            "new_total": str(order.total_amount),
+        })
+    else:
+        return JsonResponse({"error": "Invalid request"}, status=400)
+
+
+def add_to_cart(request, garment_id):
+    try:
+        if request.method != "POST":
+            return JsonResponse({"error": "Invalid request."}, status=400)
+
+        garment = get_object_or_404(Garment, id=garment_id)
+
+        color_id = request.POST.get("color")
+        size_id = request.POST.get("size")
+
+        available_products = Product.objects.filter(garment=garment, stock__gt=0)
+
+        if not color_id:
+            colors = available_products.values_list("color_id", flat=True).distinct()
+            if colors.count() == 1:
+                color_id = colors.first()
+            else:
+                return JsonResponse({"error": "Please select a colour."}, status=400)
+
+        if not size_id:
+            sizes = available_products.filter(color_id=color_id).values_list("size_id", flat=True).distinct()
+            if sizes.count() == 1:
+                size_id = sizes.first()
+            else:
+                return JsonResponse({"error": "Please select a size."}, status=400)
+
+        product = get_object_or_404(
+            Product,
+            garment=garment,
+            color_id=color_id,
+            size_id=size_id,
+        )
+
+        if product.stock < 1:
+            return JsonResponse({"error": "This item is out of stock."}, status=400)
+
+        if not request.user.is_authenticated:
+            cart = request.session.get("cart", {})
+            product_id = str(product.id)
+            cart[product_id] = cart.get(product_id, 0) + 1
+            request.session["cart"] = cart
+            return JsonResponse({
+                "success": True,
+                "message": "Added to cart!",
+                "cart_count": sum(cart.values()),
+            })
+
+        order = get_or_create_cart(request.user)
+
+        order_item, created = OrderItem.objects.get_or_create(
+            order=order,
+            product=product,
+            defaults={
+                "quantity": 1,
+                "unit_price": product.garment.discounted_price or product.garment.price,
+            }
+        )
+
+        if not created:
+            if order_item.quantity + 1 > product.stock:
+                return JsonResponse({"error": "Not enough stock available."}, status=400)
+            order_item.quantity += 1
+            order_item.save()
+
+        update_order_total(order)
+        cart_count = sum(i.quantity for i in order.items.all())
+
         return JsonResponse({
             "success": True,
             "message": "Added to cart!",
-            "cart_count": sum(cart.values()),
+            "cart_count": cart_count,
         })
 
-    order = get_or_create_cart(request.user)
-
-    order_item, created = OrderItem.objects.get_or_create(
-        order=order,
-        product=product,
-        defaults={
-            "quantity": 1,
-            "unit_price": product.garment.price,
-            "promotion": None,
-        }
-    )
-
-    if not created:
-        if order_item.quantity + 1 > product.stock:
-            return JsonResponse({"error": "Not enough stock available."}, status=400)
-        order_item.quantity += 1
-        order_item.save()
-
-    update_order_total(order)
-    cart_count = sum(i.quantity for i in order.items.all())
-
-    return JsonResponse({
-        "success": True,
-        "message": "Added to cart!",
-        "cart_count": cart_count,
-    })
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return JsonResponse({"error": str(e)}, status=500)
 
 
 class CartView(TemplateView):
@@ -183,7 +226,7 @@ def update_customer_form_cart(request):
         "order": order,
         "session_cart": False,
         "profile_complete": False,
-        "customer_form": form,  # form with errors
+        "customer_form": form,
         "delivery_gap": max(0, 60 - order.total_amount) or None,
     })
 

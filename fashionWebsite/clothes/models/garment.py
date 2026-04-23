@@ -54,6 +54,34 @@ class Garment(models.Model):
     def is_available(self):
         return self.products.filter(stock__gt=0).exists()
 
+    @property
+    def discounted_price(self):
+        from fashionWebsite.promotions.models import Promotion
+
+        now = timezone.now()
+
+        garment_promotion = Promotion.objects.filter(
+            garments=self,
+            valid_from__lte=now,
+            valid_until__gte=now,
+            type="garment",
+        ).first()
+
+        category_promotion = Promotion.objects.filter(
+            categories__in=self.category.all(),
+            valid_from__lte=now,
+            valid_until__gte=now,
+            type="category",
+        ).first()
+
+        if garment_promotion and not garment_promotion.is_exhausted:
+            return (1 - garment_promotion.discount_percent * 0.01) * self.price
+
+        if category_promotion and not category_promotion.is_exhausted:
+            return (1 - category_promotion.discount_percent * 0.01) * self.price
+
+        return None
+
     def get_available_colors(self):
         return list({p.color for p in self.products.select_related("color")})
 
