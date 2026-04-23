@@ -1,5 +1,6 @@
 from django.contrib import admin
-from fashionWebsite.orders.models import Order, Promotion, OrderItem
+from fashionWebsite.orders.models import Order, OrderItem
+from fashionWebsite.promotions.models import Promotion
 
 
 class OrderItemInline(admin.TabularInline):
@@ -17,9 +18,4 @@ class OrderAdmin(admin.ModelAdmin):
     readonly_fields = ("created_at", "total_amount")
     ordering = ("-created_at",)
 
-
-@admin.register(Promotion)
-class PromotionAdmin(admin.ModelAdmin):
-    list_display = ("code", "type", "discount_percent", )
-    list_filter = ("type", )
 
