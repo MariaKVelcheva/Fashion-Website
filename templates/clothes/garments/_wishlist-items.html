@@ -15,10 +15,9 @@
                        class="wishlist-card-name">
                         {{ item.garment.name }}
                     </a>
-                    <p class="wishlist-card-price">{{ item.garment.price }} €</p>
-
                     {% if item.garment.is_available %}
-                        <p class="wishlist-stock wishlist-stock--in">Available</p>
+                        <p class="wishlist-stock wishlist-stock--in">Available
+                        {% if item.garment.discounted_price %} <span style="color: #d32828; font-weight: bold"> -- in promo now!</span> {% endif %}</p>
                     {% else %}
                         <p class="wishlist-stock wishlist-stock--out">Out of stock</p>
                     {% endif %}

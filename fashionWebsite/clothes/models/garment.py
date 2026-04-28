@@ -1,4 +1,6 @@
 from datetime import timedelta
+from decimal import Decimal
+
 from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
@@ -55,6 +57,16 @@ class Garment(models.Model):
         return self.products.filter(stock__gt=0).exists()
 
     @property
+    def rating_summary(self):
+        from django.db.models import Avg, Count
+        data = self.reviews.filter(status="approved").aggregate(
+            avg=Avg("rating"), count=Count("id")
+        )
+        if data["count"] and data["count"] >= 3:
+            return data
+        return None
+
+    @property
     def discounted_price(self):
         from fashionWebsite.promotions.models import Promotion
 
@@ -75,10 +87,10 @@ class Garment(models.Model):
         ).first()
 
         if garment_promotion and not garment_promotion.is_exhausted:
-            return (1 - garment_promotion.discount_percent * 0.01) * self.price
+            return round((1 - garment_promotion.discount_percent / Decimal('100')) * self.price, 2)
 
         if category_promotion and not category_promotion.is_exhausted:
-            return (1 - category_promotion.discount_percent * 0.01) * self.price
+            return round((1 - category_promotion.discount_percent / Decimal('100')) * self.price, 2)
 
         return None
 

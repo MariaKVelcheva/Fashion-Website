@@ -42,6 +42,33 @@ a {
     height: 70vh;
 }
 
+.banner {
+    background-color: #1a1714;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 0.5rem 0;
+}
+
+.banner-track {
+    display: inline-flex;
+    gap: 4rem;
+    animation: marquee 18s linear infinite;
+}
+
+.banner-item {
+    color: white;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+}
+
+@keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
 .logo a {
     font-family: "Cinzel", sans-serif;
     font-size: clamp(1.5rem, 4vw, 2.5rem);

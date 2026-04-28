@@ -16,7 +16,14 @@
                         {% else %}
                             <p class="out-stock">Out of stock</p>
                         {% endif %}
-
+                    <h3>
+                        {% if garment.discounted_price %}
+                            <span class="old-price">{{ garment.price }} €</span>
+                            <span class="new-price">{{ garment.discounted_price }} €</span>
+                        {% else %}
+                        {{ garment.price }} €
+                        {% endif %}
+                    </h3>
                         <a href="{% url 'details-garment' garment.slug %}" class="view-btn">View</a>
                     </div>
 

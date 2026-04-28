@@ -3,6 +3,16 @@ from django.conf import settings
 
 
 class Review(models.Model):
+    PENDING = "pending"
+    APPROVED = "approved"
+    REJECTED = "rejected"
+
+    STATUS_CHOICES = (
+        (PENDING, "Pending"),
+        (APPROVED, "Approved"),
+        (REJECTED, "Rejected"),
+    )
+
     garment = models.ForeignKey(
         to="clothes.Garment",
         on_delete=models.CASCADE,
@@ -16,17 +26,23 @@ class Review(models.Model):
     )
 
     rating = models.PositiveSmallIntegerField(
-        choices=[(i, i) for i in range(1, 6)],  # 1-5 stars
+        choices=[(i, i) for i in range(1, 6)],
     )
 
-    body = models.TextField(blank=True)
+    status = models.CharField(
+        max_length=15,
+        choices=STATUS_CHOICES,
+        default="pending",
+    )
+
+    text = models.TextField(blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
 
     verified_purchase = models.BooleanField(default=False)
 
     class Meta:
-        unique_together = ("garment", "user")  # one review per garment per user
+        unique_together = ("garment", "user")
         ordering = ["-created_at"]
 
     def __str__(self):

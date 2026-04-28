@@ -11,6 +11,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
+{% if promo_categories %}
+<div class="banner" style="background-color: #1a1714; padding: 0.5rem">
+        {% for promo in promo_categories %}
+            <span style="color: white; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.2rem">
+                {{ promo.discount_percent|floatformat:"0" }} % off of {{ promo.categories.all|join:"," }}!</span>
+        {% endfor %}
+</div>
+{% endif %}
+
 {% include 'common/nav.html' %}
 <main>
 {% block content %}

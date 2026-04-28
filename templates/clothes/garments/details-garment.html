@@ -1,7 +1,7 @@
 {% extends "common/base.html" %}
 {% load static %}
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/garment-details.css' %}?v=3">
+    <link rel="stylesheet" href="{% static 'css/garment-details.css' %}?v=5">
 {% endblock %}
 
 {% block content %}
@@ -20,7 +20,29 @@
 
 <div class="garment-info">
     <h1>{{ garment.name }}</h1>
-    <h3>{{ garment.price }}</h3>
+    <div class="price-rating">
+        <h3>
+        {% if garment.discounted_price %}
+        <span class="old-price">{{ garment.price }} €</span>
+        <span class="new-price">{{ garment.discounted_price }} €</span>
+        {% else %}
+            {{ garment.price }} €
+        {% endif %}
+    </h3>
+    {% if reviews_num %}
+    <div class="rating-summary">
+    <div class="review-stars">
+        {% for i in "12345" %}
+            {% if forloop.counter <= average_rating %} <i class="fa-solid fa-star"></i>
+            {% else %} <i class="fa-regular fa-star"></i>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <span class="rating-summary-text">
+        {{ average_rating|floatformat:1 }}  ({{ reviews_num }} review{{ reviews_num|pluralize }})</span>
+    </div>
+    {% endif %}
+    </div>
     <div class="cart">
         <form method="post" action="{% url 'add-to-cart' garment.id %}">
     {% csrf_token %}
@@ -67,7 +89,115 @@
             {% endif %}
     </div>
 </div>
+    <div class="reviews">
+    <p class="reviews-section-title">Customer reviews</p>
+<div class="review-form">
+        {% if user.is_authenticated and not user_has_reviewed %}
+                    <form method="post" action="{% url 'review-create' garment.slug %}">
+        {% csrf_token %}
+            <div class="star-container">
+                 <p>Your rating: <span id="rating-number">0</span>/5</p>
+<div class="star-row">
 
+                <span class="rating-star"><i class="fa-solid fa-star"></i></span>
+                <span class="rating-star"><i class="fa-solid fa-star"></i></span>
+                <span class="rating-star"><i class="fa-solid fa-star"></i></span>
+                <span class="rating-star"><i class="fa-solid fa-star"></i></span>
+                <span class="rating-star"><i class="fa-solid fa-star"></i></span>
+</div>
+            </div>
+            <input type="hidden" name="rating" id="rating-input" value="0"/>
+            {{ form.text }}
+
+        <button class="review-submit">Submit your review</button>
+        </form>
+    {% endif %}
+</div>
+    <div class="reviews-display">
+     {% if user_has_reviewed %}
+        <div class="review-card your-review">
+        {% if user_has_reviewed.status == 'pending' %}
+    <span class="review-pending-notice">Awaiting approval</span>
+{% endif %}
+            <p class="your-review-label">Your review</p>
+            <div class="first-row">
+                <h2>{{ user_has_reviewed.user }}</h2>
+                <span>{{ user_has_reviewed.rating }}</span>
+                {% if user_has_reviewed.verified_purchase %}
+                    <span class="verified-purchase"><i class="fa-solid fa-check"></i></span>
+                {% endif %}
+            </div>
+            <div class="review-text">
+                <p>{{ user_has_reviewed.text }}</p>
+                <p>{{ user_has_reviewed.created_at }}</p>
+            </div>
+            <div class="review-management">
+<button type="button" class="delete-review-btn"
+        data-confirm="Are you sure you want to delete your review?"
+        data-form="delete-form-{{ user_has_reviewed.pk }}">
+    Delete review
+</button>
+
+<form method="post"
+      action="{% url 'delete-review' user_has_reviewed.pk %}"
+      id="delete-form-{{ user_has_reviewed.pk }}"
+      style="display:none;">
+    {% csrf_token %}
+</form>
+                <a href="{% url 'update-review' user_has_reviewed.pk %}">Edit</a>
+            </div>
+        </div>
+    {% endif %}
+        {% for review in reviews %}
+            <div class="first-row">
+                <h2>{{ review.user }}</h2>
+                <div class="review-stars">
+    {% for i in "12345" %}
+        {% if forloop.counter <= review.rating %}
+            <i class="fa-solid fa-star"></i>
+        {% else %}
+            <i class="fa-regular fa-star"></i>
+        {% endif %}
+    {% endfor %}
+</div>
+            {% if review.verified_purchase %}
+                <span class="verified-purchase"><i class="fa-solid fa-check"></i></span>
+            {% endif %}
+            </div>
+            <div class="review-text">
+            <p>{{ review.text }}</p>
+            <p>{{ review.created_at }}</p>
+            </div>
+            <div class="review-management">
+            {% if request.user == review.user or request.user.is_superuser %}
+ <button type="button" class="delete-review-btn"
+        data-confirm="Are you sure you want to delete your review?"
+        data-form="delete-form-{{ review.pk }}">
+    Delete review
+</button>
+
+<form method="post"
+      action="{% url 'delete-review' review.pk %}"
+      id="delete-form-{{ review.pk }}"
+      style="display:none;">
+    {% csrf_token %}
+</form>                <a href="{% url 'update-review' review.pk %}">Edit review</a>
+            {% endif %}
+            </div>
+        {% empty %}
+            <p class="no-reviews">Be the first to write a review for this product.</p>
+        {% endfor %}
+    </div>
+    </div>
+<div id="confirm-modal" class="modal-overlay" style="display:none;">
+    <div class="modal-card">
+        <p class="modal-message"></p>
+        <div class="modal-actions">
+            <button class="modal-cancel">Cancel</button>
+            <button class="modal-confirm">Delete</button>
+        </div>
+    </div>
+</div>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -112,6 +242,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function showToast(message, type) {
+
         const existing = document.getElementById("cart-toast");
         if (existing) existing.remove();
 
@@ -151,8 +282,42 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 3000);
     }
 
+    {% if messages %}
+    {% for m in messages %}
+        showToast("{{ m }}", "{{ m.tags }}");
+    {% endfor %}
+{% endif %}
 });
 
+const modal = document.getElementById("confirm-modal");
+const modalMessage = modal.querySelector(".modal-message");
+const modalConfirm = modal.querySelector(".modal-confirm");
+const modalCancel = modal.querySelector(".modal-cancel");
+let pendingForm = null;
+
+document.querySelectorAll("[data-confirm]").forEach(btn => {
+    btn.addEventListener("click", () => {
+        modalMessage.textContent = btn.dataset.confirm;
+        pendingForm = document.getElementById(btn.dataset.form);
+        modal.style.display = "flex";
+    });
+});
+
+modalCancel.addEventListener("click", () => {
+    modal.style.display = "none";
+    pendingForm = null;
+});
+
+modalConfirm.addEventListener("click", () => {
+    if (pendingForm) pendingForm.submit();
+});
+
+modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+        modal.style.display = "none";
+        pendingForm = null;
+    }
+});
 
 document.querySelectorAll(".thumbnail").forEach(img => {
     img.addEventListener("click", function () {
@@ -180,6 +345,33 @@ const productData = [
 ];
 const colorInputs = document.querySelectorAll('input[name="color"]');
 const sizeInputs = document.querySelectorAll('input[name="size"]');
+
+const number = document.getElementById("rating-number");
+const ratingValue = document.getElementById("rating-input");
+const stars = document.querySelectorAll(".rating-star i");
+
+stars.forEach((star, index) => {
+    star.addEventListener("mouseover", () => {
+        for (let i = 0; i < stars.length; i++) {
+            stars[i].style.color = i <= index ? "#b85c38" : "#e4ddd5";
+        }
+    });
+
+    star.addEventListener("mouseout", () => {
+        const current = parseInt(ratingValue.value) - 1;
+        for (let i = 0; i < stars.length; i++) {
+            stars[i].style.color = i <= current ? "#b85c38" : "#e4ddd5";
+        }
+    });
+
+    star.addEventListener("click", () => {
+        number.textContent = (index + 1).toString();
+        ratingValue.value = index + 1;
+        for (let i = 0; i < stars.length; i++) {
+            stars[i].style.color = i <= index ? "#b85c38" : "#e4ddd5";
+        }
+    });
+});
 
 colorInputs.forEach(colorInput => {
     colorInput.addEventListener("change", function () {

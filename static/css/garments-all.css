@@ -39,6 +39,27 @@ body {
 }
 
 
+
+.old-price {
+    text-decoration: line-through;
+    color: var(--color-muted);
+    margin-right: 0.5rem;
+    font-weight: 300;
+}
+
+.new-price {
+    color: var(--color-accent);
+    font-weight: 500;
+}
+
+h3 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+h3 span {
+        font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
 .catalogue-header {
     padding: 3rem 4rem 1rem;
     border-bottom: 1px solid var(--color-border);

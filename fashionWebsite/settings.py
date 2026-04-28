@@ -24,7 +24,7 @@ MY_APPS = [
     "fashionWebsite.clothes",
     "fashionWebsite.common",
     "fashionWebsite.orders.apps.OrdersConfig",
-    "fashionWebsite.promotions",
+    "fashionWebsite.promotions.apps.PromotionsConfig",
     "fashionWebsite.reviews.apps.ReviewsConfig",
 ]
 
@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cloudinary_storage',
     'cloudinary',
-
 ] + MY_APPS
 
 
@@ -173,6 +172,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "accounts.AppUser"
 
 SITE_ID = 1
+LOGIN_URL = reverse_lazy("login")
 LOGIN_REDIRECT_URL = reverse_lazy("home")
 LOGOUT_REDIRECT_URL = reverse_lazy("home")
 

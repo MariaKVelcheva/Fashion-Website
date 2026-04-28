@@ -9,6 +9,7 @@
     --color-accent:      #b85c38;
     --color-accent-dark: #8f3f20;
     --color-success:     #4a7c59;
+    --color-danger:      #9b3a3a;
 
     --font-display: 'Cormorant Garamond', Georgia, serif;
     --font-body:    'DM Sans', sans-serif;
@@ -318,7 +319,7 @@ h3 {
 }
 .order-total {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     padding: 1.4rem 1.6rem;
     background-color: var(--color-surface);
     border: 1px solid var(--color-border);
@@ -326,7 +327,6 @@ h3 {
     font-family: var(--font-display);
     font-size: 1.15rem;
     letter-spacing: 0.02em;
-    margin-top: 0.5rem;
 }
 
 .delivery-message {

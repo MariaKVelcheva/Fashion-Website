@@ -2,12 +2,16 @@ from datetime import timedelta
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Q, Case, When, IntegerField
+from django.db.models import Q, Case, When, IntegerField, F, Avg, Count
 from django.shortcuts import redirect, get_object_or_404
 from django.utils import timezone
 from django.views.generic import DetailView, ListView
 from fashionWebsite.clothes.models import Garment, Color, Size, Category, WishlistItem, LookbookImage
 from django.http import JsonResponse
+
+from fashionWebsite.promotions.models import Promotion
+from fashionWebsite.reviews.forms import ReviewForm
+from fashionWebsite.reviews.models import Review
 
 
 @login_required
@@ -105,9 +109,26 @@ class DetailsGarmentView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        reviews = Review.objects.filter(garment=self.object, status=Review.APPROVED).order_by("-created_at")
+        review_data = reviews.aggregate(
+            average_rating=Avg("rating"),
+            reviews_num=Count("id"),
+        )
+
         context["images"] = self.object.images.all()
         context["products"] = self.object.products.all()
+        context["form"] = ReviewForm()
+        context["reviews"] = reviews
+        context["reviews_num"] = review_data["reviews_num"]
+        context["average_rating"] = review_data["average_rating"]
+
         if self.request.user.is_authenticated:
+            context["user_has_reviewed"] = Review.objects.filter(
+                garment=self.object,
+                user=self.request.user,
+            ).first()
+
             wishlist_ids = WishlistItem.objects.filter(
                 user=self.request.user
             ).values_list('garment_id', flat=True)
@@ -115,6 +136,7 @@ class DetailsGarmentView(DetailView):
             context['user_wishlist'] = list(wishlist_ids)
         else:
             context['user_wishlist'] = []
+            context["user_has_reviewed"] = None
         return context
 
 
@@ -187,4 +209,32 @@ class GalleryView(ListView):
     context_object_name = "images"
     queryset = LookbookImage.objects.all()
 
+
+class PromotionCatalogueView(ListView):
+    model = Garment
+    context_object_name = "garments"
+    template_name = "clothes/garments/promotion-catalogue.html"
+
+    def get_queryset(self):
+        now = timezone.now()
+
+        active_promotions = Promotion.objects.filter(
+            valid_from__lte=now,
+            valid_until__gte=now,
+        ).exclude(
+            max_uses__isnull=False,
+            times_used__gte=F("max_uses"),
+        )
+
+        promo_garments = Garment.objects.filter(
+            promotions__in=active_promotions,
+            promotions__type="garment",
+        )
+
+        promo_categories = Garment.objects.filter(
+            category__promotions__in=active_promotions,
+            category__promotions__type="category",
+        )
+
+        return (promo_garments | promo_categories).distinct()
 

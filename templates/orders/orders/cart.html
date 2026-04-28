@@ -49,37 +49,6 @@
             </div>
             {% endfor %}
 
-<div class="checkout-info">
-{% if user.is_authenticated %}
-<div class="promo-section">
-    {% if order.promotion %}
-        <p class="promo-applied">
-            ✓ Promo code <strong>{{ order.promotion.code }}</strong> applied 
-            ({{ order.promotion.discount_percent }}% off)
-        </p>
-    {% else %}
-        <div class="promo-row">
-            <input type="text" id="promo-input" placeholder="Promo code" class="promo-input">
-            <button id="promo-btn" class="promo-btn">Apply</button>
-        </div>
-        <p id="promo-message" class="promo-message"></p>
-    {% endif %}
-</div>
-{% endif %}
-                <div class="order-total">
-                <strong>
-                    Total:
-                    {% if session_cart %}
-                        {{ total }}
-                    {% else %}
-                        {{ order.total_amount }}
-                    {% endif %}
-                    €
-                </strong>
-            </div>
-
-</div>
-
             {% if delivery_gap %}
                 <p class="delivery-message">
                     Add {{ delivery_gap }} € more for free delivery.
@@ -116,7 +85,38 @@
             <button type="submit" class="save-profile-btn">
                 Save details
             </button>
-        </form>{% if profile_complete %}
+        </form>
+                <div class="checkout-info">
+{% if user.is_authenticated %}
+<div class="promo-section">
+    {% if order.promotion %}
+        <p class="promo-applied">
+            ✓ Promo code <strong>{{ order.promotion.code }}</strong> applied
+            ({{ order.promotion.discount_percent }}% off)
+        </p>
+    {% else %}
+        <div class="promo-row">
+            <input type="text" id="promo-input" placeholder="Promo code" class="promo-input">
+            <button id="promo-btn" class="promo-btn">Apply</button>
+        </div>
+        <p id="promo-message" class="promo-message"></p>
+    {% endif %}
+</div>
+{% endif %}
+                <div class="order-total">
+                <strong>
+                    Total:
+                    {% if session_cart %}
+                        {{ total }}
+                    {% else %}
+                        {{ order.total_amount }}
+                    {% endif %}
+                    €
+                </strong>
+            </div>
+
+</div>
+        {% if profile_complete %}
 
     <form method="post" action="{% url 'checkout' %}">
         {% csrf_token %}

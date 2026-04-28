@@ -13,4 +13,5 @@ urlpatterns = [
     path('search/', views.GarmentSearchView.as_view(), name='garment-search'),
     path('wishlist/toggle/<int:garment_id>/', views.toggle_wishlist, name='toggle-wishlist'),
     path("wishlist/", views.WishlistView.as_view(), name="wishlist"),
+    path("promo/", views.PromotionCatalogueView.as_view(), name="promotion-catalogue"),
 ]
