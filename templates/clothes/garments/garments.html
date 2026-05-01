@@ -1,4 +1,6 @@
-       <div class="garment-grid">
+{% load i18n %}
+
+<div class="garment-grid">
             {% for garment in garments %}
                 <div class="garment-card {% if not garment.is_available %}garment-card--out{% endif %}">
                     
@@ -12,9 +14,9 @@
                         <h3>{{ garment.name }}</h3>
 
                         {% if garment.is_available %}
-                            <p class="in-stock">Available</p>
+                            <p class="in-stock">{% trans 'Available' %}</p>
                         {% else %}
-                            <p class="out-stock">Out of stock</p>
+                            <p class="out-stock">{% trans 'Out of stock' %}</p>
                         {% endif %}
                     <h3>
                         {% if garment.discounted_price %}

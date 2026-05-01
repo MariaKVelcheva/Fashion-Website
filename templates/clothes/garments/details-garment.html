@@ -1,10 +1,22 @@
 {% extends "common/base.html" %}
 {% load static %}
+{% load i18n %}
+
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/garment-details.css' %}?v=5">
 {% endblock %}
 
 {% block content %}
+
+
+<div id="js-translations"
+     data-adding="{% trans 'Adding...' %}"
+     data-add-to-cart="{% trans 'Add to cart' %}"
+     data-something-wrong="{% trans 'Something went wrong.' %}"
+     data-confirm-delete="{% trans 'Are you sure you want to delete your review?' %}"
+     style="display:none;">
+</div>
+    
 <section class="gallery">
     <ul type="none">
         {% for image in images %}
@@ -39,15 +51,18 @@
         {% endfor %}
     </div>
     <span class="rating-summary-text">
-        {{ average_rating|floatformat:1 }}  ({{ reviews_num }} review{{ reviews_num|pluralize }})</span>
+        {{ average_rating|floatformat:1 }}
+        ({% blocktrans count count=reviews_num %}{{ count }} review{% plural %}{{ count }} reviews{% endblocktrans %})
+    </span>
     </div>
     {% endif %}
     </div>
+
     <div class="cart">
         <form method="post" action="{% url 'add-to-cart' garment.id %}">
     {% csrf_token %}
             <div class="option-group">
-                <p>Color:</p>
+                <p>{% trans "Color" %}:</p>
                 <div class="color-grid">
                     {% for color in garment.get_available_colors %}
                         <label class="color-option">
@@ -61,7 +76,7 @@
             </div>
 
             <div class="option-group">
-                <p>Size:</p>
+                <p>{% trans "Size" %}:</p>
                 <div class="size-grid">
                     {% for size in garment.get_available_sizes %}
                         <label class="size-option">
@@ -73,32 +88,34 @@
             </div>
 
             <button id="add-to-cart-btn" data-url="{% url 'add-to-cart' garment.id %}" class="common-button">
-                Add to cart
+                {% trans "Add to cart" %}
             </button>
     </form>
     </div>
+
     <article class="description">
-        <h3>Description and care instructions</h3>
+        <h3>{% trans "Description and care instructions" %}</h3>
         <p>{{ garment.description }}</p>
     </article>
+
     <div class="is_available">
             {% if garment.is_available %}
-                <p class="in-stock">In stock</p>
+                <p class="in-stock">{% trans "In stock" %}</p>
             {% else %}
-                <p class="out-of-stock">Out of stock</p>
+                <p class="out-of-stock">{% trans "Out of stock" %}</p>
             {% endif %}
     </div>
 </div>
+    
     <div class="reviews">
-    <p class="reviews-section-title">Customer reviews</p>
+    <p class="reviews-section-title">{% trans "Customer reviews" %}</p>
 <div class="review-form">
         {% if user.is_authenticated and not user_has_reviewed %}
                     <form method="post" action="{% url 'review-create' garment.slug %}">
         {% csrf_token %}
             <div class="star-container">
-                 <p>Your rating: <span id="rating-number">0</span>/5</p>
+                 <p>{% trans "Your rating" %}: <span id="rating-number">0</span>/5</p>
 <div class="star-row">
-
                 <span class="rating-star"><i class="fa-solid fa-star"></i></span>
                 <span class="rating-star"><i class="fa-solid fa-star"></i></span>
                 <span class="rating-star"><i class="fa-solid fa-star"></i></span>
@@ -108,18 +125,18 @@
             </div>
             <input type="hidden" name="rating" id="rating-input" value="0"/>
             {{ form.text }}
-
-        <button class="review-submit">Submit your review</button>
+        <button class="review-submit">{% trans "Submit your review" %}</button>
         </form>
     {% endif %}
 </div>
+
     <div class="reviews-display">
      {% if user_has_reviewed %}
         <div class="review-card your-review">
         {% if user_has_reviewed.status == 'pending' %}
-    <span class="review-pending-notice">Awaiting approval</span>
+    <span class="review-pending-notice">{% trans "Awaiting approval" %}</span>
 {% endif %}
-            <p class="your-review-label">Your review</p>
+            <p class="your-review-label">{% trans "Your review" %}</p>
             <div class="first-row">
                 <h2>{{ user_has_reviewed.user }}</h2>
                 <span>{{ user_has_reviewed.rating }}</span>
@@ -133,21 +150,21 @@
             </div>
             <div class="review-management">
 <button type="button" class="delete-review-btn"
-        data-confirm="Are you sure you want to delete your review?"
+        data-confirm="{% trans 'Are you sure you want to delete your review?' %}"
         data-form="delete-form-{{ user_has_reviewed.pk }}">
-    Delete review
+    {% trans "Delete review" %}
 </button>
-
 <form method="post"
       action="{% url 'delete-review' user_has_reviewed.pk %}"
       id="delete-form-{{ user_has_reviewed.pk }}"
       style="display:none;">
     {% csrf_token %}
 </form>
-                <a href="{% url 'update-review' user_has_reviewed.pk %}">Edit</a>
+                <a href="{% url 'update-review' user_has_reviewed.pk %}">{% trans "Edit" %}</a>
             </div>
         </div>
     {% endif %}
+
         {% for review in reviews %}
             <div class="first-row">
                 <h2>{{ review.user }}</h2>
@@ -171,36 +188,39 @@
             <div class="review-management">
             {% if request.user == review.user or request.user.is_superuser %}
  <button type="button" class="delete-review-btn"
-        data-confirm="Are you sure you want to delete your review?"
+        data-confirm="{% trans 'Are you sure you want to delete your review?' %}"
         data-form="delete-form-{{ review.pk }}">
-    Delete review
+    {% trans "Delete review" %}
 </button>
-
 <form method="post"
       action="{% url 'delete-review' review.pk %}"
       id="delete-form-{{ review.pk }}"
       style="display:none;">
     {% csrf_token %}
-</form>                <a href="{% url 'update-review' review.pk %}">Edit review</a>
+</form>
+                <a href="{% url 'update-review' review.pk %}">{% trans "Edit review" %}</a>
             {% endif %}
             </div>
         {% empty %}
-            <p class="no-reviews">Be the first to write a review for this product.</p>
+            <p class="no-reviews">{% trans "Be the first to write a review for this product." %}</p>
         {% endfor %}
     </div>
     </div>
+
 <div id="confirm-modal" class="modal-overlay" style="display:none;">
     <div class="modal-card">
         <p class="modal-message"></p>
         <div class="modal-actions">
-            <button class="modal-cancel">Cancel</button>
-            <button class="modal-confirm">Delete</button>
+            <button class="modal-cancel">{% trans "Cancel" %}</button>
+            <button class="modal-confirm">{% trans "Delete" %}</button>
         </div>
     </div>
 </div>
+
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
+    const t = document.getElementById("js-translations").dataset;
     const btn = document.getElementById("add-to-cart-btn");
 
     if (btn) {
@@ -211,7 +231,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const url = form.action;
 
             btn.disabled = true;
-            btn.textContent = "Adding...";
+            btn.textContent = t.adding;
 
             fetch(url, {
                 method: "POST",
@@ -224,25 +244,24 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                        const badge = document.querySelector(".cart-badge");
+                    const badge = document.querySelector(".cart-badge");
                     if (badge) badge.textContent = data.cart_count;
                     showToast(data.message, "success");
                 } else {
                     showToast(data.error, "error");
                 }
             })
-            .catch(() => showToast("Something went wrong.", "error"))
+            .catch(() => showToast(t.somethingWrong, "error"))
             .finally(() => {
                 setTimeout(() => {
                     btn.disabled = false;
-                    btn.textContent = "Add to cart";
+                    btn.textContent = t.addToCart;
                 }, 1200);
             });
         });
     }
 
     function showToast(message, type) {
-
         const existing = document.getElementById("cart-toast");
         if (existing) existing.remove();
 
@@ -286,7 +305,7 @@ document.addEventListener("DOMContentLoaded", function () {
     {% for m in messages %}
         showToast("{{ m }}", "{{ m.tags }}");
     {% endfor %}
-{% endif %}
+    {% endif %}
 });
 
 const modal = document.getElementById("confirm-modal");
@@ -325,15 +344,12 @@ document.querySelectorAll(".thumbnail").forEach(img => {
     });
 });
 
-
 function getCSRFToken() {
     return document.cookie
         .split("; ")
         .find(row => row.startsWith("csrftoken"))
         ?.split("=")[1];
 }
-
-
 
 const productData = [
     {% for product in products %}
@@ -375,9 +391,7 @@ stars.forEach((star, index) => {
 
 colorInputs.forEach(colorInput => {
     colorInput.addEventListener("change", function () {
-
         const selectedColor = this.value;
-
         const validSizes = productData
             .filter(p => p.color === selectedColor)
             .map(p => p.size);
@@ -396,4 +410,5 @@ colorInputs.forEach(colorInput => {
 });
 </script>
 
+{% endblock %}    
 {% endblock %}

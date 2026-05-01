@@ -1,5 +1,6 @@
 {% extends "common/base.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/static-pages.css' %}">
@@ -11,19 +12,18 @@
 
     <div class="order-success-icon">&#10003;</div>
 
-    <h1 class="order-success-title">Order confirmed</h1>
+    <h1 class="order-success-title">{% trans 'Order confirmed' %}</h1>
 
     <p class="order-success-message">
-        Thank you for your purchase! A confirmation email is on its way to your inbox.
-        We'll notify you once your order has been shipped.
+    {% trans 'Thank you for your purchase! A confirmation email is on its way to your inbox. We'll notify you once your order has been shipped.' %}
     </p>
 
     <div class="order-success-actions">
         <a href="{% url 'order-history' %}" class="success-btn">
-            View my orders
+            {% trans 'View my orders' %}
         </a>
         <a href="{% url 'all-garments' %}" class="success-btn success-btn--ghost">
-            Continue shopping
+            {% trans 'Continue shopping' %}
         </a>
     </div>
 

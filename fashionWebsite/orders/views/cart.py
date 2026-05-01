@@ -1,3 +1,5 @@
+import stripe
+
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model
@@ -5,16 +7,16 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import redirect, get_object_or_404, render
 from django.views.generic import TemplateView
+from django.http import HttpResponse
+from django.utils.translation import gettext_lazy as _
+from django.views.decorators.csrf import csrf_exempt
+
+from fashionWebsite.promotions.models import Promotion
 from fashionWebsite.accounts.forms import UpdateCustomerForm
 from fashionWebsite.clothes.models import Product, Garment
 from fashionWebsite.orders.models import OrderItem, Order
 from fashionWebsite.orders.utils import get_or_create_cart, update_order_total
 from fashionWebsite.common.tasks import send_email_task
-import stripe
-from django.http import HttpResponse
-from django.views.decorators.csrf import csrf_exempt
-
-from fashionWebsite.promotions.models import Promotion
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -22,23 +24,23 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 @login_required(login_url="login")
 def apply_promo_code(request):
     if request.method != "POST":
-        return JsonResponse({"error": "Invalid request"}, status=400)
+        return JsonResponse({"error": _("Invalid request")}, status=400)
 
     promo_code = request.POST.get("promo_code")
 
     promotion = Promotion.objects.filter(code=promo_code, type="code").first()
 
     if promotion is None:
-        return JsonResponse({"error": "Promotion not found"}, status=400)
+        return JsonResponse({"error": _("Promotion not found")}, status=400)
 
     if promotion.is_valid:
         order = get_or_create_cart(request.user)
 
         if order.promotion:
-            return JsonResponse({"error": "A promo code is already applied to your order."}, status=400)
+            return JsonResponse({"error": _("A promo code is already applied to your order.")}, status=400)
 
         if promotion.min_order_amount and order.total_amount < promotion.min_order_amount:
-            return JsonResponse({"error": "Minimum order amount not reached"}, status=400)
+            return JsonResponse({"error": _("Minimum order amount not reached")}, status=400)
 
         order.promotion = promotion
         promotion.times_used += 1
@@ -48,17 +50,17 @@ def apply_promo_code(request):
 
         return JsonResponse({
             "success": True,
-            "message": "Promo code applied!",
+            "message": _("Promo code applied!"),
             "new_total": str(order.total_amount),
         })
     else:
-        return JsonResponse({"error": "Invalid request"}, status=400)
+        return JsonResponse({"error": _("Invalid request")}, status=400)
 
 
 def add_to_cart(request, garment_id):
     try:
         if request.method != "POST":
-            return JsonResponse({"error": "Invalid request."}, status=400)
+            return JsonResponse({"error": _("Invalid request.")}, status=400)
 
         garment = get_object_or_404(Garment, id=garment_id)
 
@@ -72,14 +74,14 @@ def add_to_cart(request, garment_id):
             if colors.count() == 1:
                 color_id = colors.first()
             else:
-                return JsonResponse({"error": "Please select a colour."}, status=400)
+                return JsonResponse({"error": _("Please select a color.")}, status=400)
 
         if not size_id:
             sizes = available_products.filter(color_id=color_id).values_list("size_id", flat=True).distinct()
             if sizes.count() == 1:
                 size_id = sizes.first()
             else:
-                return JsonResponse({"error": "Please select a size."}, status=400)
+                return JsonResponse({"error": _("Please select a size.")}, status=400)
 
         product = get_object_or_404(
             Product,
@@ -89,7 +91,7 @@ def add_to_cart(request, garment_id):
         )
 
         if product.stock < 1:
-            return JsonResponse({"error": "This item is out of stock."}, status=400)
+            return JsonResponse({"error": _("This item is out of stock.")}, status=400)
 
         if not request.user.is_authenticated:
             cart = request.session.get("cart", {})
@@ -98,7 +100,7 @@ def add_to_cart(request, garment_id):
             request.session["cart"] = cart
             return JsonResponse({
                 "success": True,
-                "message": "Added to cart!",
+                "message": _("Added to cart!"),
                 "cart_count": sum(cart.values()),
             })
 
@@ -115,7 +117,7 @@ def add_to_cart(request, garment_id):
 
         if not created:
             if order_item.quantity + 1 > product.stock:
-                return JsonResponse({"error": "Not enough stock available."}, status=400)
+                return JsonResponse({"error": _("Not enough stock available.")}, status=400)
             order_item.quantity += 1
             order_item.save()
 
@@ -124,7 +126,7 @@ def add_to_cart(request, garment_id):
 
         return JsonResponse({
             "success": True,
-            "message": "Added to cart!",
+            "message": _("Added to cart!"),
             "cart_count": cart_count,
         })
 
@@ -217,7 +219,7 @@ def update_customer_form_cart(request):
 
     if form.is_valid():
         form.save()
-        messages.success(request, "Profile updated successfully.")
+        messages.success(request, _("Profile updated successfully."))
         return redirect("cart")
 
     order = get_or_create_cart(request.user)
@@ -239,21 +241,21 @@ def checkout(request):
         return redirect("login")
 
     if not request.user.customer.is_profile_complete():
-        messages.error(request, "Please complete your profile before checking out.")
+        messages.error(request, _("Please complete your profile before checking out."))
         return redirect("cart")
 
     order = get_or_create_cart(request.user)
 
     if not order.items.exists():
-        messages.error(request, "Your cart is empty.")
+        messages.error(request, _("Your cart is empty."))
         return redirect("cart")
 
     for item in order.items.all():
         if item.product.stock < item.quantity:
             messages.error(
                 request,
-                f"Sorry, only {item.product.stock} unit(s) of "
-                f"{item.product.garment.name} are available."
+                _(f"Sorry, only {item.product.stock} unit(s) of "
+                  f"{item.product.garment.name} are available.")
             )
             return redirect("cart")
 
@@ -272,7 +274,9 @@ def checkout(request):
     order.save()
 
     send_email_task.delay(
-        subject=f"EllaPrimE — Order confirmation #{order.id}",
+        subject=_("EllaPrimE - Order confirmation #%(order_id)s") % {
+            "order_id": order.id
+        },
         template_name="emails/order_confirmation.html",
         context={
             "order_id": order.id,
@@ -338,21 +342,23 @@ def create_stripe_checkout(request):
         return redirect("login")
 
     if not request.user.customer.is_profile_complete():
-        messages.error(request, "Please complete your profile before checking out.")
+        messages.error(request, _("Please complete your profile before checking out."))
         return redirect("cart")
 
     order = get_or_create_cart(request.user)
 
     if not order.items.exists():
-        messages.error(request, "Your cart is empty.")
+        messages.error(request, _("Your cart is empty."))
         return redirect("cart")
 
     for item in order.items.all():
         if item.product.stock < item.quantity:
             messages.error(
                 request,
-                f"Sorry, only {item.product.stock} unit(s) of "
-                f"{item.product.garment.name} are available."
+                _("Sorry, only %(stock)s unit(s) of %(name)s are available.") % {
+                    "stock": item.product.stock,
+                    "name": item.product.garment.name,
+                }
             )
             return redirect("cart")
 
@@ -427,7 +433,9 @@ def stripe_webhook(request):
         order.save()
 
         send_email_task.delay(
-            subject=f"EllaPrimE — Order confirmation #{order.id}",
+            subject=_("EllaPrimE - Order confirmation #%(order_id)s") % {
+                "order_id": order_id,
+            },
             template_name="emails/order_confirmation.html",
             context={
                 "order_id": order.id,

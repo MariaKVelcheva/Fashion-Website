@@ -1,10 +1,11 @@
 {% load static %}
+{% load i18n %}
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Ella Prime — Update profile</title>
+    <title>Ella Prime — {% trans 'Update profile' %}</title>
     <link rel="stylesheet" href="{% static 'css/auth.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
           integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
@@ -18,8 +19,8 @@
     </div>
 
     <div class="auth-header">
-        <h1>Update profile</h1>
-        <p>Keep your delivery details up to date</p>
+        <h1>{% trans 'Update profile' %}</h1>
+        <p>{% trans 'Keep your delivery details up to date' %}</p>
     </div>
 
     {% if form.non_field_errors %}
@@ -43,11 +44,11 @@
             </div>
         {% endfor %}
 
-        <button type="submit" class="auth-btn">Save changes</button>
+        <button type="submit" class="auth-btn">{% trans 'Save changes' %}</button>
     </form>
 
     <p class="auth-footer">
-        <a href="{% url 'customer-details' %}">← Back to my account</a>
+        <a href="{% url 'customer-details' %}">← {% trans 'Back to my account' %}</a>
     </p>
 
 </div>

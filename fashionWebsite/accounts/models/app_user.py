@@ -15,8 +15,15 @@ class AppUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
         default=0,
     )
 
-    is_staff = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(
+        _("Staff status"),
+        default=False
+    )
+
+    is_active = models.BooleanField(
+        _("Active"),
+        default=True
+    )
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
@@ -25,4 +32,8 @@ class AppUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+    class Meta:
+        verbose_name = _("App User")
+        verbose_name_plural = _("App Users")
 

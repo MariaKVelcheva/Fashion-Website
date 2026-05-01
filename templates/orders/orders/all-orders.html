@@ -1,5 +1,6 @@
 {% extends "common/base.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/static-pages.css' %}?v=1">
@@ -10,9 +11,9 @@
 <div class="order-history-page">
 
     <div class="order-history-header">
-        <h1 class="order-history-title">Order history</h1>
+        <h1 class="order-history-title">{% trans 'Order history' %}</h1>
         <p class="order-history-subtitle">
-            {{ orders|length }} order{% if orders|length != 1 %}s{% endif %}
+            {% blocktrans %}{{ orders|length }} order{% if orders|length != 1 %}s{% endif %}{% endblocktrans %}
         </p>
     </div>
 
@@ -33,13 +34,13 @@
 
                 {% if order.shipping_address %}
                     <p class="order-address">
-                        <span>Delivery:</span> {{ order.shipping_address }}
+                        <span>{% trans 'Delivery' %}:</span> {{ order.shipping_address }}
                     </p>
                 {% endif %}
 
                 {% if order.phone_number %}
                     <p class="order-address">
-                        <span>Phone:</span> {{ order.phone_number }}
+                        <span>{% trans 'Phone' %}:</span> {{ order.phone_number }}
                     </p>
                 {% endif %}
 
@@ -59,7 +60,7 @@
         {% endfor %}
 
     {% else %}
-        <p class="empty-note">No orders yet.</p>
+        <p class="empty-note">{% trans 'No orders yet.' %}</p>
     {% endif %}
 
 </div>

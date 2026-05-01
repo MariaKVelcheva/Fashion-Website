@@ -1,3 +1,5 @@
+{% load i18n %}
+
 <!DOCTYPE html>
 <html>
 <body style="margin:0; padding:0; background-color:#f7f4f0; font-family:'Georgia', serif;">
@@ -14,11 +16,11 @@
             <td style="background:#b85c38; padding:24px 40px; text-align:center;">
               <p style="margin:0; color:#fff; font-size:13px;
                         letter-spacing:0.14em; text-transform:uppercase;">
-                New order received
+                {% trans 'New order received' %}
               </p>
               <p style="margin:6px 0 0; color:#fff; font-size:22px;
                         font-weight:300; font-style:italic;">
-                Order #{{ order_id }}
+                {% trans 'Order' %} #{{ order_id }}
               </p>
             </td>
           </tr>
@@ -33,22 +35,22 @@
                 <tr>
                   <td>
                     <p style="margin:0 0 6px; font-size:11px; letter-spacing:0.12em;
-                               text-transform:uppercase; color:#8a8078;">Customer</p>
+                               text-transform:uppercase; color:#8a8078;">{% trans 'Customer' %}</p>
                     <p style="margin:0 0 12px; font-size:14px;">
                       {{ customer_name }} — {{ user_email }}
                     </p>
                     <p style="margin:0 0 6px; font-size:11px; letter-spacing:0.12em;
                                text-transform:uppercase; color:#8a8078;">
-                      Delivery address
+                      {% trans 'Delivery address' %}
                     </p>
                     <p style="margin:0 0 12px; font-size:14px;">
                       {{ shipping_address }}
                     </p>
                     <p style="margin:0 0 6px; font-size:11px; letter-spacing:0.12em;
-                               text-transform:uppercase; color:#8a8078;">Phone</p>
+                               text-transform:uppercase; color:#8a8078;">{% trans 'Phone' %}</p>
                     <p style="margin:0 0 12px; font-size:14px;">{{ phone_number }}</p>
                     <p style="margin:0 0 6px; font-size:11px; letter-spacing:0.12em;
-                               text-transform:uppercase; color:#8a8078;">Payment</p>
+                               text-transform:uppercase; color:#8a8078;">{% trans 'Payment' %}</p>
                     <p style="margin:0; font-size:14px;">{{ payment_type }}</p>
                   </td>
                 </tr>
@@ -97,7 +99,7 @@
               </table>
 
               <p style="margin:0; font-size:13px; color:#8a8078;">
-                Log into the admin to update the order status once dispatched.
+                {% trans 'Log into the admin to update the order status once dispatched.' %}
               </p>
 
             </td>
@@ -106,7 +108,7 @@
             <td style="background:#f7f4f0; padding:16px 40px;
                        text-align:center; border-top:1px solid #e4ddd5;">
               <p style="margin:0; font-size:12px; color:#8a8078;">
-                EllaPrimE internal notification
+                {% trans 'EllaPrimE internal notification' %}
               </p>
             </td>
           </tr>

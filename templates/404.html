@@ -1,9 +1,11 @@
 {% load static %}
+{% load i18n %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Ella Prime — Page not found</title>
+    <title>Ella Prime — {% trans 'Page not found' %}</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <style>
         body {
@@ -104,15 +106,14 @@
         <a href="{% url 'home' %}" class="error-logo">EllaPrimE</a>
 
         <p class="error-code">404</p>
-        <h1 class="error-title">Page not found</h1>
+        <h1 class="error-title">{% trans 'Page not found' %}</h1>
         <p class="error-message">
-            The page you're looking for doesn't exist or has been moved.
-            Let us help you find what you're looking for.
+            {% trans "The page you're looking for doesn't exist or has been moved." %}
         </p>
 
         <div class="error-actions">
-            <a href="{% url 'home' %}" class="error-btn">Go to homepage</a>
-            <a href="{% url 'all-garments' %}" class="error-btn error-btn--ghost">Browse collection</a>
+            <a href="{% url 'home' %}" class="error-btn">{% trans 'Go to homepage' %}</a>
+            <a href="{% url 'all-garments' %}" class="error-btn error-btn--ghost">{% trans 'Browse collection' %}</a>
         </div>
     </div>
 </body>

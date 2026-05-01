@@ -1,5 +1,6 @@
 {% extends 'common/base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/garments-all.css' %}?v=2">
@@ -7,7 +8,7 @@
 {% block content %}
 
 <section class="catalogue-header">
-    <h2>Trending now: {{ category.name }}</h2>
+    <h2>{% trans 'Trending now:' %} {{ category.name }}</h2>
 </section>
 
 <section class="catalogue">
@@ -15,7 +16,7 @@
     {% if garments %}
  {% include "clothes/garments/garments.html" %}
     {% else %}
-        <p>No garments available.</p>
+        <p>{% trans 'No garments available.' %}</p>
     {% endif %}
 
 </section>

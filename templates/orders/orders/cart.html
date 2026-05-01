@@ -1,5 +1,6 @@
 {% extends "common/base.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/cart.css' %}?=v3">
@@ -7,14 +8,22 @@
 
 {% block content %}
 
-<h1 class="title">Your Cart</h1>
+<!-- JS translation strings -->
+<div id="js-translations"
+     data-enter-promo="{% trans 'Please enter a promo code.' %}"
+     data-something-wrong="{% trans 'Something went wrong. Please try again.' %}"
+     data-total-label="{% trans 'Total' %}"
+     style="display:none;">
+</div>
+
+<h1 class="title">{% trans "Your Cart" %}</h1>
 
 {% if not items %}
-    <h2 class="empty">Your cart is empty</h2>
-    <a href="{% url 'all-garments' %}" class="shop-button">Shop now</a>
+    <h2 class="empty">{% trans "Your cart is empty" %}</h2>
+    <a href="{% url 'all-garments' %}" class="shop-button">{% trans "Shop now" %}</a>
 
 {% else %}
-    <h3>{{ items|length }} item(s)</h3>
+    <h3>{% blocktrans count count=items|length %}{{ count }} item{% plural %}{{ count }} items{% endblocktrans %}</h3>
 
     <div class="cart-layout">
         <div class="gallery">
@@ -39,10 +48,10 @@
           class="remove-form">
 {% endif %}
     {% csrf_token %}
-    <button type="submit">Remove</button>
+    <button type="submit">{% trans "Remove" %}</button>
 </form>
 
-                    <p class="line-total">Subtotal: {{ item.line_total }} €</p>
+                    <p class="line-total">{% trans "Subtotal" %}: {{ item.line_total }} €</p>
 
                 </div>
 
@@ -51,11 +60,11 @@
 
             {% if delivery_gap %}
                 <p class="delivery-message">
-                    Add {{ delivery_gap }} € more for free delivery.
+                    {% blocktrans with gap=delivery_gap %}Add {{ gap }} € more for free delivery.{% endblocktrans %}
                 </p>
             {% else %}
                 <p class="delivery-message delivery-message--free">
-                    You qualify for free delivery!
+                    {% trans "You qualify for free delivery!" %}
                 </p>
             {% endif %}
 
@@ -66,7 +75,7 @@
         <form method="post" action="{% url 'update-customer-from-cart' %}">
             {% csrf_token %}
 
-            <p class="profile-form-title">Delivery details</p>
+            <p class="profile-form-title">{% trans "Delivery details" %}</p>
 
             {% for field in customer_form %}
                 <div class="profile-field
@@ -83,21 +92,21 @@
             {% endfor %}
 
             <button type="submit" class="save-profile-btn">
-                Save details
+                {% trans "Save details" %}
             </button>
         </form>
+
                 <div class="checkout-info">
 {% if user.is_authenticated %}
 <div class="promo-section">
     {% if order.promotion %}
         <p class="promo-applied">
-            ✓ Promo code <strong>{{ order.promotion.code }}</strong> applied
-            ({{ order.promotion.discount_percent }}% off)
+            ✓ {% blocktrans with code=order.promotion.code discount=order.promotion.discount_percent %}Promo code <strong>{{ code }}</strong> applied ({{ discount }}% off){% endblocktrans %}
         </p>
     {% else %}
         <div class="promo-row">
-            <input type="text" id="promo-input" placeholder="Promo code" class="promo-input">
-            <button id="promo-btn" class="promo-btn">Apply</button>
+            <input type="text" id="promo-input" placeholder="{% trans 'Promo code' %}" class="promo-input">
+            <button id="promo-btn" class="promo-btn">{% trans "Apply" %}</button>
         </div>
         <p id="promo-message" class="promo-message"></p>
     {% endif %}
@@ -105,7 +114,7 @@
 {% endif %}
                 <div class="order-total">
                 <strong>
-                    Total:
+                    {% trans "Total" %}:
                     {% if session_cart %}
                         {{ total }}
                     {% else %}
@@ -122,32 +131,34 @@
         {% csrf_token %}
         <input type="hidden" name="payment_type" value="pod">
         <button type="submit" class="checkout-btn checkout-btn--pod">
-            Pay on delivery
+            {% trans "Pay on delivery" %}
         </button>
     </form>
     <a href="{% url 'stripe-checkout' %}" class="checkout-btn checkout-btn--card">
         <i class="fa-regular fa-credit-card"></i>
-        Pay by card
+        {% trans "Pay by card" %}
     </a>
 
     <p class="payment-note">
-        Card payments are processed securely by Stripe.
+        {% trans "Card payments are processed securely by Stripe." %}
     </p>
 
 {% else %}
     <p class="profile-warning">
-        Please fill in all required fields above to proceed.
+        {% trans "Please fill in all required fields above to proceed." %}
     </p>
 {% endif %}
 
     {% else %}
-        <p>Please <a href="{% url 'login' %}">log in</a> to checkout.</p>
+        <p>{% blocktrans %}Please <a href="{% url 'login' %}">log in</a> to checkout.{% endblocktrans %}</p>
     {% endif %}
 </div>
     </div>
 {% endif %}
 <script>
 document.addEventListener("DOMContentLoaded", function () {
+
+    const t = document.getElementById("js-translations").dataset;
 
     function getCSRFToken() {
         const cookie = document.cookie
@@ -159,43 +170,43 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const promoBtn = document.getElementById("promo-btn");
 
-if (promoBtn) {
-    promoBtn.addEventListener("click", function () {
-        const code = document.getElementById("promo-input").value.trim();
-        const messageEl = document.getElementById("promo-message");
+    if (promoBtn) {
+        promoBtn.addEventListener("click", function () {
+            const code = document.getElementById("promo-input").value.trim();
+            const messageEl = document.getElementById("promo-message");
 
-        if (!code) {
-            messageEl.textContent = "Please enter a promo code.";
-            messageEl.className = "promo-message promo-message--error";
-            return;
-        }
-
-        fetch("{% url 'apply-promo-code' %}", {
-            method: "POST",
-            headers: {
-                "X-CSRFToken": getCSRFToken(),
-                "Content-Type": "application/x-www-form-urlencoded",
-            },
-            body: new URLSearchParams({ promo_code: code }),
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.success) {
-                messageEl.textContent = data.message;
-                messageEl.className = "promo-message promo-message--success";
-                document.querySelector(".order-total strong").textContent = 
-                    "Total: " + data.new_total + " €";
-            } else {
-                messageEl.textContent = data.error;
+            if (!code) {
+                messageEl.textContent = t.enterPromo;
                 messageEl.className = "promo-message promo-message--error";
+                return;
             }
-        })
-        .catch(() => {
-            messageEl.textContent = "Something went wrong. Please try again.";
-            messageEl.className = "promo-message promo-message--error";
+
+            fetch("{% url 'apply-promo-code' %}", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": getCSRFToken(),
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: new URLSearchParams({ promo_code: code }),
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    messageEl.textContent = data.message;
+                    messageEl.className = "promo-message promo-message--success";
+                    document.querySelector(".order-total strong").textContent =
+                        t.totalLabel + ": " + data.new_total + " €";
+                } else {
+                    messageEl.textContent = data.error;
+                    messageEl.className = "promo-message promo-message--error";
+                }
+            })
+            .catch(() => {
+                messageEl.textContent = t.somethingWrong;
+                messageEl.className = "promo-message promo-message--error";
+            });
         });
-    });
-}
+    }
 });
 </script>
 {% endblock %}

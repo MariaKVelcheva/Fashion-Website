@@ -1,3 +1,5 @@
+{% load i18n %}
+
 {% if wishlist_items %}
     <ul class="wishlist-grid">
         {% for item in wishlist_items %}
@@ -16,8 +18,8 @@
                         {{ item.garment.name }}
                     </a>
                     {% if item.garment.is_available %}
-                        <p class="wishlist-stock wishlist-stock--in">Available
-                        {% if item.garment.discounted_price %} <span style="color: #d32828; font-weight: bold"> -- in promo now!</span> {% endif %}</p>
+                        <p class="wishlist-stock wishlist-stock--in">{% trans 'Available' %}
+                        {% if item.garment.discounted_price %} <span style="color: #d32828; font-weight: bold"> -- {% trans 'in promo now!' %}</span> {% endif %}</p>
                     {% else %}
                         <p class="wishlist-stock wishlist-stock--out">Out of stock</p>
                     {% endif %}
@@ -36,9 +38,9 @@
 
 {% else %}
     <div class="wishlist-empty">
-        <p>Your wishlist is empty.</p>
+        <p>{% trans 'Your wishlist is empty.' %}</p>
         <a href="{% url 'all-garments' %}" class="wishlist-shop-link">
-            Browse the collection →
+            {% trans 'Browse the collection' %} →
         </a>
     </div>
 {% endif %}

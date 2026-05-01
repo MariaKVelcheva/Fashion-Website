@@ -1,10 +1,11 @@
 {% load static %}
+{% load i18n %}
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Ella Prime — Sign in</title>
+    <title>Ella Prime — {% trans 'Sign in' %}</title>
     <link rel="stylesheet" href="{% static 'css/auth.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
           integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
@@ -19,8 +20,8 @@
     </div>
 
     <div class="auth-header">
-        <h1>Welcome back</h1>
-        <p>Sign in to your EllaPrimE account</p>
+        <h1>{% trans 'Welcome back' %}</h1>
+        <p>{% blocktrans %}Sign in to your EllaPrimE account{% endblocktrans %}</p>
     </div>
 
     {% if form.non_field_errors %}
@@ -50,12 +51,12 @@
             {% endfor %}
         </div>
 
-        <button type="submit" class="auth-btn">Sign in</button>
+        <button type="submit" class="auth-btn">{% trans 'Sign in' %}</button>
     </form>
     <p class="auth-footer">
-            <a href="{% url 'password_reset' %}">Forgot your password?</a>
+            <a href="{% url 'password_reset' %}">{% trans 'Forgot your password?' %}</a>
     &nbsp;·&nbsp;
-        Don't have an account yet? <a href="{% url 'register' %}">Create one</a>
+        {% trans "Don't have an account yet?" %} <a href="{% url 'register' %}">{% trans 'Create one' %}</a>
     </p>
 
 </div>

@@ -1,9 +1,10 @@
 {% extends "common/base.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block content %}
 <section class="collection">
-    <h2>Latest Trends</h2>
+    <h2>{% trans 'Latest Trends' %}</h2>
     <ul class="categories" type="none">
         {% for category in categories %}
             <li>

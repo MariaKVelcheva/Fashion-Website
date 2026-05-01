@@ -1,9 +1,11 @@
 {% load static %}
+{% load i18n %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Ella Prime — Something went wrong</title>
+    <title>Ella Prime — {% trans 'Something went wrong' %}</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <style>
         body {
@@ -104,15 +106,14 @@
         <a href="{% url 'home' %}" class="error-logo">EllaPrimE</a>
 
         <p class="error-code">500</p>
-        <h1 class="error-title">Something went wrong</h1>
+        <h1 class="error-title">{% trans 'Something went wrong' %}</h1>
         <p class="error-message">
-            We're sorry — something went wrong on our end.
-            Our team has been notified. Please try again in a few moments.
+            {% trans "We're sorry — something went wrong on our end. Our team has been notified. Please try again later." %}
         </p>
 
         <div class="error-actions">
-            <a href="{% url 'home' %}" class="error-btn">Go to homepage</a>
-            <a href="{% url 'all-garments' %}" class="error-btn error-btn--ghost">Browse collection</a>
+            <a href="{% url 'home' %}" class="error-btn">{% trans 'Go to homepage' %}</a>
+            <a href="{% url 'all-garments' %}" class="error-btn error-btn--ghost">{% trans 'Browse collection' %}</a>
         </div>
     </div>
 </body>

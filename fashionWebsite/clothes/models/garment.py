@@ -3,6 +3,7 @@ from decimal import Decimal
 
 from django.db import models
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 from django.utils.text import slugify
 
 
@@ -10,9 +11,11 @@ class Garment(models.Model):
     category = models.ManyToManyField(
         to="clothes.Category",
         related_name='garments',
+        verbose_name=_("Category"),
     )
 
     name = models.CharField(
+        _("Garment name"),
         max_length=100,
         unique=True,
         null=True,
@@ -25,23 +28,27 @@ class Garment(models.Model):
     )
 
     description = models.TextField(
+        _("Garment description"),
         blank=True,
         null=True,
     )
 
     main_image = models.ImageField(
+        _("Main image"),
         upload_to='garments/',
         blank=True,
         null=True,
     )
 
     price = models.DecimalField(
+        _("Price"),
         max_digits=10,
         decimal_places=2,
         default=0,
     )
 
     created_at = models.DateTimeField(
+        _("Created at"),
         auto_now_add=True,
         null=True,
         blank=True,
@@ -104,6 +111,10 @@ class Garment(models.Model):
         if self.name and not self.slug:
             self.slug = slugify(self.name)
         return super().save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = _("Garment")
+        verbose_name_plural = _("Garments")
 
     def __str__(self):
         return self.name

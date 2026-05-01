@@ -1,5 +1,7 @@
+{% load i18n %}
+
 <form method="post">
     {% csrf_token %}
     {{ form }}
-    <button type="submit" class="common-button">Update</button>
+    <button type="submit" class="common-button">{% trans 'Update' %}</button>
 </form>

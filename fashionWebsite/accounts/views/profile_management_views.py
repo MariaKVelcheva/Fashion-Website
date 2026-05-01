@@ -5,6 +5,7 @@ from django.urls import reverse_lazy
 from fashionWebsite.accounts.forms import UpdateCustomerForm
 from fashionWebsite.accounts.models import Customer
 from fashionWebsite.common.forms import ContactForm
+from django.utils.translation import gettext_lazy as _
 
 
 class UpdateCustomerView(LoginRequiredMixin, UpdateView):
@@ -18,7 +19,7 @@ class UpdateCustomerView(LoginRequiredMixin, UpdateView):
         return customer
 
     def form_valid(self, form):
-        messages.success(self.request, "Profile updated successfully.")
+        messages.success(self.request, _("Profile updated successfully."))
         return super().form_valid(form)
 
 

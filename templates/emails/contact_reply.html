@@ -1,3 +1,5 @@
+{% load i18n %}
+
 <!DOCTYPE html>
 <html>
   <body style="margin:0; padding:0; background-color:#f4f4f4; font-family: Arial, sans-serif;">
@@ -20,15 +22,15 @@
               <td style="color:#333; font-size:16px; line-height:1.5;">
                 <h2 style="margin-top:0;">Hi {{ user_name }},</h2>
 
-                <p>We received your message:</p>
+                <p>{% trans 'We received your message:' %}</p>
 
                 <blockquote style="margin:15px 0; padding:10px; background:#f9f9f9; border-left:4px solid #ccc;">
                   {{ message }}
                 </blockquote>
 
-                <p>We will get back to you shortly.</p>
+                <p>{% trans 'We will get back to you shortly.' %}</p>
 
-                <p>Thank you,<br>EllaPrimE Team</p>
+                <p>{% trans 'Thank you,' %}<br>EllaPrimE {% trans 'Team' %}</p>
               </td>
             </tr>
 

@@ -1,5 +1,6 @@
 {% extends 'common/base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/search.css' %}">
@@ -9,21 +10,21 @@
 
 <div class="search-page">
     <aside class="search-filters">
-        <h2 class="filters-title">Filter</h2>
+        <h2 class="filters-title">{% trans 'Filter' %}</h2>
 
         <form method="get" id="search-form">
             <div class="filter-group">
-                <label class="filter-label" for="search-q">Search</label>
+                <label class="filter-label" for="search-q">{% trans 'Search' %}</label>
                 <input type="text"
                        id="search-q"
                        name="q"
                        value="{{ q }}"
-                       placeholder="Name or description..."
+                       placeholder={% trans "Name or description..." %}
                        class="filter-input">
             </div>
 
             <div class="filter-group">
-                <p class="filter-label">Category</p>
+                <p class="filter-label">{% trans 'Category' %}</p>
                 {% for category in categories %}
                     <label class="filter-check">
                         <input type="checkbox"
@@ -36,7 +37,7 @@
             </div>
 
             <div class="filter-group">
-                <p class="filter-label">Color</p>
+                <p class="filter-label">{% trans 'Color' %}</p>
                 {% for color in colors %}
                     <label class="filter-check">
                         <input type="checkbox"
@@ -51,7 +52,7 @@
             </div>
 
             <div class="filter-group">
-                <p class="filter-label">Size</p>
+                <p class="filter-label">{% trans 'Size' %}</p>
                 <div class="size-checks">
                     {% for size in sizes %}
                         <label class="size-check">
@@ -65,8 +66,8 @@
                 </div>
             </div>
 
-            <button type="submit" class="filter-submit">Apply</button>
-            <a href="{% url 'garment-search' %}" class="filter-clear">Clear all</a>
+            <button type="submit" class="filter-submit">{% trans 'Apply' %}</button>
+            <a href="{% url 'garment-search' %}" class="filter-clear">{% trans 'Clear all' %}</a>
 
         </form>
     </aside>
@@ -76,12 +77,12 @@
         <div class="results-header">
             <h1 class="results-title">
                 {% if q %}
-                    Results for &ldquo;{{ q }}&rdquo;
+                    {% trans 'Results for' %} &ldquo;{{ q }}&rdquo;
                 {% else %}
-                    All garments
+                    {% trans 'All garments' %}
                 {% endif %}
             </h1>
-            <p class="results-count">{{ garments|length }} item{% if garments|length != 1 %}s{% endif %}</p>
+            <p class="results-count">{% blocktrans %}{{ garments|length }} item{% if garments|length != 1 %}s{% endif %}{% endblocktrans %}</p>
         </div>
 
         {% if garments %}
@@ -107,9 +108,9 @@
         {% endif %}
     </h3>
                             {% if garment.is_available %}
-                                <p class="result-stock result-stock--in">Available</p>
+                                <p class="result-stock result-stock--in">{% trans 'Available' %}</p>
                             {% else %}
-                                <p class="result-stock result-stock--out">Out of stock</p>
+                                <p class="result-stock result-stock--out">{% trans 'Out of stock' %}</p>
                             {% endif %}
                         </div>
 
@@ -119,8 +120,8 @@
 
         {% else %}
             <div class="results-empty">
-                <p>No garments match your search.</p>
-                <a href="{% url 'garment-search' %}" class="filter-clear">Clear filters</a>
+                <p>{% trans 'No garments match your search.' %}</p>
+                <a href="{% url 'garment-search' %}" class="filter-clear">{% trans 'Clear filters' %}</a>
             </div>
         {% endif %}
 

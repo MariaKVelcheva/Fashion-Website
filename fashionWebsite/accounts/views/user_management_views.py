@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LogoutView, LoginView
 from django.http import HttpResponseRedirect, JsonResponse
 from django.views.generic import CreateView, DeleteView
+from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
 from fashionWebsite.accounts.forms import AppUserCreationForm, LoginForm
 from fashionWebsite.clothes.models import Product
@@ -53,7 +54,7 @@ class DeleteUserView(LoginRequiredMixin, DeleteView):
 
         logout(request)
 
-        messages.success(request, "Your account has been deleted.")
+        messages.success(request, _("Your account has been deleted."))
         return JsonResponse({"redirect_url": reverse_lazy("home")})
 
     def get_object(self, queryset=None):

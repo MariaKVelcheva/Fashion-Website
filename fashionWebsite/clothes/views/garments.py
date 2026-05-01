@@ -3,7 +3,7 @@ from datetime import timedelta
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q, Case, When, IntegerField, F, Avg, Count
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django.views.generic import DetailView, ListView
 from fashionWebsite.clothes.models import Garment, Color, Size, Category, WishlistItem, LookbookImage

@@ -1,3 +1,5 @@
+{% load i18n %}
+
 <!DOCTYPE html>
 <html>
 <body style="margin:0; padding:0; background-color:#f7f4f0; font-family:'Georgia', serif;">
@@ -26,16 +28,15 @@
 
               <h2 style="font-weight:300; font-size:24px; margin:0 0 16px;
                           font-style:italic; letter-spacing:0.01em;">
-                Welcome to EllaPrimE
+                {% trans 'Welcome to' %} EllaPrimE
               </h2>
 
               <p style="margin:0 0 16px; color:#8a8078; font-size:14px;">
-                Thank you for subscribing. You'll be the first to know about
-                new arrivals, exclusive offers, and style inspiration.
+                {% trans 'Thank you for subscribing. You'll be the first to know about new arrivals, exclusive offers, and style inspiration.' %}
               </p>
 
               <p style="margin:0 0 32px; color:#8a8078; font-size:13px;">
-                Subscribed as {{ email }}
+                {% trans 'Subscribed as' %} {{ email }}
               </p>
 
               <a href="https://ella-prime.com/clothes/all/"
@@ -44,7 +45,7 @@
                         text-decoration:none; font-size:12px;
                         font-weight:500; letter-spacing:0.14em;
                         text-transform:uppercase; border-radius:4px;">
-                Shop the collection
+                {% trans 'Shop the collection' %}
               </a>
 
             </td>
@@ -54,11 +55,11 @@
             <td style="background:#f7f4f0; padding:20px 40px;
                        text-align:center; border-top:1px solid #e4ddd5;">
               <p style="margin:0; font-size:11px; color:#8a8078;">
-                You're receiving this because you subscribed at ella-prime.com.
+                {% trans "You're receiving this because you subscribed at" %} ella-prime.com.
                 &nbsp;&middot;&nbsp;
                 <a href="https://ella-prime.com/newsletter/unsubscribe/"
                    style="color:#b85c38; text-decoration:none;">
-                  Unsubscribe
+                  {% trans 'Unsubscribe' %}
                 </a>
               </p>
             </td>

@@ -1,5 +1,6 @@
 {% extends "common/base.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/customer-detail.css' %}?v=1">
@@ -22,26 +23,26 @@
 
         <nav class="aside-nav">
             <button class="aside-trigger active" data-panel="home">
-                Overview
+                 {% trans 'Overview' %}
             </button>
             <button class="aside-trigger" data-panel="personal">
-                Personal information
+                {% trans 'Personal information' %}
             </button>
             <button class="aside-trigger" data-panel="points">
-                Loyalty points
+                {% trans 'Loyalty points' %}
             </button>
             <button class="aside-trigger" data-panel="wishlist">
-                Wishlist
+                {% trans 'Wishlist' %}
             </button>
             <button class="aside-trigger" data-panel="contact">
-                Contact us
+                {% trans 'Contact us' %}
             </button>
         </nav>
 
         <div class="aside-footer">
-            <a href="{% url 'password-change' %}" class="aside-link">Change password</a>
+            <a href="{% url 'password-change' %}" class="aside-link">{% trans 'Change password' %}</a>
             <a href="{% url 'user-delete' %}" class="aside-link aside-link--danger">
-                Delete account
+                {% trans 'Delete account' %}
             </a>
         </div>
 
@@ -51,18 +52,18 @@
 
         <div class="profile-panel active" id="panel-home">
             <div class="profile-greeting">
-                <h1>Hello, {% if customer.first_name %}{{ customer.first_name }}{% else %}{{ customer.user.email }}{% endif %}</h1>
-                <p class="profile-subtitle">Your EllaPrimE account</p>
+                <h1>{% trans 'Hello,' %} {% if customer.first_name %}{{ customer.first_name }}{% else %}{{ customer.user.email }}{% endif %}</h1>
+                <p class="profile-subtitle">{% blocktrans %}Your EllaPrimE account{% endblocktrans %}</p>
             </div>
 
             {% if not profile_complete %}
                 <div class="profile-incomplete-banner">
-                    <p>Please complete your profile to place orders.</p>
+                    <p>{% trans 'Please complete your profile to place orders.' %}</p>
                 </div>
             {% endif %}
 
             <section class="orders-section">
-                <h2 class="section-title">Order history</h2>
+                <h2 class="section-title">{% trans 'Order history' %}</h2>
 
                 {% if orders %}
                     {% for order in orders %}
@@ -98,13 +99,13 @@
                         </div>
                     {% endfor %}
                 {% else %}
-                    <p class="empty-note">No orders yet.</p>
+                    <p class="empty-note">{% trans 'No orders yet.' %}</p>
                 {% endif %}
             </section>
         </div>
     
         <div class="profile-panel" id="panel-personal">
-            <h2 class="section-title">Personal information</h2>
+            <h2 class="section-title">{% trans 'Personal information' %}</h2>
 
             <form method="post" action="{% url 'customer-update' %}" class="profile-form">
                 {% csrf_token %}
@@ -117,34 +118,34 @@
                         {% endfor %}
                     </div>
                 {% endfor %}
-                <button type="submit" class="save-btn">Save changes</button>
+                <button type="submit" class="save-btn">{% trans 'Save changes' %}</button>
             </form>
         </div>
 
         <div class="profile-panel" id="panel-points">
-            <h2 class="section-title">Loyalty points</h2>
+            <h2 class="section-title">{% trans 'Loyalty points' %}</h2>
 
             <div class="points-display">
                 <p class="points-value">{{ customer.user.loyalty_points }}</p>
-                <p class="points-label">points accumulated</p>
+                <p class="points-label">{% trans 'points accumulated' %}</p>
                 <a href="{% url 'all-garments' %}" class="points-cta">
-                    Shop now to earn more →
+                    {% trans 'Shop now to earn more' %} →
                 </a>
             </div>
         </div>
 
         <div class="profile-panel" id="panel-wishlist">
-            <h2 class="section-title">Your wishlist</h2>
+            <h2 class="section-title">{% trans 'Your wishlist' %}</h2>
 
             {% if customer.favorites.exists %}
                 {% include "clothes/garments/_wishlist-items.html" %}
             {% else %}
-                <p class="empty-note">No saved items yet.</p>
+                <p class="empty-note">{% trans 'No saved items yet.' %}</p>
             {% endif %}
         </div>
     
         <div class="profile-panel" id="panel-contact">
-            <h2 class="section-title">Contact us</h2>
+            <h2 class="section-title">{% trans 'Contact us' %}</h2>
 
             {% if messages %}
                 {% for message in messages %}
@@ -187,7 +188,7 @@
                     {% endfor %}
                 </div>
 
-                <button type="submit" class="save-btn">Send message</button>
+                <button type="submit" class="save-btn">{% trans 'Send message' %}</button>
             </form>
         </div>
 

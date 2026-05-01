@@ -74,7 +74,6 @@ class UpdateReviewView(LoginRequiredMixin, UpdateView):
 
 class DeleteReviewView(LoginRequiredMixin, DeleteView):
     model = Review
-    template_name = "reviews/delete-review.html"
 
     def dispatch(self, request, *args, **kwargs):
         review = self.get_object()
