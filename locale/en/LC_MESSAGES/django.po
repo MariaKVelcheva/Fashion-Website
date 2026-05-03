@@ -1,0 +1,1480 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-02 01:22+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\fashionWebsite\accounts\admin.py:24
+msgid "Personal info"
+msgstr ""
+
+#: .\fashionWebsite\accounts\admin.py:26
+msgid "Permissions"
+msgstr ""
+
+#: .\fashionWebsite\accounts\admin.py:37
+msgid "Important dates"
+msgstr ""
+
+#: .\fashionWebsite\accounts\forms.py:14 .\fashionWebsite\accounts\forms.py:15
+#: .\fashionWebsite\accounts\forms.py:73 .\fashionWebsite\common\models.py:8
+msgid "Email"
+msgstr ""
+
+#: .\fashionWebsite\accounts\forms.py:20 .\fashionWebsite\accounts\forms.py:77
+msgid "Password"
+msgstr ""
+
+#: .\fashionWebsite\accounts\forms.py:25
+msgid "Confirm Password"
+msgstr ""
+
+#: .\fashionWebsite\accounts\forms.py:30 .\fashionWebsite\accounts\forms.py:82
+#: .\fashionWebsite\accounts\forms.py:88
+msgid "Invalid email or password."
+msgstr ""
+
+#: .\fashionWebsite\accounts\forms.py:40
+msgid "Email already registered!"
+msgstr ""
+
+#: .\fashionWebsite\accounts\forms.py:47
+msgid "Passwords don't match"
+msgstr ""
+
+#: .\fashionWebsite\accounts\forms.py:53
+msgid "Please correct the errors below."
+msgstr ""
+
+#: .\fashionWebsite\accounts\forms.py:102
+#: .\fashionWebsite\orders\models\order.py:65
+msgid "Phone number"
+msgstr ""
+
+#: .\fashionWebsite\accounts\models\app_profile.py:15
+#: .\fashionWebsite\clothes\models\wishlistItem.py:12
+#: .\fashionWebsite\reviews\models.py:28
+msgid "User"
+msgstr ""
+
+#: .\fashionWebsite\accounts\models\app_profile.py:21
+msgid "First Name"
+msgstr ""
+
+#: .\fashionWebsite\accounts\models\app_profile.py:29
+msgid "Middle Name"
+msgstr ""
+
+#: .\fashionWebsite\accounts\models\app_profile.py:39
+msgid "Last Name"
+msgstr ""
+
+#: .\fashionWebsite\accounts\models\app_profile.py:47
+msgid "Address"
+msgstr ""
+
+#: .\fashionWebsite\accounts\models\app_profile.py:51
+msgid "Telephone Number"
+msgstr ""
+
+#: .\fashionWebsite\accounts\models\app_profile.py:56
+#: .\fashionWebsite\clothes\models\product.py:16
+#: .\templates\clothes\garments\details-garment.html:79
+#: .\templates\clothes\garments\search.html:55
+msgid "Size"
+msgstr ""
+
+#: .\fashionWebsite\accounts\models\app_profile.py:64
+#: .\fashionWebsite\clothes\models\wishlistItem.py:34
+msgid "Favorites"
+msgstr ""
+
+#: .\fashionWebsite\accounts\models\app_profile.py:84
+#: .\fashionWebsite\orders\models\order.py:25
+#: .\templates\emails\order_confirmation.html:38
+msgid "Customer"
+msgstr ""
+
+#: .\fashionWebsite\accounts\models\app_profile.py:85
+msgid "Customers"
+msgstr ""
+
+#: .\fashionWebsite\accounts\models\app_user.py:9
+msgid "Email address"
+msgstr ""
+
+#: .\fashionWebsite\accounts\models\app_user.py:14
+msgid "Points"
+msgstr ""
+
+#: .\fashionWebsite\accounts\models\app_user.py:19
+msgid "Staff status"
+msgstr ""
+
+#: .\fashionWebsite\accounts\models\app_user.py:24
+#: .\fashionWebsite\common\models.py:16
+msgid "Active"
+msgstr ""
+
+#: .\fashionWebsite\accounts\models\app_user.py:37
+msgid "App User"
+msgstr ""
+
+#: .\fashionWebsite\accounts\models\app_user.py:38
+msgid "App Users"
+msgstr ""
+
+#: .\fashionWebsite\accounts\views\profile_management_views.py:22
+#: .\fashionWebsite\orders\views\cart.py:222
+msgid "Profile updated successfully."
+msgstr ""
+
+#: .\fashionWebsite\accounts\views\user_management_views.py:57
+msgid "Your account has been deleted."
+msgstr ""
+
+#: .\fashionWebsite\clothes\models\LookbookImage.py:7
+#: .\fashionWebsite\clothes\models\LookbookImage.py:18
+#: .\fashionWebsite\clothes\models\galleryImage.py:13
+msgid "Image"
+msgstr ""
+
+#: .\fashionWebsite\clothes\models\LookbookImage.py:12
+msgid "Caption"
+msgstr ""
+
+#: .\fashionWebsite\clothes\models\LookbookImage.py:19
+msgid "Images"
+msgstr ""
+
+#: .\fashionWebsite\clothes\models\category.py:8
+#: .\fashionWebsite\clothes\models\color.py:7
+#: .\fashionWebsite\clothes\models\size.py:7
+msgid "name"
+msgstr ""
+
+#: .\fashionWebsite\clothes\models\category.py:21
+msgid "profile image"
+msgstr ""
+
+#: .\fashionWebsite\clothes\models\category.py:28
+msgid "trending"
+msgstr ""
+
+#: .\fashionWebsite\clothes\models\category.py:33
+#: .\fashionWebsite\clothes\models\garment.py:14
+#: .\templates\clothes\garments\search.html:27
+msgid "Category"
+msgstr ""
+
+#: .\fashionWebsite\clothes\models\category.py:34
+#: .\fashionWebsite\promotions\models.py:71
+msgid "Categories"
+msgstr ""
+
+#: .\fashionWebsite\clothes\models\color.py:14
+msgid "hex code"
+msgstr ""
+
+#: .\fashionWebsite\clothes\models\color.py:21
+msgid "color"
+msgstr ""
+
+#: .\fashionWebsite\clothes\models\color.py:22
+msgid "colors"
+msgstr ""
+
+#: .\fashionWebsite\clothes\models\galleryImage.py:9
+#: .\fashionWebsite\clothes\models\garment.py:116
+#: .\fashionWebsite\clothes\models\wishlistItem.py:20
+#: .\fashionWebsite\reviews\models.py:21
+msgid "Garment"
+msgstr ""
+
+#: .\fashionWebsite\clothes\models\galleryImage.py:18
+msgid "Garment Image"
+msgstr ""
+
+#: .\fashionWebsite\clothes\models\galleryImage.py:19
+msgid "Garment Images"
+msgstr ""
+
+#: .\fashionWebsite\clothes\models\garment.py:18
+msgid "Garment name"
+msgstr ""
+
+#: .\fashionWebsite\clothes\models\garment.py:31
+msgid "Garment description"
+msgstr ""
+
+#: .\fashionWebsite\clothes\models\garment.py:37
+msgid "Main image"
+msgstr ""
+
+#: .\fashionWebsite\clothes\models\garment.py:44
+msgid "Price"
+msgstr ""
+
+#: .\fashionWebsite\clothes\models\garment.py:51
+#: .\fashionWebsite\clothes\models\wishlistItem.py:26
+#: .\fashionWebsite\orders\models\order.py:31
+#: .\fashionWebsite\reviews\models.py:49
+msgid "Created at"
+msgstr ""
+
+#: .\fashionWebsite\clothes\models\garment.py:117
+#: .\fashionWebsite\promotions\models.py:64
+msgid "Garments"
+msgstr ""
+
+#: .\fashionWebsite\clothes\models\product.py:9
+#: .\fashionWebsite\clothes\models\product.py:30
+#: .\fashionWebsite\orders\models\orderItem.py:16
+msgid "Product"
+msgstr ""
+
+#: .\fashionWebsite\clothes\models\product.py:23
+#: .\templates\clothes\garments\details-garment.html:65
+#: .\templates\clothes\garments\search.html:40
+msgid "Color"
+msgstr ""
+
+#: .\fashionWebsite\clothes\models\product.py:31
+#: .\templates\common\sales-conditions.html:20
+msgid "Products"
+msgstr ""
+
+#: .\fashionWebsite\clothes\models\size.py:14
+msgid "size"
+msgstr ""
+
+#: .\fashionWebsite\clothes\models\size.py:15
+msgid "sizes"
+msgstr ""
+
+#: .\fashionWebsite\clothes\models\wishlistItem.py:33
+msgid "Favorite"
+msgstr ""
+
+#: .\fashionWebsite\common\forms.py:10
+msgid "Enter your name"
+msgstr ""
+
+#: .\fashionWebsite\common\forms.py:16
+msgid "Enter your email"
+msgstr ""
+
+#: .\fashionWebsite\common\forms.py:22
+msgid "Your message..."
+msgstr ""
+
+#: .\fashionWebsite\common\forms.py:33 .\templates\common\home.html:46
+msgid "Enter your email address"
+msgstr ""
+
+#: .\fashionWebsite\common\forms.py:40
+msgid "This email is already subscribed."
+msgstr ""
+
+#: .\fashionWebsite\common\models.py:12
+msgid "Subscribed"
+msgstr ""
+
+#: .\fashionWebsite\common\models.py:23
+msgid "Newsletter Subscriber"
+msgstr ""
+
+#: .\fashionWebsite\common\views.py:40
+msgid "Thank you for contacting us"
+msgstr ""
+
+#: .\fashionWebsite\common\views.py:49
+msgid "Your message has been successfully sent."
+msgstr ""
+
+#: .\fashionWebsite\common\views.py:68
+msgid "Welcome to EllaPrimE!"
+msgstr ""
+
+#: .\fashionWebsite\common\views.py:78
+msgid "You're subscribed! Check your inbox for a welcome email."
+msgstr ""
+
+#: .\fashionWebsite\common\views.py:85
+#: .\templates\clothes\garments\details-garment.html:15
+msgid "Something went wrong."
+msgstr ""
+
+#: .\fashionWebsite\orders\models\order.py:10
+#: .\fashionWebsite\reviews\models.py:12
+msgid "Pending"
+msgstr ""
+
+#: .\fashionWebsite\orders\models\order.py:11
+msgid "Confirmed"
+msgstr ""
+
+#: .\fashionWebsite\orders\models\order.py:12
+msgid "Shipped"
+msgstr ""
+
+#: .\fashionWebsite\orders\models\order.py:13
+msgid "Received"
+msgstr ""
+
+#: .\fashionWebsite\orders\models\order.py:14
+msgid "Cancelled"
+msgstr ""
+
+#: .\fashionWebsite\orders\models\order.py:18
+msgid "Payment on delivery"
+msgstr ""
+
+#: .\fashionWebsite\orders\models\order.py:19
+msgid "Card payment"
+msgstr ""
+
+#: .\fashionWebsite\orders\models\order.py:37
+#: .\fashionWebsite\reviews\models.py:40
+msgid "Status"
+msgstr ""
+
+#: .\fashionWebsite\orders\models\order.py:45
+#: .\fashionWebsite\promotions\models.py:93
+msgid "Promotion"
+msgstr ""
+
+#: .\fashionWebsite\orders\models\order.py:52
+msgid "Payment type"
+msgstr ""
+
+#: .\fashionWebsite\orders\models\order.py:58
+msgid "Shipping address"
+msgstr ""
+
+#: .\fashionWebsite\orders\models\order.py:72
+msgid "Total amount"
+msgstr ""
+
+#: .\fashionWebsite\orders\models\order.py:76
+#: .\fashionWebsite\orders\models\orderItem.py:9
+#: .\templates\emails\order_confirmation.html:23
+msgid "Order"
+msgstr ""
+
+#: .\fashionWebsite\orders\models\order.py:77 .\templates\common\faq.html:13
+#: .\templates\common\sales-conditions.html:30
+msgid "Orders"
+msgstr ""
+
+#: .\fashionWebsite\orders\models\orderItem.py:21
+msgid "Quantity"
+msgstr ""
+
+#: .\fashionWebsite\orders\models\orderItem.py:25
+msgid "Unit Price"
+msgstr ""
+
+#: .\fashionWebsite\orders\models\orderItem.py:37
+msgid "Order Item"
+msgstr ""
+
+#: .\fashionWebsite\orders\models\orderItem.py:38
+msgid "Order Items"
+msgstr ""
+
+#: .\fashionWebsite\orders\views\cart.py:27
+#: .\fashionWebsite\orders\views\cart.py:57
+msgid "Invalid request"
+msgstr ""
+
+#: .\fashionWebsite\orders\views\cart.py:34
+msgid "Promotion not found"
+msgstr ""
+
+#: .\fashionWebsite\orders\views\cart.py:40
+msgid "A promo code is already applied to your order."
+msgstr ""
+
+#: .\fashionWebsite\orders\views\cart.py:43
+msgid "Minimum order amount not reached"
+msgstr ""
+
+#: .\fashionWebsite\orders\views\cart.py:53
+msgid "Promo code applied!"
+msgstr ""
+
+#: .\fashionWebsite\orders\views\cart.py:63
+msgid "Invalid request."
+msgstr ""
+
+#: .\fashionWebsite\orders\views\cart.py:77
+msgid "Please select a color."
+msgstr ""
+
+#: .\fashionWebsite\orders\views\cart.py:84
+msgid "Please select a size."
+msgstr ""
+
+#: .\fashionWebsite\orders\views\cart.py:94
+msgid "This item is out of stock."
+msgstr ""
+
+#: .\fashionWebsite\orders\views\cart.py:103
+#: .\fashionWebsite\orders\views\cart.py:129
+msgid "Added to cart!"
+msgstr ""
+
+#: .\fashionWebsite\orders\views\cart.py:120
+msgid "Not enough stock available."
+msgstr ""
+
+#: .\fashionWebsite\orders\views\cart.py:244
+#: .\fashionWebsite\orders\views\cart.py:345
+msgid "Please complete your profile before checking out."
+msgstr ""
+
+#: .\fashionWebsite\orders\views\cart.py:250
+#: .\fashionWebsite\orders\views\cart.py:351
+msgid "Your cart is empty."
+msgstr ""
+
+#: .\fashionWebsite\orders\views\cart.py:277
+#: .\fashionWebsite\orders\views\cart.py:436
+#, python-format
+msgid "EllaPrimE - Order confirmation #%(order_id)s"
+msgstr ""
+
+#: .\fashionWebsite\orders\views\cart.py:358
+#, python-format
+msgid "Sorry, only %(stock)s unit(s) of %(name)s are available."
+msgstr ""
+
+#: .\fashionWebsite\promotions\models.py:8
+#: .\templates\orders\orders\cart.html:108
+msgid "Promo code"
+msgstr ""
+
+#: .\fashionWebsite\promotions\models.py:9
+msgid "Garment Discount"
+msgstr ""
+
+#: .\fashionWebsite\promotions\models.py:10
+msgid "Category Discount"
+msgstr ""
+
+#: .\fashionWebsite\promotions\models.py:11
+msgid "Order Discount"
+msgstr ""
+
+#: .\fashionWebsite\promotions\models.py:17
+msgid "Code"
+msgstr ""
+
+#: .\fashionWebsite\promotions\models.py:24
+msgid "Promo Type"
+msgstr ""
+
+#: .\fashionWebsite\promotions\models.py:30
+msgid "Discount Percent"
+msgstr ""
+
+#: .\fashionWebsite\promotions\models.py:34
+msgid "Valid From"
+msgstr ""
+
+#: .\fashionWebsite\promotions\models.py:38
+msgid "Valid Until"
+msgstr ""
+
+#: .\fashionWebsite\promotions\models.py:46
+msgid "Minimum Order Amount"
+msgstr ""
+
+#: .\fashionWebsite\promotions\models.py:52
+msgid "Maximum Uses"
+msgstr ""
+
+#: .\fashionWebsite\promotions\models.py:56
+msgid "Times Used"
+msgstr ""
+
+#: .\fashionWebsite\promotions\models.py:94
+msgid "Promotions"
+msgstr ""
+
+#: .\fashionWebsite\reviews\models.py:13
+msgid "Approved"
+msgstr ""
+
+#: .\fashionWebsite\reviews\models.py:14
+msgid "Rejected"
+msgstr ""
+
+#: .\fashionWebsite\reviews\models.py:33
+msgid "Rating"
+msgstr ""
+
+#: .\fashionWebsite\reviews\models.py:44
+msgid "Review Text"
+msgstr ""
+
+#: .\fashionWebsite\reviews\models.py:54
+msgid "Verified purchase"
+msgstr ""
+
+#: .\fashionWebsite\reviews\models.py:59
+msgid "Review"
+msgstr ""
+
+#: .\fashionWebsite\reviews\models.py:60
+msgid "Reviews"
+msgstr ""
+
+#: .\fashionWebsite\settings.py:129
+msgid "English"
+msgstr ""
+
+#: .\fashionWebsite\settings.py:130
+msgid "Bulgarian"
+msgstr ""
+
+#: .\templates\404.html:8 .\templates\404.html:109
+msgid "Page not found"
+msgstr ""
+
+#: .\templates\404.html:111
+msgid "The page you're looking for doesn't exist or has been moved."
+msgstr ""
+
+#: .\templates\404.html:115 .\templates\500.html:115
+msgid "Go to homepage"
+msgstr ""
+
+#: .\templates\404.html:116 .\templates\500.html:116
+msgid "Browse collection"
+msgstr ""
+
+#: .\templates\500.html:8 .\templates\500.html:109
+msgid "Something went wrong"
+msgstr ""
+
+#: .\templates\500.html:111
+msgid ""
+"We're sorry — something went wrong on our end. Our team has been notified. "
+"Please try again later."
+msgstr ""
+
+#: .\templates\accounts\password-management\password-change-done.html:8
+#: .\templates\accounts\password-management\password-change-done.html:15
+msgid "Password updated"
+msgstr ""
+
+#: .\templates\accounts\password-management\password-change-done.html:16
+msgid "Your password has been changed successfully."
+msgstr ""
+
+#: .\templates\accounts\password-management\password-change-done.html:19
+#: .\templates\accounts\password-management\password-change.html:36
+#: .\templates\accounts\profile-management\customer-update.html:51
+#: .\templates\accounts\user-management\confirm-delete.html:51
+#: .\templates\reviews\update-review.html:50
+msgid "Back to my account"
+msgstr ""
+
+#: .\templates\accounts\password-management\password-change.html:8
+#: .\templates\accounts\password-management\password-change.html:15
+#: .\templates\accounts\profile-management\customer-details.html:43
+msgid "Change password"
+msgstr ""
+
+#: .\templates\accounts\password-management\password-change.html:16
+msgid "Choose a strong new password"
+msgstr ""
+
+#: .\templates\accounts\password-management\password-change.html:34
+msgid "Update password"
+msgstr ""
+
+#: .\templates\accounts\password-management\password-reset-complete.html:8
+msgid "Password reset"
+msgstr ""
+
+#: .\templates\accounts\password-management\password-reset-complete.html:15
+msgid "All done"
+msgstr ""
+
+#: .\templates\accounts\password-management\password-reset-complete.html:16
+msgid ""
+"Your password has been reset. You can now sign in with your new password."
+msgstr ""
+
+#: .\templates\accounts\password-management\password-reset-complete.html:19
+#: .\templates\accounts\user-management\login.html:8
+#: .\templates\accounts\user-management\login.html:54
+#: .\templates\accounts\user-management\register.html:66
+msgid "Sign in"
+msgstr ""
+
+#: .\templates\accounts\password-management\password-reset-confirm.html:8
+#: .\templates\accounts\password-management\password-reset-confirm.html:16
+#: .\templates\accounts\password-management\password-reset-confirm.html:35
+msgid "Set new password"
+msgstr ""
+
+#: .\templates\accounts\password-management\password-reset-confirm.html:17
+msgid "Choose a strong password for your account"
+msgstr ""
+
+#: .\templates\accounts\password-management\password-reset-confirm.html:39
+msgid "Link expired"
+msgstr ""
+
+#: .\templates\accounts\password-management\password-reset-confirm.html:40
+msgid "This reset link is no longer valid. Please request a new one."
+msgstr ""
+
+#: .\templates\accounts\password-management\password-reset-confirm.html:43
+msgid "Request new link"
+msgstr ""
+
+#: .\templates\accounts\password-management\password-reset-done.html:8
+#: .\templates\accounts\password-management\password-reset-done.html:15
+#: .\templates\accounts\password-management\password_reset_email.html:8
+#: .\templates\accounts\password-management\password_reset_email.html:15
+msgid "Check your email"
+msgstr ""
+
+#: .\templates\accounts\password-management\password-reset-done.html:17
+msgid ""
+"If an account exists for that address, we've sent a password reset link. It "
+"may take a few minutes to arrive."
+msgstr ""
+
+#: .\templates\accounts\password-management\password-reset-done.html:21
+#: .\templates\accounts\password-management\password-reset.html:34
+#: .\templates\accounts\password-management\password_reset_email.html:20
+msgid "Back to sign in"
+msgstr ""
+
+#: .\templates\accounts\password-management\password-reset.html:8
+#: .\templates\accounts\password-management\password-reset.html:15
+msgid "Reset password"
+msgstr ""
+
+#: .\templates\accounts\password-management\password-reset.html:16
+msgid "Enter your email and we"
+msgstr ""
+
+#: .\templates\accounts\password-management\password-reset.html:32
+msgid "Send reset link"
+msgstr ""
+
+#: .\templates\accounts\password-management\password_reset_email.html:17
+msgid "If an account exists for that address, we"
+msgstr ""
+
+#: .\templates\accounts\password-management\password_reset_subject.txt:1
+msgid "Reset your EllaPrimE password"
+msgstr ""
+
+#: .\templates\accounts\profile-management\customer-details.html:26
+msgid "Overview"
+msgstr ""
+
+#: .\templates\accounts\profile-management\customer-details.html:29
+#: .\templates\accounts\profile-management\customer-details.html:108
+msgid "Personal information"
+msgstr ""
+
+#: .\templates\accounts\profile-management\customer-details.html:32
+#: .\templates\accounts\profile-management\customer-details.html:126
+msgid "Loyalty points"
+msgstr ""
+
+#: .\templates\accounts\profile-management\customer-details.html:35
+msgid "Wishlist"
+msgstr ""
+
+#: .\templates\accounts\profile-management\customer-details.html:38
+#: .\templates\accounts\profile-management\customer-details.html:148
+#: .\templates\common\contact-form.html:14 .\templates\common\contact.html:14
+msgid "Contact us"
+msgstr ""
+
+#: .\templates\accounts\profile-management\customer-details.html:45
+msgid "Delete account"
+msgstr ""
+
+#: .\templates\accounts\profile-management\customer-details.html:55
+msgid "Hello,"
+msgstr ""
+
+#: .\templates\accounts\profile-management\customer-details.html:56
+msgid "Your EllaPrimE account"
+msgstr ""
+
+#: .\templates\accounts\profile-management\customer-details.html:61
+msgid "Please complete your profile to place orders."
+msgstr ""
+
+#: .\templates\accounts\profile-management\customer-details.html:66
+#: .\templates\orders\orders\all-orders.html:14
+msgid "Order history"
+msgstr ""
+
+#: .\templates\accounts\profile-management\customer-details.html:102
+#: .\templates\orders\orders\all-orders.html:63
+msgid "No orders yet."
+msgstr ""
+
+#: .\templates\accounts\profile-management\customer-details.html:121
+#: .\templates\accounts\profile-management\customer-update.html:47
+#: .\templates\accounts\user-management\confirm-delete.html:47
+msgid "Save changes"
+msgstr ""
+
+#: .\templates\accounts\profile-management\customer-details.html:130
+msgid "points accumulated"
+msgstr ""
+
+#: .\templates\accounts\profile-management\customer-details.html:132
+msgid "Shop now to earn more"
+msgstr ""
+
+#: .\templates\accounts\profile-management\customer-details.html:138
+msgid "Your wishlist"
+msgstr ""
+
+#: .\templates\accounts\profile-management\customer-details.html:143
+msgid "No saved items yet."
+msgstr ""
+
+#: .\templates\accounts\profile-management\customer-details.html:191
+#: .\templates\common\contact-form.html:53 .\templates\common\contact.html:53
+msgid "Send message"
+msgstr ""
+
+#: .\templates\accounts\profile-management\customer-update.html:8
+#: .\templates\accounts\profile-management\customer-update.html:22
+msgid "Update profile"
+msgstr ""
+
+#: .\templates\accounts\profile-management\customer-update.html:23
+msgid "Keep your delivery details up to date"
+msgstr ""
+
+#: .\templates\accounts\profile-management\update-form.html:6
+msgid "Update"
+msgstr ""
+
+#: .\templates\accounts\user-management\confirm-delete.html:8
+msgid "Confirm Delete"
+msgstr ""
+
+#: .\templates\accounts\user-management\confirm-delete.html:23
+msgid "Confirm profile deletion"
+msgstr ""
+
+#: .\templates\accounts\user-management\login.html:23
+msgid "Welcome back"
+msgstr ""
+
+#: .\templates\accounts\user-management\login.html:24
+msgid "Sign in to your EllaPrimE account"
+msgstr ""
+
+#: .\templates\accounts\user-management\login.html:57
+msgid "Forgot your password?"
+msgstr ""
+
+#: .\templates\accounts\user-management\login.html:59
+msgid "Don't have an account yet?"
+msgstr ""
+
+#: .\templates\accounts\user-management\login.html:59
+msgid "Create one"
+msgstr ""
+
+#: .\templates\accounts\user-management\register.html:8
+msgid "Register"
+msgstr ""
+
+#: .\templates\accounts\user-management\register.html:23
+msgid "Create an account"
+msgstr ""
+
+#: .\templates\accounts\user-management\register.html:24
+msgid "Join EllaPrimE and start shopping"
+msgstr ""
+
+#: .\templates\accounts\user-management\register.html:62
+msgid "Create account"
+msgstr ""
+
+#: .\templates\accounts\user-management\register.html:66
+msgid "Already have an account?"
+msgstr ""
+
+#: .\templates\clothes\categories\all-categories.html:7
+#: .\templates\common\home.html:13
+msgid "Latest Trends"
+msgstr ""
+
+#: .\templates\clothes\categories\details-category.html:11
+#, python-format
+msgid "Our %(category.name)s collection"
+msgstr ""
+
+#: .\templates\clothes\categories\details-category.html:17
+#, python-format
+msgid "No %(category.name)s products available."
+msgstr ""
+
+#: .\templates\clothes\garments\_wishlist-items.html:21
+#: .\templates\clothes\garments\garments.html:17
+#: .\templates\clothes\garments\search.html:111
+msgid "Available"
+msgstr ""
+
+#: .\templates\clothes\garments\_wishlist-items.html:22
+msgid "in promo now!"
+msgstr ""
+
+#: .\templates\clothes\garments\_wishlist-items.html:41
+msgid "Your wishlist is empty."
+msgstr ""
+
+#: .\templates\clothes\garments\_wishlist-items.html:43
+msgid "Browse the collection"
+msgstr ""
+
+#: .\templates\clothes\garments\all-garments.html:11
+msgid "Our Collection"
+msgstr ""
+
+#: .\templates\clothes\garments\all-garments.html:19
+#: .\templates\clothes\garments\new_in.html:19
+#: .\templates\clothes\garments\promotion-catalogue.html:19
+#: .\templates\clothes\garments\trending.html:19
+msgid "No garments available."
+msgstr ""
+
+#: .\templates\clothes\garments\details-garment.html:13
+msgid "Adding..."
+msgstr ""
+
+#: .\templates\clothes\garments\details-garment.html:14
+#: .\templates\clothes\garments\details-garment.html:91
+msgid "Add to cart"
+msgstr ""
+
+#: .\templates\clothes\garments\details-garment.html:16
+#: .\templates\clothes\garments\details-garment.html:153
+#: .\templates\clothes\garments\details-garment.html:191
+msgid "Are you sure you want to delete your review?"
+msgstr ""
+
+#: .\templates\clothes\garments\details-garment.html:55
+#, python-format
+msgid "%(count)s review"
+msgid_plural "%(count)s reviews"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\clothes\garments\details-garment.html:97
+msgid "Description and care instructions"
+msgstr ""
+
+#: .\templates\clothes\garments\details-garment.html:103
+msgid "In stock"
+msgstr ""
+
+#: .\templates\clothes\garments\details-garment.html:105
+#: .\templates\clothes\garments\garments.html:19
+#: .\templates\clothes\garments\search.html:113
+msgid "Out of stock"
+msgstr ""
+
+#: .\templates\clothes\garments\details-garment.html:111
+msgid "Customer reviews"
+msgstr ""
+
+#: .\templates\clothes\garments\details-garment.html:117
+msgid "Your rating"
+msgstr ""
+
+#: .\templates\clothes\garments\details-garment.html:128
+msgid "Submit your review"
+msgstr ""
+
+#: .\templates\clothes\garments\details-garment.html:137
+msgid "Awaiting approval"
+msgstr ""
+
+#: .\templates\clothes\garments\details-garment.html:139
+msgid "Your review"
+msgstr ""
+
+#: .\templates\clothes\garments\details-garment.html:155
+#: .\templates\clothes\garments\details-garment.html:193
+msgid "Delete review"
+msgstr ""
+
+#: .\templates\clothes\garments\details-garment.html:163
+msgid "Edit"
+msgstr ""
+
+#: .\templates\clothes\garments\details-garment.html:201
+msgid "Edit review"
+msgstr ""
+
+#: .\templates\clothes\garments\details-garment.html:205
+msgid "Be the first to write a review for this product."
+msgstr ""
+
+#: .\templates\clothes\garments\details-garment.html:214
+msgid "Cancel"
+msgstr ""
+
+#: .\templates\clothes\garments\details-garment.html:215
+msgid "Delete"
+msgstr ""
+
+#: .\templates\clothes\garments\new_in.html:11
+msgid "New In"
+msgstr ""
+
+#: .\templates\clothes\garments\promotion-catalogue.html:11
+msgid "Good deals"
+msgstr ""
+
+#: .\templates\clothes\garments\search.html:13
+msgid "Filter"
+msgstr ""
+
+#: .\templates\clothes\garments\search.html:17
+msgid "Search"
+msgstr ""
+
+#: .\templates\clothes\garments\search.html:22
+msgid "Name or description..."
+msgstr ""
+
+#: .\templates\clothes\garments\search.html:69
+#: .\templates\orders\orders\cart.html:109
+msgid "Apply"
+msgstr ""
+
+#: .\templates\clothes\garments\search.html:70
+msgid "Clear all"
+msgstr ""
+
+#: .\templates\clothes\garments\search.html:80
+msgid "Results for"
+msgstr ""
+
+#: .\templates\clothes\garments\search.html:82
+msgid "All garments"
+msgstr ""
+
+#: .\templates\clothes\garments\search.html:123
+msgid "No garments match your search."
+msgstr ""
+
+#: .\templates\clothes\garments\search.html:124
+msgid "Clear filters"
+msgstr ""
+
+#: .\templates\clothes\garments\trending.html:11
+msgid "Trending now:"
+msgstr ""
+
+#: .\templates\clothes\garments\wishlist.html:14
+msgid "Your Wishlist"
+msgstr ""
+
+#: .\templates\common\base.html:19
+#, python-format
+msgid ""
+"%(promo.discount_percent|floatformat:\"0\")s %% off of "
+"%(promo.categories.all|join:\",\")s!"
+msgstr ""
+
+#: .\templates\common\base.html:32
+msgid "SHOP"
+msgstr ""
+
+#: .\templates\common\base.html:34 .\templates\common\nav.html:8
+msgid "Collection"
+msgstr ""
+
+#: .\templates\common\base.html:35 .\templates\common\nav.html:6
+msgid "New in"
+msgstr ""
+
+#: .\templates\common\base.html:36 .\templates\common\nav.html:7
+msgid "Promo"
+msgstr ""
+
+#: .\templates\common\base.html:39
+msgid "HELP"
+msgstr ""
+
+#: .\templates\common\base.html:41
+msgid "Customer service"
+msgstr ""
+
+#: .\templates\common\base.html:42
+msgid "My account"
+msgstr ""
+
+#: .\templates\common\base.html:43
+msgid "My orders"
+msgstr ""
+
+#: .\templates\common\base.html:45
+msgid "LEGAL AND PRIVACY"
+msgstr ""
+
+#: .\templates\common\base.html:48
+msgid "Sales conditions"
+msgstr ""
+
+#: .\templates\common\contact-form.html:15
+msgid "We'll get back to you as soon as possible"
+msgstr ""
+
+#: .\templates\common\contact.html:15
+msgid "We"
+msgstr ""
+
+#: .\templates\common\faq.html:10
+msgid "Frequently Asked Questions"
+msgstr ""
+
+#: .\templates\common\faq.html:14
+msgid "How do I place an order?"
+msgstr ""
+
+#: .\templates\common\faq.html:15
+msgid ""
+"You can browse our products, add items to your cart, and proceed to checkout "
+"securely."
+msgstr ""
+
+#: .\templates\common\faq.html:17
+msgid "Can I modify or cancel my order?"
+msgstr ""
+
+#: .\templates\common\faq.html:18
+msgid ""
+"Orders can only be modified or cancelled before they are processed. Please "
+"contact us as soon as possible."
+msgstr ""
+
+#: .\templates\common\faq.html:22
+msgid "Shipping"
+msgstr ""
+
+#: .\templates\common\faq.html:23
+msgid "What are the delivery times?"
+msgstr ""
+
+#: .\templates\common\faq.html:24
+msgid ""
+"Delivery times depend on your location and will be estimated during checkout."
+msgstr ""
+
+#: .\templates\common\faq.html:26
+msgid "Do you ship internationally?"
+msgstr ""
+
+#: .\templates\common\faq.html:27
+msgid "Yes, we offer international shipping. Fees and delivery times may vary."
+msgstr ""
+
+#: .\templates\common\faq.html:31
+msgid "Returns & Refunds"
+msgstr ""
+
+#: .\templates\common\faq.html:32
+msgid "Can I return a product?"
+msgstr ""
+
+#: .\templates\common\faq.html:33
+msgid ""
+"You may return items within 14 days of receipt, provided they are unused and "
+"in original condition"
+msgstr ""
+
+#: .\templates\common\faq.html:35
+msgid "How do I request a refund?"
+msgstr ""
+
+#: .\templates\common\faq.html:36
+msgid ""
+"Contact our support team with your order details to initiate a refund "
+"request."
+msgstr ""
+
+#: .\templates\common\faq.html:40
+msgid "Account"
+msgstr ""
+
+#: .\templates\common\faq.html:41
+msgid "Do I need an account to order?"
+msgstr ""
+
+#: .\templates\common\faq.html:42
+msgid "Yes, an account is required to place and track orders."
+msgstr ""
+
+#: .\templates\common\faq.html:44
+msgid "How do I update my information?"
+msgstr ""
+
+#: .\templates\common\faq.html:45
+msgid "You can update your personal information from your account dashboard."
+msgstr ""
+
+#: .\templates\common\gallery.html:14 .\templates\common\nav.html:9
+msgid "Gallery"
+msgstr ""
+
+#: .\templates\common\gallery.html:62
+msgid "No images yet."
+msgstr ""
+
+#: .\templates\common\home.html:8
+msgid ""
+"     <h3>Our</h3>\n"
+"            <h2> collection</h2>"
+msgstr ""
+
+#: .\templates\common\home.html:10 .\templates\common\home.html:27
+msgid "Discover"
+msgstr ""
+
+#: .\templates\common\home.html:31
+#, python-format
+msgid "10%% off your next order"
+msgstr ""
+
+#: .\templates\common\home.html:32
+msgid "Subscribe for fashion news and exclusive EllaPrimE offers"
+msgstr ""
+
+#: .\templates\common\home.html:48
+msgid "Subscribe"
+msgstr ""
+
+#: .\templates\common\home.html:53
+msgid "Join Now"
+msgstr ""
+
+#: .\templates\common\nav.html:10 .\templates\common\sales-conditions.html:55
+msgid "Contact"
+msgstr ""
+
+#: .\templates\common\nav.html:19
+msgid "Search garments..."
+msgstr ""
+
+#: .\templates\common\newsletter-welcome.html:31
+#: .\templates\emails\welcome.html:23
+msgid "Welcome to"
+msgstr ""
+
+#: .\templates\common\newsletter-welcome.html:35
+msgid ""
+"Thank you for subscribing. You'll be the first to know about new arrivals, "
+"exclusive offers, and style inspiration."
+msgstr ""
+
+#: .\templates\common\newsletter-welcome.html:39
+msgid "Subscribed as"
+msgstr ""
+
+#: .\templates\common\newsletter-welcome.html:48
+msgid "Shop the collection"
+msgstr ""
+
+#: .\templates\common\newsletter-welcome.html:58
+msgid "You're receiving this because you subscribed at"
+msgstr ""
+
+#: .\templates\common\newsletter-welcome.html:62
+msgid "Unsubscribe"
+msgstr ""
+
+#: .\templates\common\sales-conditions.html:12
+msgid "Terms and Conditions of Sale"
+msgstr ""
+
+#: .\templates\common\sales-conditions.html:15
+msgid "Purpose"
+msgstr ""
+
+#: .\templates\common\sales-conditions.html:16
+msgid "These Terms and Conditions govern the sale of products on this website."
+msgstr ""
+
+#: .\templates\common\sales-conditions.html:21
+msgid ""
+"All products are described as accurately as possible. However, slight "
+"variations may occur."
+msgstr ""
+
+#: .\templates\common\sales-conditions.html:25
+msgid "Pricing"
+msgstr ""
+
+#: .\templates\common\sales-conditions.html:26
+msgid ""
+"Prices are displayed in euros (€) and include applicable taxes unless stated "
+"otherwise."
+msgstr ""
+
+#: .\templates\common\sales-conditions.html:31
+msgid ""
+"Any order placed on this website constitutes acceptance of these Terms and "
+"Conditions"
+msgstr ""
+
+#: .\templates\common\sales-conditions.html:35
+#: .\templates\emails\order_confirmation.html:53
+msgid "Payment"
+msgstr ""
+
+#: .\templates\common\sales-conditions.html:36
+msgid "Payments are processed securely through our payment providers"
+msgstr ""
+
+#: .\templates\common\sales-conditions.html:40
+#: .\templates\orders\orders\all-orders.html:37
+msgid "Delivery"
+msgstr ""
+
+#: .\templates\common\sales-conditions.html:41
+msgid ""
+"Delivery times are provided as estimates and may vary depending on "
+"circumstances"
+msgstr ""
+
+#: .\templates\common\sales-conditions.html:45
+msgid "Right of Withdrawal"
+msgstr ""
+
+#: .\templates\common\sales-conditions.html:46
+msgid ""
+"Customers have a period of 14 days to exercise their right of withdrawal in "
+"accordance with applicable laws."
+msgstr ""
+
+#: .\templates\common\sales-conditions.html:50
+msgid "Liability"
+msgstr ""
+
+#: .\templates\common\sales-conditions.html:51
+msgid ""
+"We are not liable for indirect damages resulting from the use of our "
+"services."
+msgstr ""
+
+#: .\templates\common\sales-conditions.html:56
+msgid ""
+"For any questions, please contact us through the contact form available on "
+"the website"
+msgstr ""
+
+#: .\templates\emails\contact_reply.html:25
+msgid "We received your message:"
+msgstr ""
+
+#: .\templates\emails\contact_reply.html:31
+msgid "We will get back to you shortly."
+msgstr ""
+
+#: .\templates\emails\contact_reply.html:33
+msgid "Thank you,"
+msgstr ""
+
+#: .\templates\emails\contact_reply.html:33 .\templates\emails\welcome.html:48
+msgid "Team"
+msgstr ""
+
+#: .\templates\emails\order_confirmation.html:19
+msgid "New order received"
+msgstr ""
+
+#: .\templates\emails\order_confirmation.html:44
+msgid "Delivery address"
+msgstr ""
+
+#: .\templates\emails\order_confirmation.html:50
+#: .\templates\orders\orders\all-orders.html:43
+msgid "Phone"
+msgstr ""
+
+#: .\templates\emails\order_confirmation.html:102
+msgid "Log into the admin to update the order status once dispatched."
+msgstr ""
+
+#: .\templates\emails\order_confirmation.html:111
+msgid "EllaPrimE internal notification"
+msgstr ""
+
+#: .\templates\emails\welcome.html:28
+msgid "Thank you for registering! We"
+msgstr ""
+
+#: .\templates\emails\welcome.html:32
+msgid ""
+"Discover our latest collections, exclusive deals, and more by visiting our "
+"website."
+msgstr ""
+
+#: .\templates\emails\welcome.html:38
+msgid "Visit"
+msgstr ""
+
+#: .\templates\emails\welcome.html:43
+msgid ""
+"If you have any questions, feel free to reply to this email — we’re here to "
+"help."
+msgstr ""
+
+#: .\templates\emails\welcome.html:47
+msgid "Welcome aboard"
+msgstr ""
+
+#: .\templates\orders\orders\cart.html:13
+msgid "Please enter a promo code."
+msgstr ""
+
+#: .\templates\orders\orders\cart.html:14
+msgid "Something went wrong. Please try again."
+msgstr ""
+
+#: .\templates\orders\orders\cart.html:15
+#: .\templates\orders\orders\cart.html:117
+msgid "Total"
+msgstr ""
+
+#: .\templates\orders\orders\cart.html:19
+msgid "Your Cart"
+msgstr ""
+
+#: .\templates\orders\orders\cart.html:22
+msgid "Your cart is empty"
+msgstr ""
+
+#: .\templates\orders\orders\cart.html:23
+msgid "Shop now"
+msgstr ""
+
+#: .\templates\orders\orders\cart.html:26
+#, python-format
+msgid "%(count)s item"
+msgid_plural "%(count)s items"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\orders\orders\cart.html:51
+msgid "Remove"
+msgstr ""
+
+#: .\templates\orders\orders\cart.html:54
+msgid "Subtotal"
+msgstr ""
+
+#: .\templates\orders\orders\cart.html:63
+#, python-format
+msgid "Add %(gap)s € more for free delivery."
+msgstr ""
+
+#: .\templates\orders\orders\cart.html:67
+msgid "You qualify for free delivery!"
+msgstr ""
+
+#: .\templates\orders\orders\cart.html:78
+msgid "Delivery details"
+msgstr ""
+
+#: .\templates\orders\orders\cart.html:95
+msgid "Save details"
+msgstr ""
+
+#: .\templates\orders\orders\cart.html:104
+#, python-format
+msgid "Promo code <strong>%(code)s</strong> applied (%(discount)s%% off)"
+msgstr ""
+
+#: .\templates\orders\orders\cart.html:134
+msgid "Pay on delivery"
+msgstr ""
+
+#: .\templates\orders\orders\cart.html:139
+msgid "Pay by card"
+msgstr ""
+
+#: .\templates\orders\orders\cart.html:143
+msgid "Card payments are processed securely by Stripe."
+msgstr ""
+
+#: .\templates\orders\orders\cart.html:148
+msgid "Please fill in all required fields above to proceed."
+msgstr ""
+
+#: .\templates\orders\orders\cart.html:153
+msgid "Please"
+msgstr ""
+
+#: .\templates\orders\orders\cart.html:153
+msgid "to checkout"
+msgstr ""
+
+#: .\templates\orders\orders\success.html:15
+msgid "Order confirmed"
+msgstr ""
+
+#: .\templates\orders\orders\success.html:18
+msgid ""
+"Thank you for your purchase! A confirmation email is on its way to your "
+"inbox. We"
+msgstr ""
+
+#: .\templates\orders\orders\success.html:23
+msgid "View my orders"
+msgstr ""
+
+#: .\templates\orders\orders\success.html:26
+msgid "Continue shopping"
+msgstr ""
+
+#: .\templates\reviews\update-review.html:8
+msgid "Update review"
+msgstr ""
+
+#: .\templates\reviews\update-review.html:22
+msgid "Update your review"
+msgstr ""
+
+#: .\templates\reviews\update-review.html:46
+msgid "Save review changes"
+msgstr ""

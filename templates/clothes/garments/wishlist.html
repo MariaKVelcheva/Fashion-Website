@@ -12,8 +12,8 @@
  
     <div class="wishlist-header">
         <h1 class="wishlist-title">{% trans 'Your Wishlist' %}</h1>
-        <p class="wishlist-subtitle">{% blocktrans %}{{ wishlist_items|length }}
-            saved item{% if wishlist_items|length != 1 %}s{% endif %}{% endblocktrans %}
+        <p class="wishlist-subtitle">{{ wishlist_items|length }}
+            saved item{% if wishlist_items|length != 1 %}s{% endif %}
         </p>
     </div>
  

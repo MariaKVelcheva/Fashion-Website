@@ -1,4 +1,5 @@
 {% extends "common/base.html" %}
+{% load i18n %}
 {% load static %}
 
 {% block extra_css %}
@@ -10,7 +11,7 @@
 <div class="gallery-page">
 
     <div class="gallery-header">
-        <h1 class="gallery-title">Gallery</h1>
+        <h1 class="gallery-title">{% trans 'Gallery' %}</h1>
         <p class="gallery-subtitle">{{ images|length }} image{% if images|length != 1 %}s{% endif %}</p>
     </div>
 
@@ -58,7 +59,7 @@
         </div>
 
     {% else %}
-        <p class="gallery-empty">No images yet.</p>
+        <p class="gallery-empty">{% trans 'No images yet.' %}</p>
     {% endif %}
 
 </div>

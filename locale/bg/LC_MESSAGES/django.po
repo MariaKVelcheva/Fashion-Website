@@ -1,0 +1,1469 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-02 01:21+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\fashionWebsite\accounts\admin.py:24
+msgid "Personal info"
+msgstr "Лични данни"
+
+#: .\fashionWebsite\accounts\admin.py:26
+msgid "Permissions"
+msgstr "Разрешения"
+
+#: .\fashionWebsite\accounts\admin.py:37
+msgid "Important dates"
+msgstr "Важни дати"
+
+#: .\fashionWebsite\accounts\forms.py:14 .\fashionWebsite\accounts\forms.py:15
+#: .\fashionWebsite\accounts\forms.py:73 .\fashionWebsite\common\models.py:8
+msgid "Email"
+msgstr "Имейл адрес"
+
+#: .\fashionWebsite\accounts\forms.py:20 .\fashionWebsite\accounts\forms.py:77
+msgid "Password"
+msgstr "Парола"
+
+#: .\fashionWebsite\accounts\forms.py:25
+msgid "Confirm Password"
+msgstr "Потвърдете паролата"
+
+#: .\fashionWebsite\accounts\forms.py:30 .\fashionWebsite\accounts\forms.py:82
+#: .\fashionWebsite\accounts\forms.py:88
+msgid "Invalid email or password."
+msgstr "Навелидни имейл адрес или парола"
+
+#: .\fashionWebsite\accounts\forms.py:40
+msgid "Email already registered!"
+msgstr "Профил с този имейл адрес вече съществува!"
+
+#: .\fashionWebsite\accounts\forms.py:47
+msgid "Passwords don't match"
+msgstr "Паролите не са еднакви"
+
+#: .\fashionWebsite\accounts\forms.py:53
+msgid "Please correct the errors below."
+msgstr "Моля, поправете грешките."
+
+#: .\fashionWebsite\accounts\forms.py:102
+#: .\fashionWebsite\orders\models\order.py:65
+msgid "Phone number"
+msgstr "Телефонен номер"
+
+#: .\fashionWebsite\accounts\models\app_profile.py:15
+#: .\fashionWebsite\clothes\models\wishlistItem.py:12
+#: .\fashionWebsite\reviews\models.py:28
+msgid "User"
+msgstr "Потребител"
+
+#: .\fashionWebsite\accounts\models\app_profile.py:21
+msgid "First Name"
+msgstr "Собствено име"
+
+#: .\fashionWebsite\accounts\models\app_profile.py:29
+msgid "Middle Name"
+msgstr "Бащино име"
+
+#: .\fashionWebsite\accounts\models\app_profile.py:39
+msgid "Last Name"
+msgstr "Фамилно име"
+
+#: .\fashionWebsite\accounts\models\app_profile.py:47
+msgid "Address"
+msgstr "Адрес"
+
+#: .\fashionWebsite\accounts\models\app_profile.py:51
+msgid "Telephone Number"
+msgstr "Телефонен номер"
+
+#: .\fashionWebsite\accounts\models\app_profile.py:56
+#: .\fashionWebsite\clothes\models\product.py:16
+#: .\templates\clothes\garments\details-garment.html:79
+#: .\templates\clothes\garments\search.html:55
+msgid "Size"
+msgstr "Размер"
+
+#: .\fashionWebsite\accounts\models\app_profile.py:64
+#: .\fashionWebsite\clothes\models\wishlistItem.py:34
+msgid "Favorites"
+msgstr "Любими"
+
+#: .\fashionWebsite\accounts\models\app_profile.py:84
+#: .\fashionWebsite\orders\models\order.py:25
+#: .\templates\emails\order_confirmation.html:38
+msgid "Customer"
+msgstr "Клиент"
+
+#: .\fashionWebsite\accounts\models\app_profile.py:85
+msgid "Customers"
+msgstr "Клиенти"
+
+#: .\fashionWebsite\accounts\models\app_user.py:9
+msgid "Email address"
+msgstr "Имейл адрес"
+
+#: .\fashionWebsite\accounts\models\app_user.py:14
+msgid "Points"
+msgstr "Точки"
+
+#: .\fashionWebsite\accounts\models\app_user.py:19
+msgid "Staff status"
+msgstr "Стаф"
+
+#: .\fashionWebsite\accounts\models\app_user.py:24
+#: .\fashionWebsite\common\models.py:16
+msgid "Active"
+msgstr "Активен"
+
+#: .\fashionWebsite\accounts\models\app_user.py:37
+msgid "App User"
+msgstr "Потребител"
+
+#: .\fashionWebsite\accounts\models\app_user.py:38
+msgid "App Users"
+msgstr "Потребители"
+
+#: .\fashionWebsite\accounts\views\profile_management_views.py:22
+#: .\fashionWebsite\orders\views\cart.py:222
+msgid "Profile updated successfully."
+msgstr "Профилът беше успешно актуализиран."
+
+#: .\fashionWebsite\accounts\views\user_management_views.py:57
+msgid "Your account has been deleted."
+msgstr "Вашият профил беше изтрит."
+
+#: .\fashionWebsite\clothes\models\LookbookImage.py:7
+#: .\fashionWebsite\clothes\models\LookbookImage.py:18
+#: .\fashionWebsite\clothes\models\galleryImage.py:13
+msgid "Image"
+msgstr "Снимка"
+
+#: .\fashionWebsite\clothes\models\LookbookImage.py:12
+msgid "Caption"
+msgstr "Текст под снимката"
+
+#: .\fashionWebsite\clothes\models\LookbookImage.py:19
+msgid "Images"
+msgstr "Снимки"
+
+#: .\fashionWebsite\clothes\models\category.py:8
+#: .\fashionWebsite\clothes\models\color.py:7
+#: .\fashionWebsite\clothes\models\size.py:7
+msgid "name"
+msgstr "име"
+
+#: .\fashionWebsite\clothes\models\category.py:21
+msgid "profile image"
+msgstr "профилна снимка"
+
+#: .\fashionWebsite\clothes\models\category.py:28
+msgid "trending"
+msgstr "акцент"
+
+#: .\fashionWebsite\clothes\models\category.py:33
+#: .\fashionWebsite\clothes\models\garment.py:14
+#: .\templates\clothes\garments\search.html:27
+msgid "Category"
+msgstr "Категория"
+
+#: .\fashionWebsite\clothes\models\category.py:34
+#: .\fashionWebsite\promotions\models.py:71
+msgid "Categories"
+msgstr "Категории"
+
+#: .\fashionWebsite\clothes\models\color.py:14
+msgid "hex code"
+msgstr "хекс код"
+
+#: .\fashionWebsite\clothes\models\color.py:21
+msgid "color"
+msgstr "цвят"
+
+#: .\fashionWebsite\clothes\models\color.py:22
+msgid "colors"
+msgstr "цветове"
+
+#: .\fashionWebsite\clothes\models\galleryImage.py:9
+#: .\fashionWebsite\clothes\models\garment.py:116
+#: .\fashionWebsite\clothes\models\wishlistItem.py:20
+#: .\fashionWebsite\reviews\models.py:21
+msgid "Garment"
+msgstr "Дреха"
+
+#: .\fashionWebsite\clothes\models\galleryImage.py:18
+msgid "Garment Image"
+msgstr "Снимка"
+
+#: .\fashionWebsite\clothes\models\galleryImage.py:19
+msgid "Garment Images"
+msgstr "Снимки"
+
+#: .\fashionWebsite\clothes\models\garment.py:18
+msgid "Garment name"
+msgstr "Име"
+
+#: .\fashionWebsite\clothes\models\garment.py:31
+msgid "Garment description"
+msgstr "Описание на дрехата"
+
+#: .\fashionWebsite\clothes\models\garment.py:37
+msgid "Main image"
+msgstr "Главна снимка"
+
+#: .\fashionWebsite\clothes\models\garment.py:44
+msgid "Price"
+msgstr "Цена"
+
+#: .\fashionWebsite\clothes\models\garment.py:51
+#: .\fashionWebsite\clothes\models\wishlistItem.py:26
+#: .\fashionWebsite\orders\models\order.py:31
+#: .\fashionWebsite\reviews\models.py:49
+msgid "Created at"
+msgstr "Създадено на"
+
+#: .\fashionWebsite\clothes\models\garment.py:117
+#: .\fashionWebsite\promotions\models.py:64
+msgid "Garments"
+msgstr "Дрехи"
+
+#: .\fashionWebsite\clothes\models\product.py:9
+#: .\fashionWebsite\clothes\models\product.py:30
+#: .\fashionWebsite\orders\models\orderItem.py:16
+msgid "Product"
+msgstr "Артикул"
+
+#: .\fashionWebsite\clothes\models\product.py:23
+#: .\templates\clothes\garments\details-garment.html:65
+#: .\templates\clothes\garments\search.html:40
+msgid "Color"
+msgstr "Цвят"
+
+#: .\fashionWebsite\clothes\models\product.py:31
+#: .\templates\common\sales-conditions.html:20
+msgid "Products"
+msgstr "Артикули"
+
+#: .\fashionWebsite\clothes\models\size.py:14
+msgid "size"
+msgstr "размер"
+
+#: .\fashionWebsite\clothes\models\size.py:15
+msgid "sizes"
+msgstr "размери"
+
+#: .\fashionWebsite\clothes\models\wishlistItem.py:33
+msgid "Favorite"
+msgstr "Любими"
+
+#: .\fashionWebsite\common\forms.py:10
+msgid "Enter your name"
+msgstr "Въведете име"
+
+#: .\fashionWebsite\common\forms.py:16
+msgid "Enter your email"
+msgstr "Въведете имейл "
+
+#: .\fashionWebsite\common\forms.py:22
+msgid "Your message..."
+msgstr "Съобщение..."
+
+#: .\fashionWebsite\common\forms.py:33 .\templates\common\home.html:46
+msgid "Enter your email address"
+msgstr "Въведете имейл"
+
+#: .\fashionWebsite\common\forms.py:40
+msgid "This email is already subscribed."
+msgstr "Този имейл вече е регистриран"
+
+#: .\fashionWebsite\common\models.py:12
+msgid "Subscribed"
+msgstr "Абониран"
+
+#: .\fashionWebsite\common\models.py:23
+msgid "Newsletter Subscriber"
+msgstr "Абонат"
+
+#: .\fashionWebsite\common\views.py:40
+msgid "Thank you for contacting us"
+msgstr "Благодарим за Вашето съобщение"
+
+#: .\fashionWebsite\common\views.py:49
+msgid "Your message has been successfully sent."
+msgstr "Вашето съобщение е изпратено успешно."
+
+#: .\fashionWebsite\common\views.py:68
+msgid "Welcome to EllaPrimE!"
+msgstr "Добре дошли в EllaPrimE!"
+
+#: .\fashionWebsite\common\views.py:78
+msgid "You're subscribed! Check your inbox for a welcome email."
+msgstr "Абонирани сте!"
+
+#: .\fashionWebsite\common\views.py:85
+#: .\templates\clothes\garments\details-garment.html:15
+msgid "Something went wrong."
+msgstr "Нещо се обърка."
+
+#: .\fashionWebsite\orders\models\order.py:10
+#: .\fashionWebsite\reviews\models.py:12
+msgid "Pending"
+msgstr "В очакване на потвърждение"
+
+#: .\fashionWebsite\orders\models\order.py:11
+msgid "Confirmed"
+msgstr "Потвърдена"
+
+#: .\fashionWebsite\orders\models\order.py:12
+msgid "Shipped"
+msgstr "Изпратена"
+
+#: .\fashionWebsite\orders\models\order.py:13
+msgid "Received"
+msgstr "Получена"
+
+#: .\fashionWebsite\orders\models\order.py:14
+msgid "Cancelled"
+msgstr "Анулирана"
+
+#: .\fashionWebsite\orders\models\order.py:18
+msgid "Payment on delivery"
+msgstr "С наложен платеж"
+
+#: .\fashionWebsite\orders\models\order.py:19
+msgid "Card payment"
+msgstr "С банкова карта"
+
+#: .\fashionWebsite\orders\models\order.py:37
+#: .\fashionWebsite\reviews\models.py:40
+msgid "Status"
+msgstr "Статут"
+
+#: .\fashionWebsite\orders\models\order.py:45
+#: .\fashionWebsite\promotions\models.py:93
+msgid "Promotion"
+msgstr "Намаление"
+
+#: .\fashionWebsite\orders\models\order.py:52
+msgid "Payment type"
+msgstr "Вид плащане"
+
+#: .\fashionWebsite\orders\models\order.py:58
+msgid "Shipping address"
+msgstr "Адрес на доставка"
+
+#: .\fashionWebsite\orders\models\order.py:72
+msgid "Total amount"
+msgstr "Обща сума"
+
+#: .\fashionWebsite\orders\models\order.py:76
+#: .\fashionWebsite\orders\models\orderItem.py:9
+#: .\templates\emails\order_confirmation.html:23
+msgid "Order"
+msgstr "Поръчка"
+
+#: .\fashionWebsite\orders\models\order.py:77 .\templates\common\faq.html:13
+#: .\templates\common\sales-conditions.html:30
+msgid "Orders"
+msgstr "Поръчки"
+
+#: .\fashionWebsite\orders\models\orderItem.py:21
+msgid "Quantity"
+msgstr "Количество"
+
+#: .\fashionWebsite\orders\models\orderItem.py:25
+msgid "Unit Price"
+msgstr "Единична цена"
+
+#: .\fashionWebsite\orders\models\orderItem.py:37
+msgid "Order Item"
+msgstr "Артикул"
+
+#: .\fashionWebsite\orders\models\orderItem.py:38
+msgid "Order Items"
+msgstr "Артикули"
+
+#: .\fashionWebsite\orders\views\cart.py:27
+#: .\fashionWebsite\orders\views\cart.py:57
+msgid "Invalid request"
+msgstr "Неевалидно действие"
+
+#: .\fashionWebsite\orders\views\cart.py:34
+msgid "Promotion not found"
+msgstr "Промоцията не е намерена"
+
+#: .\fashionWebsite\orders\views\cart.py:40
+msgid "A promo code is already applied to your order."
+msgstr "Към поръчката Ви вече е добавена отстъпка."
+
+#: .\fashionWebsite\orders\views\cart.py:43
+msgid "Minimum order amount not reached"
+msgstr "Минималната сума все още не е достигната"
+
+#: .\fashionWebsite\orders\views\cart.py:53
+msgid "Promo code applied!"
+msgstr "Промоционалният код е добавен!"
+
+#: .\fashionWebsite\orders\views\cart.py:63
+msgid "Invalid request."
+msgstr "Невалидно действие."
+
+#: .\fashionWebsite\orders\views\cart.py:77
+msgid "Please select a color."
+msgstr "Моля, изберете цвят."
+
+#: .\fashionWebsite\orders\views\cart.py:84
+msgid "Please select a size."
+msgstr "Моля, изберете размер."
+
+#: .\fashionWebsite\orders\views\cart.py:94
+msgid "This item is out of stock."
+msgstr "Този артикул е изчерпан."
+
+#: .\fashionWebsite\orders\views\cart.py:103
+#: .\fashionWebsite\orders\views\cart.py:129
+msgid "Added to cart!"
+msgstr "Добавено към количката!"
+
+#: .\fashionWebsite\orders\views\cart.py:120
+msgid "Not enough stock available."
+msgstr "Недостатъчна наличност на артикул."
+
+#: .\fashionWebsite\orders\views\cart.py:244
+#: .\fashionWebsite\orders\views\cart.py:345
+msgid "Please complete your profile before checking out."
+msgstr "Моля, попълнете профила си, преди да продължите."
+
+#: .\fashionWebsite\orders\views\cart.py:250
+#: .\fashionWebsite\orders\views\cart.py:351
+msgid "Your cart is empty."
+msgstr "Вашата количка е празна."
+
+#: .\fashionWebsite\orders\views\cart.py:277
+#: .\fashionWebsite\orders\views\cart.py:436
+#, python-format
+msgid "EllaPrimE - Order confirmation"
+msgstr "EllaPrimE - Потвърждение на поръчката"
+
+#: .\fashionWebsite\orders\views\cart.py:358
+#, python-format
+msgid "Sorry, only %(stock)s unit(s) of %(name)s are available."
+msgstr "Съжаляваме, само %(stock)s бр. от %(name)s са налични."
+
+#: .\fashionWebsite\promotions\models.py:8
+#: .\templates\orders\orders\cart.html:108
+msgid "Promo code"
+msgstr "Промо код"
+
+#: .\fashionWebsite\promotions\models.py:9
+msgid "Garment Discount"
+msgstr "Намаление на артикул"
+
+#: .\fashionWebsite\promotions\models.py:10
+msgid "Category Discount"
+msgstr "Намаление по категория"
+
+#: .\fashionWebsite\promotions\models.py:11
+msgid "Order Discount"
+msgstr "Намаление на поръчка"
+
+#: .\fashionWebsite\promotions\models.py:17
+msgid "Code"
+msgstr "Код"
+
+#: .\fashionWebsite\promotions\models.py:24
+msgid "Promo Type"
+msgstr "Вид намаление"
+
+#: .\fashionWebsite\promotions\models.py:30
+msgid "Discount Percent"
+msgstr "Процент намаление"
+
+#: .\fashionWebsite\promotions\models.py:34
+msgid "Valid From"
+msgstr "Валиден от"
+
+#: .\fashionWebsite\promotions\models.py:38
+msgid "Valid Until"
+msgstr "Валиден до"
+
+#: .\fashionWebsite\promotions\models.py:46
+msgid "Minimum Order Amount"
+msgstr "Минимална сума на поръчка"
+
+#: .\fashionWebsite\promotions\models.py:52
+msgid "Maximum Uses"
+msgstr "Максимален брой ползвания"
+
+#: .\fashionWebsite\promotions\models.py:56
+msgid "Times Used"
+msgstr "Брой ползвания"
+
+#: .\fashionWebsite\promotions\models.py:94
+msgid "Promotions"
+msgstr "Промоции"
+
+#: .\fashionWebsite\reviews\models.py:13
+msgid "Approved"
+msgstr "Прието"
+
+#: .\fashionWebsite\reviews\models.py:14
+msgid "Rejected"
+msgstr "Отхвърлено"
+
+#: .\fashionWebsite\reviews\models.py:33
+msgid "Rating"
+msgstr "Рейтинг"
+
+#: .\fashionWebsite\reviews\models.py:44
+msgid "Review Text"
+msgstr "Текст на ревюто"
+
+#: .\fashionWebsite\reviews\models.py:54
+msgid "Verified purchase"
+msgstr "Проверена поръчка"
+
+#: .\fashionWebsite\reviews\models.py:59
+msgid "Review"
+msgstr "Ревю"
+
+#: .\fashionWebsite\reviews\models.py:60
+msgid "Reviews"
+msgstr "Ревюта"
+
+#: .\fashionWebsite\settings.py:129
+msgid "English"
+msgstr "Английски"
+
+#: .\fashionWebsite\settings.py:130
+msgid "Bulgarian"
+msgstr "Български"
+
+#: .\templates\404.html:8 .\templates\404.html:109
+msgid "Page not found"
+msgstr "Страницата не е намерена"
+
+#: .\templates\404.html:111
+msgid "The page you're looking for doesn't exist or has been moved."
+msgstr "Страницата, която търсите, не съществува или е била преместена"
+
+#: .\templates\404.html:115 .\templates\500.html:115
+msgid "Go to homepage"
+msgstr "Върнете се на началната страница"
+
+#: .\templates\404.html:116 .\templates\500.html:116
+msgid "Browse collection"
+msgstr "Разгледайте колекцията"
+
+#: .\templates\500.html:8 .\templates\500.html:109
+msgid "Something went wrong"
+msgstr "Нещо се обърка."
+
+#: .\templates\500.html:111
+msgid ""
+"We're sorry — something went wrong on our end. Our team has been notified. "
+"Please try again later."
+msgstr "Съжаляваме - нещо се обърка. Екипът ни работи по въпроса. Моля, опитайте отново по-късно."
+
+#: .\templates\accounts\password-management\password-change-done.html:8
+#: .\templates\accounts\password-management\password-change-done.html:15
+msgid "Password updated"
+msgstr "Паролата е променена успешно"
+
+#: .\templates\accounts\password-management\password-change-done.html:16
+msgid "Your password has been changed successfully."
+msgstr "Паролата Ви е променена успешно."
+
+#: .\templates\accounts\password-management\password-change-done.html:19
+#: .\templates\accounts\password-management\password-change.html:36
+#: .\templates\accounts\profile-management\customer-update.html:51
+#: .\templates\accounts\user-management\confirm-delete.html:51
+#: .\templates\reviews\update-review.html:50
+msgid "Back to my account"
+msgstr "Обратно към профила"
+
+#: .\templates\accounts\password-management\password-change.html:8
+#: .\templates\accounts\password-management\password-change.html:15
+#: .\templates\accounts\profile-management\customer-details.html:43
+msgid "Change password"
+msgstr "Промяна на паролата"
+
+#: .\templates\accounts\password-management\password-change.html:16
+msgid "Choose a strong new password"
+msgstr "Моля, изберете силна парола."
+
+#: .\templates\accounts\password-management\password-change.html:34
+msgid "Update password"
+msgstr "Промяна на паролата"
+
+#: .\templates\accounts\password-management\password-reset-complete.html:8
+msgid "Password reset"
+msgstr "Промяна на паролата"
+
+#: .\templates\accounts\password-management\password-reset-complete.html:15
+msgid "All done"
+msgstr "Готово!"
+
+#: .\templates\accounts\password-management\password-reset-complete.html:16
+msgid ""
+"Your password has been reset. You can now sign in with your new password."
+msgstr "Паролата Ви е променена. Може да влезете в профила си с новата парола."
+
+#: .\templates\accounts\password-management\password-reset-complete.html:19
+#: .\templates\accounts\user-management\login.html:8
+#: .\templates\accounts\user-management\login.html:54
+#: .\templates\accounts\user-management\register.html:66
+msgid "Sign in"
+msgstr "Влезте в профила си"
+
+#: .\templates\accounts\password-management\password-reset-confirm.html:8
+#: .\templates\accounts\password-management\password-reset-confirm.html:16
+#: .\templates\accounts\password-management\password-reset-confirm.html:35
+msgid "Set new password"
+msgstr "Изберете нова парола"
+
+#: .\templates\accounts\password-management\password-reset-confirm.html:17
+msgid "Choose a strong password for your account"
+msgstr "Моля, изберете силна парола."
+
+#: .\templates\accounts\password-management\password-reset-confirm.html:39
+msgid "Link expired"
+msgstr "Линкът вече не е валиден."
+
+#: .\templates\accounts\password-management\password-reset-confirm.html:40
+msgid "This reset link is no longer valid. Please request a new one."
+msgstr "Линкът вече не е валиден. Моля, поискайте нов."
+
+#: .\templates\accounts\password-management\password-reset-confirm.html:43
+msgid "Request new link"
+msgstr "Поискайте нов линк."
+
+#: .\templates\accounts\password-management\password-reset-done.html:8
+#: .\templates\accounts\password-management\password-reset-done.html:15
+#: .\templates\accounts\password-management\password_reset_email.html:8
+#: .\templates\accounts\password-management\password_reset_email.html:15
+msgid "Check your email"
+msgstr "Моля, проверете пощата си."
+
+#: .\templates\accounts\password-management\password-reset-done.html:17
+msgid ""
+"If an account exists for that address, we've sent a password reset link. It "
+"may take a few minutes to arrive."
+msgstr "Ако профил е асоцииран с този имейл адрес, ще Ви изпратим линк за смяна на паролата. Това може да отнеме няколко минути."
+
+#: .\templates\accounts\password-management\password-reset-done.html:21
+#: .\templates\accounts\password-management\password-reset.html:34
+#: .\templates\accounts\password-management\password_reset_email.html:20
+msgid "Back to sign in"
+msgstr "Обратно към логина."
+
+#: .\templates\accounts\password-management\password-reset.html:8
+#: .\templates\accounts\password-management\password-reset.html:15
+msgid "Reset password"
+msgstr "Промяна на парола"
+
+#: .\templates\accounts\password-management\password-reset.html:16
+msgid "Enter your email and we"
+msgstr "Въведете имейл адрес и ние"
+
+#: .\templates\accounts\password-management\password-reset.html:32
+msgid "Send reset link"
+msgstr "ще изпратим линк за промяна на паролата."
+
+#: .\templates\accounts\password-management\password_reset_email.html:17
+msgid "If an account exists for that address, we"
+msgstr "Ако профил е асоцииран с този имейл адрес,"
+
+#: .\templates\accounts\password-management\password_reset_subject.txt:1
+msgid "Reset your EllaPrimE password"
+msgstr "Променете паролата си"
+
+#: .\templates\accounts\profile-management\customer-details.html:26
+msgid "Overview"
+msgstr "Преглед на профила"
+
+#: .\templates\accounts\profile-management\customer-details.html:29
+#: .\templates\accounts\profile-management\customer-details.html:108
+msgid "Personal information"
+msgstr "Лични данни"
+
+#: .\templates\accounts\profile-management\customer-details.html:32
+#: .\templates\accounts\profile-management\customer-details.html:126
+msgid "Loyalty points"
+msgstr "Бонус точки"
+
+#: .\templates\accounts\profile-management\customer-details.html:35
+msgid "Wishlist"
+msgstr "Любими"
+
+#: .\templates\accounts\profile-management\customer-details.html:38
+#: .\templates\accounts\profile-management\customer-details.html:148
+#: .\templates\common\contact-form.html:14 .\templates\common\contact.html:14
+msgid "Contact us"
+msgstr "Контакт"
+
+#: .\templates\accounts\profile-management\customer-details.html:45
+msgid "Delete account"
+msgstr "Изтрийте профила си"
+
+#: .\templates\accounts\profile-management\customer-details.html:55
+msgid "Hello,"
+msgstr "Здравейте,"
+
+#: .\templates\accounts\profile-management\customer-details.html:56
+msgid "Your EllaPrimE account"
+msgstr "Вашият EllaPrimE профил"
+
+#: .\templates\accounts\profile-management\customer-details.html:61
+msgid "Please complete your profile to place orders."
+msgstr "Моля, попълнете профила си, за да може да поръчвате."
+
+#: .\templates\accounts\profile-management\customer-details.html:66
+#: .\templates\orders\orders\all-orders.html:14
+msgid "Order history"
+msgstr "Минали поръчки"
+
+#: .\templates\accounts\profile-management\customer-details.html:102
+#: .\templates\orders\orders\all-orders.html:63
+msgid "No orders yet."
+msgstr "Все още нямате поръчки."
+
+#: .\templates\accounts\profile-management\customer-details.html:121
+#: .\templates\accounts\profile-management\customer-update.html:47
+#: .\templates\accounts\user-management\confirm-delete.html:47
+msgid "Save changes"
+msgstr "Запазване на промени"
+
+#: .\templates\accounts\profile-management\customer-details.html:130
+msgid "points accumulated"
+msgstr "добавени точки"
+
+#: .\templates\accounts\profile-management\customer-details.html:132
+msgid "Shop now to earn more"
+msgstr "Поръчайте, за да натрупате още!"
+
+#: .\templates\accounts\profile-management\customer-details.html:138
+msgid "Your wishlist"
+msgstr "Вашите любими"
+
+#: .\templates\accounts\profile-management\customer-details.html:143
+msgid "No saved items yet."
+msgstr "Все още няма запазени артикули."
+
+#: .\templates\accounts\profile-management\customer-details.html:191
+#: .\templates\common\contact-form.html:53 .\templates\common\contact.html:53
+msgid "Send message"
+msgstr "Изпратете съобщение"
+
+#: .\templates\accounts\profile-management\customer-update.html:8
+#: .\templates\accounts\profile-management\customer-update.html:22
+msgid "Update profile"
+msgstr "Промяна на профил"
+
+#: .\templates\accounts\profile-management\customer-update.html:23
+msgid "Keep your delivery details up to date"
+msgstr "Актуализирайте данните си за получаване"
+
+#: .\templates\accounts\profile-management\update-form.html:6
+msgid "Update"
+msgstr "Промяна"
+
+#: .\templates\accounts\user-management\confirm-delete.html:8
+msgid "Confirm Delete"
+msgstr "Потвърдете изтриването"
+
+#: .\templates\accounts\user-management\confirm-delete.html:23
+msgid "Confirm profile deletion"
+msgstr "Потвърдете изтриването на профила"
+
+#: .\templates\accounts\user-management\login.html:23
+msgid "Welcome back"
+msgstr "Добре дошли отново!"
+
+#: .\templates\accounts\user-management\login.html:24
+msgid "Sign in to your EllaPrimE account"
+msgstr "Влезте в своя EllaPrimE профил"
+
+#: .\templates\accounts\user-management\login.html:57
+msgid "Forgot your password?"
+msgstr "Забравена парола?"
+
+#: .\templates\accounts\user-management\login.html:59
+msgid "Don't have an account yet?"
+msgstr "Все още нямате профил?"
+
+#: .\templates\accounts\user-management\login.html:59
+msgid "Create one"
+msgstr "Създайте"
+
+#: .\templates\accounts\user-management\register.html:8
+msgid "Register"
+msgstr "Регистрирайте се"
+
+#: .\templates\accounts\user-management\register.html:23
+msgid "Create an account"
+msgstr "Регистрирайте се"
+
+#: .\templates\accounts\user-management\register.html:24
+msgid "Join EllaPrimE and start shopping"
+msgstr ""
+
+#: .\templates\accounts\user-management\register.html:62
+msgid "Create account"
+msgstr "Регистрирайте сеd"
+
+#: .\templates\accounts\user-management\register.html:66
+msgid "Already have an account?"
+msgstr "Вече имате профил?"
+
+#: .\templates\clothes\categories\all-categories.html:7
+#: .\templates\common\home.html:13
+msgid "Latest Trends"
+msgstr "Последни тенденции"
+
+#: .\templates\clothes\categories\details-category.html:11
+#, python-format
+msgid "Our %(category.name)s collection"
+msgstr "Нашите %(category.name)s"
+
+#: .\templates\clothes\categories\details-category.html:17
+#, python-format
+msgid "No %(category.name)s products available."
+msgstr "Няма налични продукти от категория %(category.name)s"
+
+#: .\templates\clothes\garments\_wishlist-items.html:21
+#: .\templates\clothes\garments\garments.html:17
+#: .\templates\clothes\garments\search.html:111
+msgid "Available"
+msgstr "В наличност"
+
+#: .\templates\clothes\garments\_wishlist-items.html:22
+msgid "in promo now!"
+msgstr "промоция!"
+
+#: .\templates\clothes\garments\_wishlist-items.html:41
+msgid "Your wishlist is empty."
+msgstr "Списъкът с любими е празен"
+
+#: .\templates\clothes\garments\_wishlist-items.html:43
+msgid "Browse the collection"
+msgstr "Разгледайте колекцията"
+
+#: .\templates\clothes\garments\all-garments.html:11
+msgid "Our Collection"
+msgstr "Нашата колекция"
+
+#: .\templates\clothes\garments\all-garments.html:19
+#: .\templates\clothes\garments\new_in.html:19
+#: .\templates\clothes\garments\promotion-catalogue.html:19
+#: .\templates\clothes\garments\trending.html:19
+msgid "No garments available."
+msgstr "Няма артикули в наличност."
+
+#: .\templates\clothes\garments\details-garment.html:13
+msgid "Adding..."
+msgstr "Добавяне..."
+
+#: .\templates\clothes\garments\details-garment.html:14
+#: .\templates\clothes\garments\details-garment.html:91
+msgid "Add to cart"
+msgstr "Добавено в количката"
+
+#: .\templates\clothes\garments\details-garment.html:16
+#: .\templates\clothes\garments\details-garment.html:153
+#: .\templates\clothes\garments\details-garment.html:191
+msgid "Are you sure you want to delete your review?"
+msgstr "Сигурни ли сте, че желаете да изтриете ревюто си?"
+
+#: .\templates\clothes\garments\details-garment.html:55
+#, python-format
+msgid "%(count)s review"
+msgid_plural "%(count)s reviews"
+msgstr[0] "%(count)s ревюта"
+msgstr[1] "%(count)s ревюта"
+
+#: .\templates\clothes\garments\details-garment.html:97
+msgid "Description and care instructions"
+msgstr "Описание"
+
+#: .\templates\clothes\garments\details-garment.html:103
+msgid "In stock"
+msgstr "В наличност"
+
+#: .\templates\clothes\garments\details-garment.html:105
+#: .\templates\clothes\garments\garments.html:19
+#: .\templates\clothes\garments\search.html:113
+msgid "Out of stock"
+msgstr "Изчерпано"
+
+#: .\templates\clothes\garments\details-garment.html:111
+msgid "Customer reviews"
+msgstr "Ревюта на клиенти"
+
+#: .\templates\clothes\garments\details-garment.html:117
+msgid "Your rating"
+msgstr "Вашият рейтинг"
+
+#: .\templates\clothes\garments\details-garment.html:128
+msgid "Submit your review"
+msgstr "Изпратете ревюто си"
+
+#: .\templates\clothes\garments\details-garment.html:137
+msgid "Awaiting approval"
+msgstr "В очакване на одобрение"
+
+#: .\templates\clothes\garments\details-garment.html:139
+msgid "Your review"
+msgstr "Вашето ревю"
+
+#: .\templates\clothes\garments\details-garment.html:155
+#: .\templates\clothes\garments\details-garment.html:193
+msgid "Delete review"
+msgstr "Изтриване"
+
+#: .\templates\clothes\garments\details-garment.html:163
+msgid "Edit"
+msgstr "Промяна"
+
+#: .\templates\clothes\garments\details-garment.html:201
+msgid "Edit review"
+msgstr "Промяна"
+
+#: .\templates\clothes\garments\details-garment.html:205
+msgid "Be the first to write a review for this product."
+msgstr "Напишете първото ревю за този продукт."
+
+#: .\templates\clothes\garments\details-garment.html:214
+msgid "Cancel"
+msgstr "Отмяна"
+
+#: .\templates\clothes\garments\details-garment.html:215
+msgid "Delete"
+msgstr "Изтриване"
+
+#: .\templates\clothes\garments\new_in.html:11
+msgid "New In"
+msgstr "Ново"
+
+#: .\templates\clothes\garments\promotion-catalogue.html:11
+msgid "Good deals"
+msgstr "Намаления"
+
+#: .\templates\clothes\garments\search.html:13
+msgid "Filter"
+msgstr "Филтър"
+
+#: .\templates\clothes\garments\search.html:17
+msgid "Search"
+msgstr "Търсене"
+
+#: .\templates\clothes\garments\search.html:22
+msgid "Name or description..."
+msgstr "Име или описание..."
+
+#: .\templates\clothes\garments\search.html:69
+#: .\templates\orders\orders\cart.html:109
+msgid "Apply"
+msgstr "Прилагане"
+
+#: .\templates\clothes\garments\search.html:70
+msgid "Clear all"
+msgstr "Изчистване"
+
+#: .\templates\clothes\garments\search.html:80
+msgid "Results for"
+msgstr "Резултати за"
+
+#: .\templates\clothes\garments\search.html:82
+msgid "All garments"
+msgstr "Всички резултати"
+
+#: .\templates\clothes\garments\search.html:123
+msgid "No garments match your search."
+msgstr "Няма резултати."
+
+#: .\templates\clothes\garments\search.html:124
+msgid "Clear filters"
+msgstr "Изчистете филтрите"
+
+#: .\templates\clothes\garments\trending.html:11
+msgid "Trending now:"
+msgstr "Тенденции:"
+
+#: .\templates\clothes\garments\wishlist.html:14
+msgid "Your Wishlist"
+msgstr "Любими"
+
+
+#: .\templates\common\base.html:32
+msgid "SHOP"
+msgstr "ПОРЪЧАЙТЕ"
+
+#: .\templates\common\base.html:34 .\templates\common\nav.html:8
+msgid "Collection"
+msgstr "Колекция"
+
+#: .\templates\common\base.html:35 .\templates\common\nav.html:6
+msgid "New in"
+msgstr "Ново"
+
+#: .\templates\common\base.html:36 .\templates\common\nav.html:7
+msgid "Promo"
+msgstr "Намаление"
+
+#: .\templates\common\base.html:39
+msgid "HELP"
+msgstr "ПОМОЩ"
+
+#: .\templates\common\base.html:41
+msgid "Customer service"
+msgstr "Обслужване на клиенти"
+
+#: .\templates\common\base.html:42
+msgid "My account"
+msgstr "Моят профил"
+
+#: .\templates\common\base.html:43
+msgid "My orders"
+msgstr "Моите поръчки"
+
+#: .\templates\common\base.html:45
+msgid "LEGAL AND PRIVACY"
+msgstr "ОБЩИ УСЛОВИЯ"
+
+#: .\templates\common\base.html:48
+msgid "Sales conditions"
+msgstr "Условия на продажба"
+
+#: .\templates\common\contact-form.html:15
+msgid "We'll get back to you as soon as possible"
+msgstr "Ще се свържем с Вас в най-кратки срокове"
+
+#: .\templates\common\contact.html:15
+msgid "We"
+msgstr "Ние"
+
+#: .\templates\common\faq.html:10
+msgid "Frequently Asked Questions"
+msgstr "Често задавани въпроси"
+
+#: .\templates\common\faq.html:14
+msgid "How do I place an order?"
+msgstr "Как да направя поръчка?"
+
+#: .\templates\common\faq.html:15
+msgid ""
+"You can browse our products, add items to your cart, and proceed to checkout "
+"securely."
+msgstr "Можете да разглеждате продуктите, да ги добавяте в количката и да изберете безопасен метод за плащане."
+
+#: .\templates\common\faq.html:17
+msgid "Can I modify or cancel my order?"
+msgstr "Мога ли да променя или анулирам поръчка?"
+
+#: .\templates\common\faq.html:18
+msgid ""
+"Orders can only be modified or cancelled before they are processed. Please "
+"contact us as soon as possible."
+msgstr "Поръчките могат да бъдат променяни или анилирани, преди да бъдат обработени от екипа ни. Моля, свържете се с нас възможно най-бързо."
+
+#: .\templates\common\faq.html:22
+msgid "Shipping"
+msgstr "Доставка"
+
+#: .\templates\common\faq.html:23
+msgid "What are the delivery times?"
+msgstr "Какви са сроковете на доставка?"
+
+#: .\templates\common\faq.html:24
+msgid ""
+"Delivery times depend on your location and will be estimated during checkout."
+msgstr "Сроковете зависят от местожителството Ви."
+
+#: .\templates\common\faq.html:26
+msgid "Do you ship internationally?"
+msgstr "Възможни ли са доставки зад граница?"
+
+#: .\templates\common\faq.html:27
+msgid "Yes, we offer international shipping. Fees and delivery times may vary."
+msgstr "Да, предлагаме международни доставки. Допълнителни такси могат да бъдат начислени и е възможно сроковете да варират."
+
+#: .\templates\common\faq.html:31
+msgid "Returns & Refunds"
+msgstr "Условия за връщане"
+
+#: .\templates\common\faq.html:32
+msgid "Can I return a product?"
+msgstr "Мога ли да върна артикул?"
+
+#: .\templates\common\faq.html:33
+msgid ""
+"You may return items within 14 days of receipt, provided they are unused and "
+"in original condition"
+msgstr "Можете да върнете един или няколко неносени артикула в срок от 14 дни след получаването им, стига да са в състоянието, в което са били получени."
+
+#: .\templates\common\faq.html:35
+msgid "How do I request a refund?"
+msgstr "Как да поискам парите си обратно?"
+
+#: .\templates\common\faq.html:36
+msgid ""
+"Contact our support team with your order details to initiate a refund "
+"request."
+msgstr "Моля, свържете се с нас с информация за поръчката си, за да получите парите си обратно."
+
+#: .\templates\common\faq.html:40
+msgid "Account"
+msgstr "Профил"
+
+#: .\templates\common\faq.html:41
+msgid "Do I need an account to order?"
+msgstr "Нужно ли е да съм регистриран, за да поръчам?"
+
+#: .\templates\common\faq.html:42
+msgid "Yes, an account is required to place and track orders."
+msgstr "Да, необходимо е да имате профил, за да поръчвате и да управлявате поръчки."
+
+#: .\templates\common\faq.html:44
+msgid "How do I update my information?"
+msgstr "Как да променя данните си?"
+
+#: .\templates\common\faq.html:45
+msgid "You can update your personal information from your account dashboard."
+msgstr "Можете да промените личните си данни през страницата на профила си."
+
+#: .\templates\common\gallery.html:14 .\templates\common\nav.html:9
+msgid "Gallery"
+msgstr "Галерия"
+
+#: .\templates\common\gallery.html:62
+msgid "No images yet."
+msgstr "Все още няма снимки."
+
+
+#: .\templates\common\home.html:10 .\templates\common\home.html:27
+msgid "Discover"
+msgstr "Разгледайте"
+
+#: .\templates\common\home.html:31
+#, python-format
+msgid "10%% off your next order"
+msgstr "Получете -10% от следващата си поръчка"
+
+#: .\templates\common\home.html:32
+msgid "Subscribe for fashion news and exclusive EllaPrimE offers"
+msgstr "Запишете се за EllaPrimE новини и ексклузивни отстъпки"
+
+#: .\templates\common\home.html:48
+msgid "Subscribe"
+msgstr "Запишете се"
+
+#: .\templates\common\home.html:53
+msgid "Join Now"
+msgstr "Присъединете се"
+
+#: .\templates\common\nav.html:10 .\templates\common\sales-conditions.html:55
+msgid "Contact"
+msgstr "Контакт"
+
+#: .\templates\common\nav.html:19
+msgid "Search garments..."
+msgstr "Търсене..."
+
+#: .\templates\common\newsletter-welcome.html:31
+#: .\templates\emails\welcome.html:23
+msgid "Welcome to"
+msgstr "Добре дошли в"
+
+#: .\templates\common\newsletter-welcome.html:35
+msgid ""
+"Thank you for subscribing. You'll be the first to know about new arrivals, "
+"exclusive offers, and style inspiration."
+msgstr "Благодарим за записването! Вие ще сте сред първите научили за новите ни колекции, намаления и предложения."
+
+#: .\templates\common\newsletter-welcome.html:39
+msgid "Subscribed as"
+msgstr "Записан като"
+
+#: .\templates\common\newsletter-welcome.html:48
+msgid "Shop the collection"
+msgstr "Поръчайте от колекцията ни"
+
+#: .\templates\common\newsletter-welcome.html:58
+msgid "You're receiving this because you subscribed at"
+msgstr "Вие получихте този имейл, защото сте записани в "
+
+#: .\templates\common\newsletter-welcome.html:62
+msgid "Unsubscribe"
+msgstr "Отпишете се"
+
+#: .\templates\common\sales-conditions.html:12
+msgid "Terms and Conditions of Sale"
+msgstr "Общи условия за продажба"
+
+#: .\templates\common\sales-conditions.html:15
+msgid "Purpose"
+msgstr "Цел"
+
+#: .\templates\common\sales-conditions.html:16
+msgid "These Terms and Conditions govern the sale of products on this website."
+msgstr "Тези условия за продажба са валидни за всички продукти в целия ни сайт."
+
+#: .\templates\common\sales-conditions.html:21
+msgid ""
+"All products are described as accurately as possible. However, slight "
+"variations may occur."
+msgstr "Всички продукти са описани възможно най-добре. Вариации са възможни."
+
+#: .\templates\common\sales-conditions.html:25
+msgid "Pricing"
+msgstr "Цени"
+
+#: .\templates\common\sales-conditions.html:26
+msgid ""
+"Prices are displayed in euros (€) and include applicable taxes unless stated "
+"otherwise."
+msgstr "Цените са в евро и включват такси, но не и доставка - освен ако обратното не е посочено изрично."
+
+#: .\templates\common\sales-conditions.html:31
+msgid ""
+"Any order placed on this website constitutes acceptance of these Terms and "
+"Conditions"
+msgstr "Поръчвайки от сайта ни, Вие автоматично се съгласявате с условията за продажба."
+
+#: .\templates\common\sales-conditions.html:35
+#: .\templates\emails\order_confirmation.html:53
+msgid "Payment"
+msgstr "Плащания"
+
+#: .\templates\common\sales-conditions.html:36
+msgid "Payments are processed securely through our payment providers"
+msgstr "Плащанията се извършват безопасно онлайн или с наложен платеж при получаване на покупката"
+
+#: .\templates\common\sales-conditions.html:40
+#: .\templates\orders\orders\all-orders.html:37
+msgid "Delivery"
+msgstr "Доставки"
+
+#: .\templates\common\sales-conditions.html:41
+msgid ""
+"Delivery times are provided as estimates and may vary depending on "
+"circumstances"
+msgstr "Сроковете за доставка са средно 3-4 дни, но могат да варират спрямо населеното място, струпването на неработни дни или други непредвидени обстоятелства."
+
+#: .\templates\common\sales-conditions.html:45
+msgid "Right of Withdrawal"
+msgstr "Право на ретракция"
+
+#: .\templates\common\sales-conditions.html:46
+msgid ""
+"Customers have a period of 14 days to exercise their right of withdrawal in "
+"accordance with applicable laws."
+msgstr "Клиентът има до 14 дни, за да изяви желание да върне артикулите във вида, в който са били получени."
+
+#: .\templates\common\sales-conditions.html:50
+msgid "Liability"
+msgstr "Отговорност"
+
+#: .\templates\common\sales-conditions.html:51
+msgid ""
+"We are not liable for indirect damages resulting from the use of our "
+"services."
+msgstr "Не носим отговорност за повреди на артикулите от Ваша страна или по време на доставката."
+
+#: .\templates\common\sales-conditions.html:56
+msgid ""
+"For any questions, please contact us through the contact form available on "
+"the website"
+msgstr "За повече информация, моля, свържете се с нас чрез „Контакт“ формуляра в сайта."
+
+#: .\templates\emails\contact_reply.html:25
+msgid "We received your message:"
+msgstr "Съобщението Ви беше получено."
+
+#: .\templates\emails\contact_reply.html:31
+msgid "We will get back to you shortly."
+msgstr "Ще се свържем с Вас в най-кратки срокове"
+
+#: .\templates\emails\contact_reply.html:33
+msgid "Thank you,"
+msgstr "Благодарим Ви,"
+
+#: .\templates\emails\contact_reply.html:33 .\templates\emails\welcome.html:48
+msgid "Team"
+msgstr "Екипът"
+
+#: .\templates\emails\order_confirmation.html:19
+msgid "New order received"
+msgstr "Вашата поръчка беше получена"
+
+#: .\templates\emails\order_confirmation.html:44
+msgid "Delivery address"
+msgstr "Адрес на доставка"
+
+#: .\templates\emails\order_confirmation.html:50
+#: .\templates\orders\orders\all-orders.html:43
+msgid "Phone"
+msgstr "Телефонен номер"
+
+#: .\templates\emails\order_confirmation.html:102
+msgid "Log into the admin to update the order status once dispatched."
+msgstr "Моля, влезте в профила си."
+
+#: .\templates\emails\order_confirmation.html:111
+msgid "EllaPrimE internal notification"
+msgstr "EllaPrimE нотификация"
+
+#: .\templates\emails\welcome.html:28
+msgid "Thank you for registering! We"
+msgstr "Благодарим Ви, че се регистрирахте. Ние"
+
+#: .\templates\emails\welcome.html:32
+msgid ""
+"Discover our latest collections, exclusive deals, and more by visiting our "
+"website."
+msgstr "Открийте новите ни колекции, промоции и още в нашия сайт."
+
+#: .\templates\emails\welcome.html:38
+msgid "Visit"
+msgstr "Посетете"
+
+#: .\templates\emails\welcome.html:43
+msgid ""
+"If you have any questions, feel free to reply to this email — we’re here to "
+"help."
+msgstr "Ако имате въпроси, моля, свържете се с нас чрез този имейл адрес и ние с радост ще Ви помогнем."
+
+#: .\templates\emails\welcome.html:47
+msgid "Welcome aboard"
+msgstr "Добре дошли!"
+
+#: .\templates\orders\orders\cart.html:13
+msgid "Please enter a promo code."
+msgstr "Моля, въведете промо кода."
+
+#: .\templates\orders\orders\cart.html:14
+msgid "Something went wrong. Please try again."
+msgstr "Нещо се обърка. Моля, опитайте отново."
+
+#: .\templates\orders\orders\cart.html:15
+#: .\templates\orders\orders\cart.html:117
+msgid "Total"
+msgstr "Общо"
+
+#: .\templates\orders\orders\cart.html:19
+msgid "Your Cart"
+msgstr "Вашата количка"
+
+#: .\templates\orders\orders\cart.html:22
+msgid "Your cart is empty"
+msgstr "Вашата количка е празна"
+
+#: .\templates\orders\orders\cart.html:23
+msgid "Shop now"
+msgstr "Поръчайте"
+
+#: .\templates\orders\orders\cart.html:26
+#, python-format
+msgid "%(count)s item"
+msgid_plural "%(count)s items"
+msgstr[0] "%(count)s броя"
+msgstr[1] "%(count)s броя"
+
+#: .\templates\orders\orders\cart.html:51
+msgid "Remove"
+msgstr "Премахнете"
+
+#: .\templates\orders\orders\cart.html:54
+msgid "Subtotal"
+msgstr "Общо"
+
+#: .\templates\orders\orders\cart.html:63
+#, python-format
+msgid "Add %(gap)s € more for free delivery."
+msgstr "Още %(gap)s евро до безплатна доставка!"
+
+#: .\templates\orders\orders\cart.html:67
+msgid "You qualify for free delivery!"
+msgstr "Безплатна доставка!"
+
+#: .\templates\orders\orders\cart.html:78
+msgid "Delivery details"
+msgstr "Информация за доставката"
+
+#: .\templates\orders\orders\cart.html:95
+msgid "Save details"
+msgstr "Запазете данните"
+
+#: .\templates\orders\orders\cart.html:104
+#, python-format
+msgid "Promo code <strong>%(code)s</strong> applied (%(discount)s%% off)"
+msgstr "Промо код %(code)s приет за %(discount)s%% отстъпка"
+
+#: .\templates\orders\orders\cart.html:134
+msgid "Pay on delivery"
+msgstr "С наложен платеж"
+
+#: .\templates\orders\orders\cart.html:139
+msgid "Pay by card"
+msgstr "С банкова карта"
+
+#: .\templates\orders\orders\cart.html:143
+msgid "Card payments are processed securely by Stripe."
+msgstr "Безопасно разплащане онлайн чрез Stripe"
+
+#: .\templates\orders\orders\cart.html:148
+msgid "Please fill in all required fields above to proceed."
+msgstr "Моля, попълнете всички задължителни полета, преди да продължите."
+
+#: .\templates\orders\orders\cart.html:153
+msgid "Please"
+msgstr "Моля,"
+
+#: .\templates\orders\orders\cart.html:153
+msgid "to checkout"
+msgstr "за финализирне на поръчката."
+
+#: .\templates\orders\orders\success.html:15
+msgid "Order confirmed"
+msgstr "Поръчката е потвърдена"
+
+#: .\templates\orders\orders\success.html:18
+msgid ""
+"Thank you for your purchase! A confirmation email is on its way to your "
+"inbox. We"
+msgstr "Благодарим Ви за поръчката! Потвърждението е изпратено също и по имейл. Ние от"
+
+#: .\templates\orders\orders\success.html:23
+msgid "View my orders"
+msgstr "Преглед на адреса"
+
+#: .\templates\orders\orders\success.html:26
+msgid "Continue shopping"
+msgstr "Продължете с пазаруването"
+
+#: .\templates\reviews\update-review.html:8
+msgid "Update review"
+msgstr "Промяна"
+
+#: .\templates\reviews\update-review.html:22
+msgid "Update your review"
+msgstr "Промяна"
+
+#: .\templates\reviews\update-review.html:46
+msgid "Save review changes"
+msgstr "Запазване на промените"

@@ -274,9 +274,7 @@ def checkout(request):
     order.save()
 
     send_email_task.delay(
-        subject=_("EllaPrimE - Order confirmation #%(order_id)s") % {
-            "order_id": order.id
-        },
+        subject=_("EllaPrimE - Order confirmation"),
         template_name="emails/order_confirmation.html",
         context={
             "order_id": order.id,
@@ -433,9 +431,7 @@ def stripe_webhook(request):
         order.save()
 
         send_email_task.delay(
-            subject=_("EllaPrimE - Order confirmation #%(order_id)s") % {
-                "order_id": order_id,
-            },
+            subject=_("EllaPrimE - Order confirmation"),
             template_name="emails/order_confirmation.html",
             context={
                 "order_id": order.id,

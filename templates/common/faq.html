@@ -1,4 +1,5 @@
 {% extends "common/base.html" %}
+{% load i18n %}
 {% load static %}
 
 {% block extra_css %}
@@ -6,42 +7,42 @@
 {% endblock %}
 {% block content %}
 <section class="static-page">
-    <h1>Frequently Asked Questions</h1>
+    <h1>{% trans 'Frequently Asked Questions' %}</h1>
 
     <article>
-        <h3>Orders</h3>
-        <p><strong>How do I place an order?</strong></p>
-        <p>You can browse our products, add items to your cart, and proceed to checkout securely.</p>
+        <h3>{% trans 'Orders' %}</h3>
+        <p><strong>{% trans 'How do I place an order?' %}</strong></p>
+        <p>{% trans 'You can browse our products, add items to your cart, and proceed to checkout securely.' %}</p>
 
-        <p><strong>Can I modify or cancel my order?</strong></p>
-        <p>Orders can only be modified or cancelled before they are processed. Please contact us as soon as possible.</p>
+        <p><strong>{% trans 'Can I modify or cancel my order?' %}</strong></p>
+        <p>{% trans 'Orders can only be modified or cancelled before they are processed. Please contact us as soon as possible.' %}</p>
     </article>
 
     <article>
-        <h3>Shipping</h3>
-        <p><strong>What are the delivery times?</strong></p>
-        <p>Delivery times depend on your location and will be estimated during checkout.</p>
+        <h3>{% trans 'Shipping' %}</h3>
+        <p><strong>{% trans 'What are the delivery times?' %}</strong></p>
+        <p>{% trans 'Delivery times depend on your location and will be estimated during checkout.' %}</p>
 
-        <p><strong>Do you ship internationally?</strong></p>
-        <p>Yes, we offer international shipping. Fees and delivery times may vary.</p>
+        <p><strong>{% trans 'Do you ship internationally?' %}</strong></p>
+        <p>{% trans 'Yes, we offer international shipping. Fees and delivery times may vary.' %}</p>
     </article>
 
     <article>
-        <h3>Returns & Refunds</h3>
-        <p><strong>Can I return a product?</strong></p>
-        <p>You may return items within 14 days of receipt, provided they are unused and in original condition.</p>
+        <h3>{% trans 'Returns & Refunds' %}</h3>
+        <p><strong>{% trans 'Can I return a product?' %}</strong></p>
+        <p>{% trans 'You may return items within 14 days of receipt, provided they are unused and in original condition' %}.</p>
 
-        <p><strong>How do I request a refund?</strong></p>
-        <p>Contact our support team with your order details to initiate a refund request.</p>
+        <p><strong>{% trans 'How do I request a refund?' %}</strong></p>
+        <p>{% trans 'Contact our support team with your order details to initiate a refund request.' %}</p>
     </article>
 
     <article>
-        <h3>Account</h3>
-        <p><strong>Do I need an account to order?</strong></p>
-        <p>Yes, an account is required to place and track orders.</p>
+        <h3>{% trans 'Account' %}</h3>
+        <p><strong>{% trans 'Do I need an account to order?' %}</strong></p>
+        <p>{% trans 'Yes, an account is required to place and track orders.' %}</p>
 
-        <p><strong>How do I update my information?</strong></p>
-        <p>You can update your personal information from your account dashboard.</p>
+        <p><strong>{% trans 'How do I update my information?' %}</strong></p>
+        <p>{% trans 'You can update your personal information from your account dashboard.' %}</p>
     </article>
 
 </section>

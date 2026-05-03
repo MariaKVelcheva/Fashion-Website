@@ -13,7 +13,7 @@
     <div class="order-history-header">
         <h1 class="order-history-title">{% trans 'Order history' %}</h1>
         <p class="order-history-subtitle">
-            {% blocktrans %}{{ orders|length }} order{% if orders|length != 1 %}s{% endif %}{% endblocktrans %}
+            {{ orders|length }} order{% if orders|length != 1 %}s{% endif %}
         </p>
     </div>
 

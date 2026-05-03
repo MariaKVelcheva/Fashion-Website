@@ -1,4 +1,5 @@
 {% extends "common/base.html" %}
+{% load i18n %}
 {% load static %}
 
 {% block extra_css %}
@@ -10,8 +11,8 @@
 <div class="auth-card contact-card container">
 
     <div class="auth-header">
-        <h1>Contact us</h1>
-        <p>We'll get back to you as soon as possible</p>
+        <h1>{% trans 'Contact us' %}</h1>
+        <p>{% trans 'We'll get back to you as soon as possible' %}</p>
     </div>
 
     {% if messages %}
@@ -49,7 +50,7 @@
             {% endfor %}
         </div>
 
-        <button type="submit" class="auth-btn">Send message</button>
+        <button type="submit" class="auth-btn">{% trans 'Send message' %}</button>
     </form>
 
 </div>

@@ -150,7 +150,7 @@
 {% endif %}
 
     {% else %}
-        <p>{% blocktrans %}Please <a href="{% url 'login' %}">log in</a> to checkout.{% endblocktrans %}</p>
+        <p>{% trans 'Please' %} <a href="{% url 'login' %}">log in</a> {% trans 'to checkout' %}.</p>
     {% endif %}
 </div>
     </div>

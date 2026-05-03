@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -28,23 +29,23 @@
 <footer>
     <div class="site-map">
         <ul class="map-list" type="none">
-            <li><h5>SHOP</h5>
+            <li><h5>{% trans 'SHOP' %}</h5>
                 <ul class="li-ul" type="none">
-                <li><a href="{% url 'all-garments' %}">Collection</a></li>
-                <li><a href="{% url 'contact' %}">Gift Card</a></li>
+                <li><a href="{% url 'all-garments' %}">{% trans 'Collection' %}</a></li>
+                <li><a href="{% url 'new' %}">{% trans 'New in' %}</a></li>
+                <li><a href="{% url 'promotion-catalogue' %}">{% trans 'Promo' %}</a></li>    
                 </ul>
             </li>
-            <li><h5>HELP</h5>
+            <li><h5>{% trans 'HELP' %}</h5>
             <ul class="li-ul" type="none">
-                <li><a href="{% url 'contact' %}">Customer service</a></li>
-                <li><a href="{% url 'customer-details' %}">My account</a></li>
-                <li><a href="{% url 'customer-details' %}">My orders</a></li>
-                <li><a href="{% url 'contact' %}">Returns and exchanges</a></li>
+                <li><a href="{% url 'contact' %}">{% trans 'Customer service' %}</a></li>
+                <li><a href="{% url 'customer-details' %}">{% trans 'My account' %}</a></li>
+                <li><a href="{% url 'customer-details' %}">{% trans 'My orders' %}</a></li>
             </ul></li>
-            <li><h5>LEGAL AND PRIVACY</h5>
+            <li><h5>{% trans 'LEGAL AND PRIVACY' %}</h5>
             <ul class="li-ul" type="none">
                 <li><a href="{% url 'faq' %}">FAQ</a></li>
-                <li><a href="{% url 'sales-conditions' %}">Sales conditions</a></li>
+                <li><a href="{% url 'sales-conditions' %}">{% trans 'Sales conditions' %}</a></li>
             </ul>
             </li>
         </ul>

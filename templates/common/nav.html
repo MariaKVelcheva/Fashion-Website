@@ -1,11 +1,13 @@
 {% load static %}
+{% load i18n %}
+
 <nav>
     <ul class="navigation" type="none">
-        <li><a href="{% url 'new' %}">New in</a></li>
-        <li><a href="{% url 'promotion-catalogue' %}">Promo</a></li>
-        <li><a href="{% url 'all-garments' %}">Collection</a></li>
-        <li><a href="{% url 'gallery' %}" id="custom-nav-li">Gallery</a></li>
-        <li><a href="{% url 'contact' %}">Contact</a></li>
+        <li><a href="{% url 'new' %}">{% trans 'New in' %}</a></li>
+        <li><a href="{% url 'promotion-catalogue' %}">{% trans 'Promo' %}</a></li>
+        <li><a href="{% url 'all-garments' %}">{% trans 'Collection' %}</a></li>
+        <li><a href="{% url 'gallery' %}" id="custom-nav-li">{% trans 'Gallery' %}</a></li>
+        <li><a href="{% url 'contact' %}">{% trans 'Contact' %}</a></li>
     </ul>
 {% include "common/logo.html" %}
     <ul class="customer" type="none">
@@ -14,7 +16,7 @@
         <input
             type="text"
             name="q"
-            placeholder="Search garments..."
+            placeholder="{% trans 'Search garments...' %}"
             class="nav-search-input"
         >
     </form>

@@ -82,7 +82,7 @@
                     {% trans 'All garments' %}
                 {% endif %}
             </h1>
-            <p class="results-count">{% blocktrans %}{{ garments|length }} item{% if garments|length != 1 %}s{% endif %}{% endblocktrans %}</p>
+            <p class="results-count">{{ garments|length }} item{% if garments|length != 1 %}s{% endif %}</p>
         </div>
 
         {% if garments %}

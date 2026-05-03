@@ -1,15 +1,16 @@
 {% extends 'common/base.html' %}
+{% load i18n %}
 {% load static %}
 
 
 {% block content %}
 <section class="gallery" style="background-image: url('{% static 'images/collection.jpeg'%}')">
-    <h3>Our</h3>
-            <h2> collection</h2>
-    <button onclick="window.location.href='{% url 'all-garments' %}'">Discover</button>
+     <h3>Our</h3>
+    <h2> collection</h2>
+    <button onclick="window.location.href='{% url 'all-garments' %}'">{% trans 'Discover' %}</button>
     </section>
    <section class="collection">
-     <h2>Latest Trends</h2>
+     <h2>{% trans 'Latest Trends' %}</h2>
     <ul class="categories" type="none">
     {% for category in categories %}
     <li>
@@ -23,12 +24,12 @@
     </section>
     <section class="trending" style="background-image: url('{% static 'images/denim 2.jpeg' %}')">
     <h2>DENIM!</h2>
-    <button onclick="window.location.href='{% url 'trending' %}'">Discover</button>
+    <button onclick="window.location.href='{% url 'trending' %}'">{% trans 'Discover' %}</button>
     </section>
     
     <section class="subscribe">
-    <h2>10% off your next order</h2>
-    <p>Subscribe for fashion news and exclusive EllaPrimE offers</p>
+    <h2>{% trans '10% off your next order' %}</h2>
+    <p>{% blocktrans %}Subscribe for fashion news and exclusive EllaPrimE offers{% endblocktrans %}</p>
  
     {% if messages %}
         {% for message in messages %}
@@ -42,19 +43,17 @@
         {% csrf_token %}
         <input type="email"
                name="email"
-               placeholder="Enter your email address"
+               placeholder="{% trans 'Enter your email address' %}"
                required>
-        <button type="submit">Subscribe</button>
+        <button type="submit">{% trans 'Subscribe' %}</button>
     </form>
 </section>
     
 <section class="social">
-    <h2>Join Now</h2>
+    <h2>{% trans 'Join Now' %}</h2>
     <ul class="social-list" type="none">
-        <li><a href="#"><i class="fa-brands fa-facebook-f"></i> Facebook</a></li>
         <li><a href="https://www.instagram.com/elaprim.fashion/" target="_blank"><i class="fa-brands fa-instagram"></i> Instagram</a></li>
         <li><a href="https://www.tiktok.com/@elaprim" target="_blank"><i class="fa-brands fa-tiktok"></i> TikTok</a></li>
-        <li><a href="#"><i class="fa-brands fa-pinterest-p"></i> Pinterest</a></li>
     </ul>
 </section>
 {% endblock %}
