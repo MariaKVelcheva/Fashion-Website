@@ -5,8 +5,8 @@
 
 {% block content %}
 <section class="gallery" style="background-image: url('{% static 'images/collection.jpeg'%}')">
-     <h3>Our</h3>
-    <h2> collection</h2>
+{% blocktrans %}     <h3>Our</h3>
+    <h2> collection</h2>{% endblocktrans %}
     <button onclick="window.location.href='{% url 'all-garments' %}'">{% trans 'Discover' %}</button>
     </section>
    <section class="collection">

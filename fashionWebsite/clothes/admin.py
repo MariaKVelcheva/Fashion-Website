@@ -1,3 +1,4 @@
+from modeltranslation.admin import TranslationAdmin
 from django.contrib import admin
 from fashionWebsite.clothes.models import Category, Size, Color, Garment, Product, LookbookImage, GarmentImage
 
@@ -8,10 +9,10 @@ class LookbookImageAdmin(admin.ModelAdmin):
 
 
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(TranslationAdmin):
     list_display = ("name", "slug")
     search_fields = ("name", )
-    prepopulated_fields = {"slug": ("name",)}
+    prepopulated_fields = {"slug": ("name_en",)}
 
 
 @admin.register(Size)
@@ -40,9 +41,9 @@ class GarmentImageInline(admin.TabularInline):
 
 
 @admin.register(Garment)
-class GarmentAdmin(admin.ModelAdmin):
+class GarmentAdmin(TranslationAdmin):
     inlines = [GarmentImageInline, ProductInline]
-    prepopulated_fields = {"slug": ("name",)}
+    prepopulated_fields = {"slug": ("name_en",)}
     list_display = ("name", "price", "is_available")
     search_fields = ("name", "price")
     list_filter = ("category",)

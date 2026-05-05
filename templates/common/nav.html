@@ -2,6 +2,22 @@
 {% load i18n %}
 
 <nav>
+    {% get_current_language as LANGUAGE_CODE %}
+    {% get_available_languages as LANGUAGES %}
+    <div class="lang-switcher">
+        {% for lang_code, lang_name in LANGUAGES %}
+            <form action="{% url 'set_language' %}" method="post">
+                {% csrf_token %}
+                <input name="next" type="hidden" value="{{ request.path }}">
+                <input type="hidden" name="language" value="{{ lang_code }}">
+                <button type="submit"
+                        class="lang-btn {% if lang_code == LANGUAGE_CODE %}lang-btn--active{% endif %}">
+                    {{ lang_code|upper }}
+                </button>
+            </form>
+        {% endfor %}
+    </div>
+
     <ul class="navigation" type="none">
         <li><a href="{% url 'new' %}">{% trans 'New in' %}</a></li>
         <li><a href="{% url 'promotion-catalogue' %}">{% trans 'Promo' %}</a></li>
@@ -9,50 +25,51 @@
         <li><a href="{% url 'gallery' %}" id="custom-nav-li">{% trans 'Gallery' %}</a></li>
         <li><a href="{% url 'contact' %}">{% trans 'Contact' %}</a></li>
     </ul>
-{% include "common/logo.html" %}
-    <ul class="customer" type="none">
-<li class="search-container">
-    <form method="get" action="{% url 'garment-search' %}">
-        <input
-            type="text"
-            name="q"
-            placeholder="{% trans 'Search garments...' %}"
-            class="nav-search-input"
-        >
-    </form>
 
-    <a href="#" id="search-toggle">
-        <i class="fa-solid fa-magnifying-glass"></i>
-    </a>
-</li>
+    {% include "common/logo.html" %}
+
+    <ul class="customer" type="none">
+        <li class="search-container">
+            <form method="get" action="{% url 'garment-search' %}">
+                <input
+                    type="text"
+                    name="q"
+                    placeholder="{% trans 'Search garments...' %}"
+                    class="nav-search-input"
+                >
+            </form>
+            <a href="#" id="search-toggle">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </a>
+        </li>
         <li><a href="{% url 'wishlist' %}"><i class="fa-solid fa-heart"></i></a></li>
-    
         <li>
-    <a href="{% url 'cart' %}" class="cart-nav-link">
-        <i class="fa-solid fa-bag-shopping"></i>
-        {% if cart_count > 0 %}
-            <span class="cart-badge">{{ cart_count }}</span>
-        {% endif %}
-    </a>
-</li>
-    {% if not request.user.is_authenticated %}
-        <a href="{% url 'login' %}"><i class="fa-regular fa-user"></i></a>
+            <a href="{% url 'cart' %}" class="cart-nav-link">
+                <i class="fa-solid fa-bag-shopping"></i>
+                {% if cart_count > 0 %}
+                    <span class="cart-badge">{{ cart_count }}</span>
+                {% endif %}
+            </a>
+        </li>
+        {% if not request.user.is_authenticated %}
+            <a href="{% url 'login' %}"><i class="fa-regular fa-user"></i></a>
         {% else %}
-        <a href="{% url 'customer-details' %}"><i class="fa-regular fa-user"></i></a>
+            <a href="{% url 'customer-details' %}"><i class="fa-regular fa-user"></i></a>
         {% endif %}
-    </li>
-{% if request.user.is_authenticated %}
-<li>
-    <form id="logout-form" method="post" action="{% url 'logout' %}" style="display: inline;">
-        {% csrf_token %}
-        <button type="submit" class="nav-link" style="background: none; border: none; cursor: pointer;">
-            <i class="fa-solid fa-right-from-bracket"></i>
-        </button>
-    </form>
-</li>
-{% endif %}
+        </li>
+        {% if request.user.is_authenticated %}
+        <li>
+            <form id="logout-form" method="post" action="{% url 'logout' %}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="nav-link" style="background: none; border: none; cursor: pointer;">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </button>
+            </form>
+        </li>
+        {% endif %}
     </ul>
 </nav>
+
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const toggle = document.getElementById("search-toggle");
@@ -61,7 +78,6 @@ document.addEventListener("DOMContentLoaded", function () {
     toggle.addEventListener("click", function (e) {
         e.preventDefault();
         input.classList.toggle("active");
-
         if (input.classList.contains("active")) {
             input.focus();
         }

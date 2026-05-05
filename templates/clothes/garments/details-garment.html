@@ -24,11 +24,13 @@
         {% endfor %}
     </ul>
 </section>
-
+    
+    {% if garment.main_image %}
 <div class="main-image">
     <img src="{{ garment.main_image.url }}" alt="{{ garment.name }}">
     <div class="wishlist">{% include 'common/wishlist-heart.html' %}</div>
 </div>
+    {% endif %}
 
 <div class="garment-info">
     <h1>{{ garment.name }}</h1>
@@ -410,5 +412,4 @@ colorInputs.forEach(colorInput => {
 });
 </script>
 
-{% endblock %}    
 {% endblock %}

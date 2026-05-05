@@ -31,8 +31,7 @@ class Customer(models.Model):
         validators=[
             name_validator,
         ],
-        null=True,
-        blank=True,
+        default="",
     )
 
     last_name = models.CharField(

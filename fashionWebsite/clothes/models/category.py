@@ -8,7 +8,6 @@ class Category(models.Model):
         _("name"),
         max_length=50,
         default="",
-        unique=True,
     )
 
     slug = models.SlugField(

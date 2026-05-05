@@ -17,7 +17,6 @@ class Garment(models.Model):
     name = models.CharField(
         _("Garment name"),
         max_length=100,
-        unique=True,
         null=True,
         blank=True,
     )
