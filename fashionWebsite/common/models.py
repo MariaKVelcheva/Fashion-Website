@@ -33,3 +33,42 @@ class NewsletterSubscriber(models.Model):
     class Meta:
         verbose_name = _("Newsletter Subscriber")
         ordering = ["-subscribed_at"]
+
+
+class Newsletter(models.Model):
+    body = models.TextField(
+        verbose_name=_('Body'),
+    )
+
+    subject = models.CharField(
+        max_length=255,
+        verbose_name=_('Subject'),
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+    )
+
+    sent_at = models.DateTimeField(
+        null=True,
+        blank=True,
+    )
+
+    is_sent = models.BooleanField(
+        default=False,
+    )
+
+    @property
+    def active_subscribers(self):
+        return NewsletterSubscriber.objects.filter(is_active=True)
+
+    def __str__(self):
+        return self.subject
+
+    class Meta:
+        verbose_name = _("Newsletter")
+        verbose_name_plural = _("Newsletters")
+        ordering = ["-created_at"]
+
+
+
