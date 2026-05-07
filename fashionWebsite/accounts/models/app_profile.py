@@ -65,7 +65,8 @@ class Customer(models.Model):
 
     @property
     def full_name(self):
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.first_name} {self.last_name}" if self.middle_name == "" else\
+            f"{self.first_name} {self.middle_name} {self.last_name}"
 
     @property
     def past_orders(self):

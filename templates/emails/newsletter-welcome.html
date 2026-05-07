@@ -57,7 +57,7 @@
               <p style="margin:0; font-size:11px; color:#8a8078;">
                 {% trans "You're receiving this because you subscribed at" %} ella-prime.com.
                 &nbsp;&middot;&nbsp;
-                <a href="https://ella-prime.com/newsletter/unsubscribe/"
+                <a href="{% url 'newsletter-unsubscribe' token %}"
                    style="color:#b85c38; text-decoration:none;">
                   {% trans 'Unsubscribe' %}
                 </a>

@@ -8,4 +8,6 @@ urlpatterns = [
     path("faq/", views.FAQView.as_view(), name="faq"),
     path("sales-conditions/", views.SalesConditionsView.as_view(), name="sales-conditions"),
     path("newsletter/subscribe/", views.NewsletterSubscribeView.as_view(), name="newsletter-subscribe"),
+    path("newsletter/unsubscribe/<uuid:token>/", views.NewsletterUnsubscribeView.as_view(),
+         name="newsletter-unsubscribe"),
 ]

@@ -2,13 +2,14 @@ import os
 
 from django.contrib import messages
 from django.core.mail import send_mail
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.views.generic import TemplateView, FormView
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 
 from fashionWebsite.common.forms import ContactForm, NewsletterForm
+from fashionWebsite.common.models import NewsletterSubscriber
 from fashionWebsite.common.tasks import send_email_task
 from fashionWebsite.common.utils.email import send_custom_email, send_html_email
 
@@ -58,6 +59,37 @@ class SalesConditionsView(TemplateView):
     template_name = "common/sales-conditions.html"
 
 
+class NewsletterUnsubscribeView(TemplateView):
+    template_name = "emails/newsletter-unsubscribe.html"
+
+    def get(self, request, *args, **kwargs):
+        token = kwargs["token"]
+        subscriber = NewsletterSubscriber.objects.filter(token=token, is_active=True).first()
+
+        if not subscriber:
+            messages.error(request, _("Invalid request."))
+            return redirect(reverse_lazy("home"))
+
+        context = {
+            "subscriber": subscriber,
+        }
+
+        return render(request, "emails/newsletter-unsubscribe.html", context)
+
+    def post(self, request, token, *args, **kwargs):
+        subscriber = NewsletterSubscriber.objects.filter(token=token, is_active=True).first()
+
+        if not subscriber:
+            messages.error(request, _("Invalid request."))
+            return redirect(reverse_lazy("home"))
+
+        subscriber.is_active = False
+        subscriber.save()
+
+        messages.success(request, _("You have successfully unsubscribed."))
+        return redirect(reverse_lazy("home"))
+
+
 class NewsletterSubscribeView(FormView):
     form_class = NewsletterForm
     success_url = reverse_lazy("home")
@@ -69,6 +101,7 @@ class NewsletterSubscribeView(FormView):
             template_name="emails/newsletter_welcome.html",
             context={
                 "email": subscriber.email,
+                "token": subscriber.token,
             },
             recipient_list=[subscriber.email],
         )

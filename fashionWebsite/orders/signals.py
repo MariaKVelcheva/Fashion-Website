@@ -16,11 +16,10 @@ def update_stock(sender, instance, created, **kwargs):
 @receiver(post_save, sender=Order)
 def restore_stock(sender, instance, **kwargs):
     if instance.status == "cancelled":
-        for item in instance.items.all():
-            item.garment.stock += item.quantity
-            item.garment.save(update_fields=['stock'])
-
-        Order.objects.filter(pk=instance.pk).update(status='cancelled')
+        items = instance.items.select_related("product__garment").all()
+        for item in items:
+            item.product.garment.stock += item.quantity
+            item.product.garment.save(update_fields=['stock'])
 
 
 @receiver(post_save, sender=Order)
@@ -30,7 +29,7 @@ def send_order_confirmation(sender, instance, created, **kwargs):
 
     if created:
         items_raw = OrderItem.objects.select_related("product__garment",
-                                                 "product__size", "product__size").filter(order=instance)
+                                                     "product__color", "product__size").filter(order=instance)
         items = []
 
         for item in items_raw:
@@ -43,38 +42,28 @@ def send_order_confirmation(sender, instance, created, **kwargs):
             items.append({"name": name, "size": size, "color": color,
                                 "quantity": quantity, "line_total": line_total})
 
+        context = {
+            "order_id": instance.id,
+            "customer_name": instance.customer.customer.full_name,
+            "user_email": instance.customer.email,
+            "shipping_address": instance.shipping_address,
+            "phone_number": instance.phone_number,
+            "payment_type": instance.payment_type,
+            "items": items,
+            "total_amount": float(instance.total_amount),
+
+        }
+
         send_email_task.delay(
             subject=f"Order Confirmation #{instance.id}",
             template_name="emails/order_confirmation.html",
-            context={
-                "order_id": instance.id,
-                "customer_name": f"{instance.customer.customer.first_name} {instance.customer.customer.middle_name} "
-                                 f"{instance.customer.customer.last_name}",
-                "user_email": instance.customer.email,
-                "shipping_address": instance.shipping_address,
-                "phone_number": instance.phone_number,
-                "payment_type": instance.payment_type,
-                "items": items,
-                "total_amount": float(instance.total_amount),
-
-            },
+            context=context,
             recipient_list=[instance.customer.email],
         )
 
         send_email_task.delay(
             subject="New order placed",
             template_name="emails/order_placed.html",
-            context={
-                "order_id": instance.id,
-                "customer_name": f"{instance.customer.customer.first_name} {instance.customer.customer.middle_name} "
-                                 f"{instance.customer.customer.last_name}",
-                "user_email": instance.customer.email,
-                "shipping_address": instance.shipping_address,
-                "phone_number": instance.phone_number,
-                "payment_type": instance.payment_type,
-                "items": items,
-                "total_amount": float(instance.total_amount),
-
-                     },
+            context=context,
             recipient_list=[settings.DEFAULT_FROM_EMAIL],
         )
