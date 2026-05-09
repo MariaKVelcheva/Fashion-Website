@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.utils.translation import gettext_lazy as _
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from fashionWebsite.common.tasks import send_email_task
@@ -23,6 +24,20 @@ def restore_stock(sender, instance, **kwargs):
 
 
 @receiver(post_save, sender=Order)
+def send_shipping_confirmation(sender, instance, created, **kwargs):
+    if not created:
+        if instance._original_status != "shipped" and instance.status == "shipped":
+            send_email_task.delay(
+                subject=_("Your order has been shipped!"),
+                template_name="emails/shipping_confirmation.html",
+                context={
+                    "order_id": instance.id,
+                },
+                recipient_list=[instance.customer.email],
+            )
+
+
+@receiver(post_save, sender=Order)
 def send_order_confirmation(sender, instance, created, **kwargs):
     if not instance.customer or not instance.customer.email:
         return
@@ -40,7 +55,7 @@ def send_order_confirmation(sender, instance, created, **kwargs):
             quantity = item.quantity
             line_total = float(unit_price * quantity)
             items.append({"name": name, "size": size, "color": color,
-                                "quantity": quantity, "line_total": line_total})
+                          "quantity": quantity, "line_total": line_total})
 
         context = {
             "order_id": instance.id,

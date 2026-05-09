@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from django.shortcuts import redirect, render
 from django.views.generic import TemplateView, FormView
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 
@@ -96,12 +96,16 @@ class NewsletterSubscribeView(FormView):
 
     def form_valid(self, form):
         subscriber = form.save()
+        unsubscribe_url = self.request.build_absolute_uri(
+            reverse("newsletter-unsubscribe", args=[subscriber.token])
+        )
+
         send_email_task.delay(
             subject=_("Welcome to EllaPrimE!"),
             template_name="emails/newsletter_welcome.html",
             context={
                 "email": subscriber.email,
-                "token": subscriber.token,
+                "unsubscribe_url": unsubscribe_url,
             },
             recipient_list=[subscriber.email],
         )

@@ -6,6 +6,10 @@ AppUser = get_user_model()
 
 
 class Order(models.Model):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._original_status = self.status
+
     STATUS_CHOICES = (
         ("pending", _("Pending")),
         ("confirmed", _("Confirmed")),
