@@ -89,10 +89,10 @@ nav {
     background-color: #fffbfb;
     flex-wrap: nowrap;
     top: 0;
-    gap: 1rem;
+    justify-content: flex-start;
+    gap: 5rem;
     padding: 1rem;
     align-items: center;
-    justify-content: space-evenly;
     z-index: 1;
 }
 
@@ -174,7 +174,7 @@ main {
 }
 
 .customer {
-    margin-left: 10rem;
+    margin-left: 15rem;
 }
 
 .gallery {

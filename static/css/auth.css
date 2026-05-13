@@ -51,6 +51,10 @@ a:hover {
     color: var(--color-accent-dark);
 }
 
+.required {
+    color: red;
+}
+
 .auth-card {
     background-color: var(--color-surface);
     border: 1px solid var(--color-border);

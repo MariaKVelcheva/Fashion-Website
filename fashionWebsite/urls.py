@@ -7,6 +7,7 @@ from django.urls import path, include
 urlpatterns = [
     path('', include("fashionWebsite.common.urls")),
     path('admin/', admin.site.urls),
+    path('socials/', include('allauth.urls')),
     path('accounts/', include("fashionWebsite.accounts.urls")),
     path('clothes/', include("fashionWebsite.clothes.urls")),
     path('orders/', include("fashionWebsite.orders.urls")),

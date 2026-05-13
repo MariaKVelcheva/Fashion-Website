@@ -16,7 +16,7 @@ password_patterns = [
     path('password-change/',
          auth_views.PasswordChangeView.as_view(
              template_name="accounts/password-management/password-change.html"),
-         name="password_change"),
+         name="password-change"),
     path('password-change/done/',
          auth_views.PasswordChangeDoneView.as_view(
              template_name="accounts/password-management/password-change-done.html"),

@@ -1,8 +1,12 @@
 import os
+import secrets
+from datetime import timedelta
 
 from django.contrib import messages
 from django.core.mail import send_mail
+from django.db import transaction
 from django.shortcuts import redirect, render
+from django.utils import timezone
 from django.views.generic import TemplateView, FormView
 from django.urls import reverse_lazy, reverse
 from django.utils.translation import gettext_lazy as _
@@ -12,6 +16,7 @@ from fashionWebsite.common.forms import ContactForm, NewsletterForm
 from fashionWebsite.common.models import NewsletterSubscriber
 from fashionWebsite.common.tasks import send_email_task
 from fashionWebsite.common.utils.email import send_custom_email, send_html_email
+from fashionWebsite.promotions.models import Promotion
 
 
 class BaseView(TemplateView):
@@ -95,10 +100,21 @@ class NewsletterSubscribeView(FormView):
     success_url = reverse_lazy("home")
 
     def form_valid(self, form):
-        subscriber = form.save()
-        unsubscribe_url = self.request.build_absolute_uri(
-            reverse("newsletter-unsubscribe", args=[subscriber.token])
-        )
+        with transaction.atomic():
+            subscriber = form.save()
+            unsubscribe_url = self.request.build_absolute_uri(
+                reverse("newsletter-unsubscribe", args=[subscriber.token])
+            )
+            code = f"{subscriber.email.split("@")[0].upper()}-{secrets.token_urlsafe(2).upper()}-10"
+
+            promotion = Promotion.objects.create(
+                code=code,
+                type="code",
+                discount_percent=10,
+                valid_from=timezone.now(),
+                valid_until=timezone.now() + timedelta(days=365 * 100),
+                max_uses=1,
+            )
 
         send_email_task.delay(
             subject=_("Welcome to EllaPrimE!"),
@@ -106,6 +122,7 @@ class NewsletterSubscribeView(FormView):
             context={
                 "email": subscriber.email,
                 "unsubscribe_url": unsubscribe_url,
+                "promotion": promotion.code,
             },
             recipient_list=[subscriber.email],
         )
@@ -114,6 +131,7 @@ class NewsletterSubscribeView(FormView):
             self.request,
             _("You're subscribed! Check your inbox for a welcome email.")
         )
+
         return super().form_valid(form)
 
     def form_invalid(self, form):

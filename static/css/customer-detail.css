@@ -38,6 +38,10 @@
     min-height: calc(100vh - 80px);
 }
 
+.required {
+    color: #bf2929;
+}
+
 .profile-aside {
     background-color: var(--color-surface);
     border-right: 1px solid var(--color-border);

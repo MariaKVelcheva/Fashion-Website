@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.facebook',
     'django.contrib.staticfiles',
     'cloudinary_storage',
     'cloudinary',
@@ -55,6 +56,20 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 SOCIALACCOUNT_ADAPTER = "fashionWebsite.accounts.adapter.AppUserSocialAdapter"
+
+#SECURE_SSL_REDIRECT = True
+
+SOCIALACCOUNT_LOGIN_ON_GET = True
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': os.environ['GOOGLE_CLIENT_ID'],
+            'secret': os.environ['GOOGLE_CLIENT_SECRET'],
+        },
+        'SCOPE': ['profile', 'email'],
+    },
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -128,8 +143,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 LANGUAGES = [
-    ('en', _('English')),
-    ("bg", _('Bulgarian')),
+    ('en', 'English'),
+    ("bg", 'Bulgarian'),
 ]
 
 TIME_ZONE = 'UTC'

@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LogoutView, LoginView
 from django.http import HttpResponseRedirect, JsonResponse
+from django.shortcuts import redirect
 from django.views.generic import CreateView, DeleteView
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
@@ -49,13 +50,9 @@ class DeleteUserView(LoginRequiredMixin, DeleteView):
 
     def post(self, request, *args, **kwargs):
         user = request.user
-        user.is_active = False
-        user.save()
-
         logout(request)
-
-        messages.success(request, _("Your account has been deleted."))
-        return JsonResponse({"redirect_url": reverse_lazy("home")})
+        user.delete()
+        return redirect(reverse_lazy("home"))
 
     def get_object(self, queryset=None):
         return self.request.user

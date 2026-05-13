@@ -10,26 +10,18 @@ from fashionWebsite.accounts.models import Customer
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_customer_and_assign_group(sender, instance, created, **kwargs):
     if created:
+        if hasattr(instance, '_skip_signal'):
+            return
+
         customer_group, _ = Group.objects.get_or_create(name="Customers")
         instance.groups.add(customer_group)
-
-        first, last = "", ""
-
-        try:
-            social_account = instance.socialaccount_set.first()
-            if social_account:
-                extra_data = social_account.extra_data
-                first = extra_data.get("given_name", "")
-                last = extra_data.get("family_name", "")
-        except:
-            pass
 
         Customer.objects.get_or_create(
             user=instance,
             defaults={
-                "first_name": first,
+                "first_name": "",
                 "middle_name": "",
-                "last_name": last,
+                "last_name": "",
                 "address": "",
                 "telephone_number": "",
             }

@@ -6,21 +6,16 @@ from fashionWebsite.common.models import NewsletterSubscriber
 class ContactForm(forms.Form):
     name = forms.CharField(
         max_length=100,
-        widget=forms.TextInput(
-            attrs={"placeholder": _("Enter your name")},
-        ),
+        label=_('Name'),
     )
 
     email = forms.EmailField(
-        widget=forms.EmailInput(
-            attrs={"placeholder": _("Enter your email")},
-        )
+        label=_("Email"),
     )
 
     message = forms.CharField(
-        widget=forms.Textarea(
-            attrs={"placeholder": _("Your message...")}
-        ),
+        label=_("Your message"),
+        widget=forms.Textarea(),
     )
 
 

@@ -12,18 +12,17 @@ AppUser = get_user_model()
 class AppUserCreationForm(UserCreationForm):
     email = forms.EmailField(
         label=_("Email"),
-        widget=forms.EmailInput(attrs={"autofocus": True, "placeholder": _("Email")})
+        widget=forms.EmailInput(attrs={"autofocus": True,})
     )
 
     password1 = forms.CharField(
-        widget=forms.PasswordInput(attrs={
-            "placeholder": _("Password"),
-        })
+        label=_("Password"),
+        widget=forms.PasswordInput(attrs={"autofocus": True, "autocomplete": "new-password"})
     )
+
     password2 = forms.CharField(
-        widget=forms.PasswordInput(attrs={
-            "placeholder": _("Confirm Password"),
-        })
+        label=_("Confirm Password"),
+        widget=forms.PasswordInput(attrs={"autofocus": True, "autocomplete": "new-password"})
     )
 
     error_messages = {
@@ -33,6 +32,9 @@ class AppUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = AppUser
         fields = ("email", )
+        widgets = {
+            "password": forms.PasswordInput(attrs={"autofocus": True, "autocomplete": "new-password"}),
+        }
 
     def clean_email(self):
         email = self.cleaned_data.get("email")
@@ -70,12 +72,11 @@ class AppUserChangeForm(UserChangeForm):
 
 class LoginForm(AuthenticationForm):
     username = forms.EmailField(
-        widget=forms.TextInput(attrs={'placeholder': _('Email')})
+        label=_('Email'),
     )
     password = forms.CharField(
-        widget=forms.PasswordInput(
-            attrs={"placeholder": _("Password")}
-        )
+        label=_("Password"),
+        widget=forms.PasswordInput(attrs={"autofocus": True, "autocomplete": "new-password"})
     )
 
     error_messages = {
@@ -99,6 +100,6 @@ class UpdateCustomerForm(forms.ModelForm):
         model = Customer
         exclude = ("user", "favorites")
         widgets = {
-            "telephone_number": forms.TextInput(attrs={"placeholder": _("Phone number")}),
-            "address": forms.Textarea(attrs={"rows": 3})
+            "address": forms.Textarea(attrs={"rows": 3}),
+            "password": forms.PasswordInput(attrs={"autofocus": True, "autocomplete": "new-password"})
         }

@@ -2,8 +2,21 @@
 {% load static %}
 
 <link rel="stylesheet" href="{% static 'css/auth.css' %}">
-<form method="post">
-    {% csrf_token %}
-    {{ form }}
-    <button type="submit" class="common-button">{% trans 'Update' %}</button>
-</form>
+
+    <form method="post" class="auth-form">
+        {% csrf_token %}
+
+        {% for field in form %}
+            <div class="auth-field {% if field.errors %}field--error{% endif %}">
+                <label for="{{ field.id_for_label }}">
+    {{ field.label }}{% if field.field.required %} <span class="required">*</span>{% endif %}
+</label>
+                {{ field }}
+                {% for error in field.errors %}
+                    <span class="field-error">{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        <button type="submit" class="auth-btn">{% trans 'Save changes' %}</button>
+    </form>

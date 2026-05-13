@@ -57,9 +57,10 @@
             </div>
 
             {% if not profile_complete %}
-                <div class="profile-incomplete-banner">
+                <div class="profile-incomplete-banner" onclick="switchPanel('personal')" style="cursor:pointer">
                     <p>{% trans 'Please complete your profile to place orders.' %}</p>
                 </div>
+                
             {% endif %}
 
             <section class="orders-section">
@@ -111,7 +112,9 @@
                 {% csrf_token %}
                 {% for field in form %}
                     <div class="profile-field {% if field.errors %}field--error{% endif %}">
-                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        <label for="{{ field.id_for_label }}">
+    {{ field.label }}{% if field.field.required %} <span class="required">*</span>{% endif %}
+</label>
                         {{ field }}
                         {% for error in field.errors %}
                             <span class="field-error">{{ error }}</span>
@@ -197,6 +200,23 @@
 </div>
 
 <script>
+function switchPanel(target) {
+    document.querySelectorAll(".aside-trigger").forEach(t => {
+        t.classList.toggle("active", t.dataset.panel === target);
+    });
+    document.querySelectorAll(".profile-panel").forEach(p => {
+        p.classList.toggle("active", p.id === "panel-" + target);
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".aside-trigger").forEach(function (trigger) {
+        trigger.addEventListener("click", function () {
+            switchPanel(this.dataset.panel);
+        });
+    });
+});
+
 document.addEventListener("DOMContentLoaded", function () {
     const triggers = document.querySelectorAll(".aside-trigger");
     const panels   = document.querySelectorAll(".profile-panel");

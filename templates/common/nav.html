@@ -52,7 +52,7 @@
             </a>
         </li>
         {% if not request.user.is_authenticated %}
-            <a href="{% url 'login' %}"><i class="fa-regular fa-user"></i></a>
+            <a href="{% url 'register' %}"><i class="fa-regular fa-user"></i></a>
         {% else %}
             <a href="{% url 'customer-details' %}"><i class="fa-regular fa-user"></i></a>
         {% endif %}
