@@ -8,12 +8,11 @@
 
 {% block content %}
 
-<!-- JS translation strings -->
 <div id="js-translations"
      data-enter-promo="{% trans 'Please enter a promo code.' %}"
      data-something-wrong="{% trans 'Something went wrong. Please try again.' %}"
      data-total-label="{% trans 'Total' %}"
-     style="display:none;">
+     style="display:none; font-family: 'Cormorant Garamond', Georgia, serif">
 </div>
 
 <h1 class="title">{% trans "Your Cart" %}</h1>
@@ -112,17 +111,12 @@
     {% endif %}
 </div>
 {% endif %}
-                <div class="order-total">
-                <strong>
-                    {% trans "Total" %}:
-                    {% if session_cart %}
-                        {{ total }}
-                    {% else %}
-                        {{ order.total_amount }}
-                    {% endif %}
-                    €
-                </strong>
-            </div>
+<div class="order-total" style="font-family: 'Cormorant Garamond', Georgia, serif">
+    <strong style="font-family: 'Cormorant Garamond', Georgia, serif">{% trans "Total" %}:</strong>
+    <span id="total-value" style="font-family: 'Cormorant Garamond', Georgia, serif">
+        {% if session_cart %}{{ total }}{% else %}{{ order.total_amount }}{% endif %} €
+    </span>
+</div>
 
 </div>
         {% if profile_complete %}
@@ -194,8 +188,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (data.success) {
                     messageEl.textContent = data.message;
                     messageEl.className = "promo-message promo-message--success";
-                    document.querySelector(".order-total strong").textContent =
-                        t.totalLabel + ": " + data.new_total + " €";
+                    const totalEl = document.getElementById("total-value");
+const oldTotal = totalEl.textContent.trim();
+
+totalEl.innerHTML =
+    `<span style="text-decoration:line-through; color:red; margin-right:6px; font-family: 'Cormorant Garamond', Georgia, serif">${oldTotal}</span>` +
+    `<span style="font-family: 'Cormorant Garamond', Georgia, serif">${parseFloat(data.new_total).toFixed(2)} €</span>`;
                 } else {
                     messageEl.textContent = data.error;
                     messageEl.className = "promo-message promo-message--error";

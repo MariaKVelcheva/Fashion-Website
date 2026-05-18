@@ -10,6 +10,7 @@ from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
 from fashionWebsite.accounts.forms import AppUserCreationForm, LoginForm
 from fashionWebsite.clothes.models import Product
+from fashionWebsite.common.tasks import send_email_task
 from fashionWebsite.orders.models import OrderItem
 from fashionWebsite.orders.utils import update_order_total, get_or_create_cart
 
@@ -35,6 +36,12 @@ class RegisterUserView(CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user, backend='django.contrib.auth.backends.ModelBackend')
+        send_email_task.delay(
+            subject="Welcome to EllaPrime!",
+            template_name="emails/welcome.html",
+            context={"user_id": self.request.user.id},
+            recipient_list=[self.request.user.email],
+        )
         return HttpResponseRedirect(self.get_success_url())
 
     def form_invalid(self, form):

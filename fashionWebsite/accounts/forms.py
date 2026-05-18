@@ -17,12 +17,12 @@ class AppUserCreationForm(UserCreationForm):
 
     password1 = forms.CharField(
         label=_("Password"),
-        widget=forms.PasswordInput(attrs={"autofocus": True, "autocomplete": "new-password"})
+        widget=forms.PasswordInput(attrs={"autocomplete": "new-password"})
     )
 
     password2 = forms.CharField(
         label=_("Confirm Password"),
-        widget=forms.PasswordInput(attrs={"autofocus": True, "autocomplete": "new-password"})
+        widget=forms.PasswordInput(attrs={"autocomplete": "new-password"})
     )
 
     error_messages = {
@@ -33,7 +33,7 @@ class AppUserCreationForm(UserCreationForm):
         model = AppUser
         fields = ("email", )
         widgets = {
-            "password": forms.PasswordInput(attrs={"autofocus": True, "autocomplete": "new-password"}),
+            "password": forms.PasswordInput(attrs={"autocomplete": "new-password"}),
         }
 
     def clean_email(self):
@@ -76,7 +76,7 @@ class LoginForm(AuthenticationForm):
     )
     password = forms.CharField(
         label=_("Password"),
-        widget=forms.PasswordInput(attrs={"autofocus": True, "autocomplete": "new-password"})
+        widget=forms.PasswordInput(attrs={"autocomplete": "new-password"})
     )
 
     error_messages = {
@@ -101,5 +101,5 @@ class UpdateCustomerForm(forms.ModelForm):
         exclude = ("user", "favorites")
         widgets = {
             "address": forms.Textarea(attrs={"rows": 3}),
-            "password": forms.PasswordInput(attrs={"autofocus": True, "autocomplete": "new-password"})
+            "password": forms.PasswordInput(attrs={"autocomplete": "new-password"})
         }

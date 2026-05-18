@@ -8,7 +8,7 @@
 
 {% block content %}
     <section class="catalogue-header">
-    <h2>{% blocktrans %}Our {{ category.name }} collection{% endblocktrans %}</h2>
+    <h2>{% blocktrans with name=category.name %}Our {{ name }} collection{% endblocktrans %}</h2>
 </section>
 {% if garments %}
 <section class="catalogue">

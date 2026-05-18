@@ -204,6 +204,8 @@ def remove_from_cart(request, item_id):
         return redirect("cart")
 
     order = item.order
+    order.promotion = None
+    order.save()
     item.delete()
     update_order_total(order)
     return redirect("cart")
@@ -254,8 +256,10 @@ def checkout(request):
         if item.product.stock < item.quantity:
             messages.error(
                 request,
-                _(f"Sorry, only {item.product.stock} unit(s) of "
-                  f"{item.product.garment.name} are available.")
+                _("Sorry, only %(stock)s unit(s) of %(name)s are available.") % {
+                    "stock": item.product.stock,
+                    "name": item.product.garment.name,
+                }
             )
             return redirect("cart")
 
@@ -278,6 +282,7 @@ def checkout(request):
         template_name="emails/order_confirmation.html",
         context={
             "order_id": order.id,
+            "customer_name": customer.full_name,
             "user_email": request.user.email,
             "items": [
                 {
@@ -303,8 +308,8 @@ def checkout(request):
         template_name="emails/admin_order_notification.html",
         context={
             "order_id": order.id,
-            "user_email": request.user.email,
             "customer_name": customer.full_name,
+            "user_email": request.user.email,
             "items": [
                 {
                     "name": item.product.garment.name,
@@ -435,6 +440,7 @@ def stripe_webhook(request):
             template_name="emails/order_confirmation.html",
             context={
                 "order_id": order.id,
+                "customer_name": order.customer.customer.full_name,
                 "user_email": order.customer.email,
                 "items": [
                     {

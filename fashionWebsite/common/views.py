@@ -5,6 +5,7 @@ from datetime import timedelta
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.db import transaction
+from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.utils import timezone
 from django.views.generic import TemplateView, FormView
@@ -118,7 +119,7 @@ class NewsletterSubscribeView(FormView):
 
         send_email_task.delay(
             subject=_("Welcome to EllaPrimE!"),
-            template_name="emails/newsletter_welcome.html",
+            template_name="emails/newsletter-welcome.html",
             context={
                 "email": subscriber.email,
                 "unsubscribe_url": unsubscribe_url,
@@ -131,14 +132,18 @@ class NewsletterSubscribeView(FormView):
             self.request,
             _("You're subscribed! Check your inbox for a welcome email.")
         )
+        if self.request.headers.get("X-Requested-With") == "XMLHttpRequest":
+            return JsonResponse({"message": _("You're subscribed! Check your inbox.")})
 
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        messages.info(
-            self.request,
-            form.errors.get("email", [_("Something went wrong.")])[0]
-        )
+        error = form.errors.get("email", [_("Something went wrong.")])[0]
+
+        if self.request.headers.get("X-Requested-With") == "XMLHttpRequest":
+            return JsonResponse({"message": error}, status=400)
+
+        messages.info(self.request, error)
         return redirect("home")
 
     def get(self, request, *args, **kwargs):

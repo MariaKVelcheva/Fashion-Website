@@ -41,7 +41,7 @@ def send_welcome_email(sender, instance, created, **kwargs):
 
     if created:
         send_email_task.delay(
-            subject="Welcome to Fashion Website!",
+            subject="Welcome to EllaPrime!",
             template_name="emails/welcome.html",
             context={"user_id": instance.id},
             recipient_list=[instance.email],

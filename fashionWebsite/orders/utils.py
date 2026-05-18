@@ -20,5 +20,7 @@ def get_or_create_cart(user):
 def update_order_total(order):
     total = sum(item.line_total for item in order.items.all())
     order.total_amount = total
+    if order.promotion:
+        order.total_amount = order.promotion.apply_to_order(order)
     order.save()
 

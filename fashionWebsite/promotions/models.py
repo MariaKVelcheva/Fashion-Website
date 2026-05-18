@@ -12,7 +12,7 @@ class Promotion(models.Model):
     )
 
     code = models.CharField(
-        max_length=20,
+        max_length=200,
         unique=True,
         verbose_name=_("Code"),
     )

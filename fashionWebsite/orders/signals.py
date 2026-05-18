@@ -42,7 +42,7 @@ def send_order_confirmation(sender, instance, created, **kwargs):
     if not instance.customer or not instance.customer.email:
         return
 
-    if created:
+    if instance.status == "confirmed":
         items_raw = OrderItem.objects.select_related("product__garment",
                                                      "product__color", "product__size").filter(order=instance)
         items = []
