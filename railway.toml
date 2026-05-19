@@ -6,9 +6,4 @@ startCommand = "gunicorn fashionWebsite.wsgi:application --bind 0.0.0.0:$PORT --
 healthcheckPath = "/"
 healthcheckTimeout = 30
 restartPolicyType = "on_failure"
-
-[[deploy.releaseCommands]]
-command = "python manage.py migrate --noinput"
-
-[[deploy.releaseCommands]]
-command = "python manage.py collectstatic --noinput"
+preDeployCommand = "python manage.py migrate --noinput && python manage.py collectstatic --noinput"
