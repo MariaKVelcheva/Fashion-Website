@@ -1,8 +1,0 @@
-[phases.setup]
-nixPkgs = ["python312", "gcc", "postgresql_16"]
-
-[phases.install]
-cmds = ["pip3 install -r requirements.txt"]
-
-[start]
-cmd = "gunicorn fashionWebsite.wsgi:application --bind 0.0.0.0:$PORT --workers 2"
