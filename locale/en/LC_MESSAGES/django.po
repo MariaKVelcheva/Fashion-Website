@@ -457,7 +457,7 @@ msgstr ""
 #: .\fashionWebsite\orders\views\cart.py:436
 #, python-format
 msgid "EllaPrimE - Order confirmation #%(order_id)s"
-msgstr ""
+msgstr "EllaPrimE - "
 
 #: .\fashionWebsite\orders\views\cart.py:358
 #, python-format

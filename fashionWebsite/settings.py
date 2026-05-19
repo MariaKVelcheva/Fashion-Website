@@ -64,8 +64,8 @@ SOCIALACCOUNT_LOGIN_ON_GET = True
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'APP': {
-            'client_id': os.environ['GOOGLE_CLIENT_ID'],
-            'secret': os.environ['GOOGLE_CLIENT_SECRET'],
+            'client_id': os.getenv('GOOGLE_CLIENT_ID', ''),
+            'secret': os.getenv('GOOGLE_CLIENT_SECRET', ''),
         },
         'SCOPE': ['profile', 'email'],
     },
@@ -119,7 +119,7 @@ WSGI_APPLICATION = 'fashionWebsite.wsgi.application'
 
 DATABASES = {
     "default": dj_database_url.config(
-        env="DATABASE_PUBLIC_URL",
+        env="DATABASE_URL",
         default="postgresql://postgres:new_password@localhost:5432/fashion_db",
         conn_max_age=600,
     )
@@ -180,7 +180,6 @@ CLOUDINARY_STORAGE = {
     "STATICFILES": False,
 }
 
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 cloudinary.config(
     cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME'),
@@ -213,7 +212,7 @@ CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL", "redis://127.0.0.1:6379/0")
 CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_TASK_ALWAYS_EAGER = False
-CELERY_RESULT_BACKEND = "redis://127.0.0.1:6379/0"
+CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND", "redis://127.0.0.1:6379/0")
 
 if 'test' in sys.argv:
     CELERY_TASK_ALWAYS_EAGER = True

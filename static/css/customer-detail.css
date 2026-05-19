@@ -26,6 +26,7 @@
     box-sizing: border-box;
 }
 
+
 .profile-layout,
 .profile-layout * {
     text-align: left;
@@ -51,7 +52,7 @@
     gap: 2rem;
     position: sticky;
     top: 0;
-    height: 100vh;
+    height: 80vh;
     overflow-y: auto;
 }
 

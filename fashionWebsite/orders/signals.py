@@ -70,13 +70,6 @@ def send_order_confirmation(sender, instance, created, **kwargs):
         }
 
         send_email_task.delay(
-            subject=f"Order Confirmation #{instance.id}",
-            template_name="emails/order_confirmation.html",
-            context=context,
-            recipient_list=[instance.customer.email],
-        )
-
-        send_email_task.delay(
             subject="New order placed",
             template_name="emails/order_placed.html",
             context=context,
