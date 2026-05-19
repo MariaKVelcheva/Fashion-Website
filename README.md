@@ -21,7 +21,7 @@ A full-stack e-commerce web application for a fashion boutique, built with Djang
 ## Features
 
 ### Shopping
-- Product catalogue with filtering by category, colour, and size
+- Products catalogue with filtering by category, colour, and size
 - Full-text search across product names, descriptions, and categories
 - Product variant system — each garment has multiple size/colour combinations with individual stock tracking
 - Out-of-stock items automatically pushed to the end of listings with reduced opacity
