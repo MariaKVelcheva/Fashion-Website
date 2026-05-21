@@ -17,5 +17,5 @@ services:
 databases:
   - name: fashion-db
     databaseName: fashion_db
-    user: fashion_user
-    region: frankfurtg
+    user: postgres
+    region: frankfurt
