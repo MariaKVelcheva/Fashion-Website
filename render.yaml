@@ -3,8 +3,9 @@ services:
     name: fashion-website
     runtime: python
     region: frankfurt
-    buildCommand: "pip install -r requirements.txt && python manage.py migrate --noinput && python manage.py collectstatic --noinput"
+    buildCommand: "pip install -r requirements.txt && python manage.py collectstatic --noinput"
     startCommand: "gunicorn fashionWebsite.wsgi:application --bind 0.0.0.0:$PORT --workers 2"
+    preDeployCommand: "python manage.py migrate --noinput"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
@@ -17,3 +18,4 @@ databases:
   - name: fashion-db
     databaseName: fashion_db
     user: fashion_user
+    region: frankfurtg
