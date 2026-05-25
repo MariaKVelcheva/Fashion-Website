@@ -89,10 +89,6 @@ class LoginForm(AuthenticationForm):
             raise forms.ValidationError(_("Invalid email or password."))
         return cleaned_data
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields["password"].label = ""
-        self.fields["username"].label = ""
 
 
 class UpdateCustomerForm(forms.ModelForm):
