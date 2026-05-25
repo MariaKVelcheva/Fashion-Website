@@ -41,7 +41,7 @@
     justify-content: center;
 }
 
-a {
+.auth-card a {
     text-decoration: none;
     color: var(--color-accent);
     transition: color var(--transition);

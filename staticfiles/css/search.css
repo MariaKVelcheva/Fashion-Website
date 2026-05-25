@@ -25,6 +25,20 @@
     position: relative;
 }
 
+
+
+.old-price {
+    text-decoration: line-through;
+    color: var(--color-muted);
+    margin-right: 0.5rem;
+    font-weight: 300;
+}
+
+.new-price {
+    color: var(--color-accent);
+    font-weight: 500;
+}
+
 .nav-search-input {
     width: 0;
     opacity: 0;

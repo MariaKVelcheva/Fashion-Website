@@ -90,7 +90,6 @@ class LoginForm(AuthenticationForm):
         return cleaned_data
 
 
-
 class UpdateCustomerForm(forms.ModelForm):
     class Meta:
         model = Customer

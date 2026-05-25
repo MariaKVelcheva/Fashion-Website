@@ -26,6 +26,7 @@
     box-sizing: border-box;
 }
 
+
 .profile-layout,
 .profile-layout * {
     text-align: left;
@@ -38,6 +39,10 @@
     min-height: calc(100vh - 80px);
 }
 
+.required {
+    color: #bf2929;
+}
+
 .profile-aside {
     background-color: var(--color-surface);
     border-right: 1px solid var(--color-border);
@@ -47,7 +52,7 @@
     gap: 2rem;
     position: sticky;
     top: 0;
-    height: 100vh;
+    height: 80vh;
     overflow-y: auto;
 }
 
@@ -396,6 +401,8 @@
     border-color: var(--color-accent);
 }
 
+
+
 .wishlist-list {
     list-style: none;
     display: grid;
@@ -490,3 +497,4 @@
         grid-template-columns: 1fr;
     }
 }
+

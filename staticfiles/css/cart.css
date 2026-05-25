@@ -9,6 +9,7 @@
     --color-accent:      #b85c38;
     --color-accent-dark: #8f3f20;
     --color-success:     #4a7c59;
+    --color-danger:      #9b3a3a;
 
     --font-display: 'Cormorant Garamond', Georgia, serif;
     --font-body:    'DM Sans', sans-serif;
@@ -36,6 +37,64 @@ body {
     font-weight: 300;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+}
+
+.promo-section {
+    margin: 1rem 0;
+}
+
+.promo-row {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.promo-input {
+    flex: 1;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    background: var(--color-bg);
+    color: var(--color-text);
+}
+
+.promo-input:focus {
+    outline: none;
+    border-color: var(--color-accent);
+}
+
+.promo-btn {
+    padding: 0.6rem 1.2rem;
+    background-color: var(--color-text);
+    color: var(--color-bg);
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background-color var(--transition);
+}
+
+.promo-btn:hover {
+    background-color: var(--color-accent);
+}
+
+.promo-message {
+    font-size: 0.82rem;
+    margin-top: 0.4rem;
+}
+
+.promo-message--success { color: var(--color-success); }
+.promo-message--error   { color: var(--color-danger); }
+
+.promo-applied {
+    font-size: 0.85rem;
+    color: var(--color-success);
+    letter-spacing: 0.04em;
 }
 
 
@@ -260,7 +319,7 @@ h3 {
 }
 .order-total {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     padding: 1.4rem 1.6rem;
     background-color: var(--color-surface);
     border: 1px solid var(--color-border);
@@ -268,7 +327,6 @@ h3 {
     font-family: var(--font-display);
     font-size: 1.15rem;
     letter-spacing: 0.02em;
-    margin-top: 0.5rem;
 }
 
 .delivery-message {
