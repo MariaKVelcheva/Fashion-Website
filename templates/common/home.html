@@ -22,8 +22,12 @@
 {% endfor %}
     </ul>
     </section>
-    <section class="trending" style="background-image: url('{% static 'images/denim 2.jpeg' %}')">
+    <section class="trending denim" style="background-image: url('{% static 'images/denim 2.jpeg' %}'); display: none;">
     <h2>DENIM!</h2>
+    <button onclick="window.location.href='{% url 'trending' %}'">{% trans 'Discover' %}</button>
+    </section>
+    <section class="trending dresses" style="background-image: url('{% static 'images/a74-20260322-0165 (1).jpg' %}')">
+        <h2>{% trans 'Summer is here!' %}</h2>
     <button onclick="window.location.href='{% url 'trending' %}'">{% trans 'Discover' %}</button>
     </section>
     

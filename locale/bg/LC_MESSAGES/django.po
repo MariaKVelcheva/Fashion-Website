@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-17 15:40+0200\n"
+"POT-Creation-Date: 2026-05-26 10:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -274,7 +274,7 @@ msgstr "Име"
 msgid "Your message"
 msgstr "Съобщението Ви"
 
-#: .\fashionWebsite\common\forms.py:28 .\templates\common\home.html:47
+#: .\fashionWebsite\common\forms.py:28 .\templates\common\home.html:50
 msgid "Enter your email address"
 msgstr "Въведете имейл"
 
@@ -612,37 +612,6 @@ msgstr ""
 "Съжаляваме - нещо се обърка. Екипът ни работи по въпроса. Моля, опитайте "
 "отново по-късно."
 
-#: .\templates\accounts\password-management\password-change-done.html:8
-#: .\templates\accounts\password-management\password-change-done.html:15
-msgid "Password updated"
-msgstr "Паролата е променена успешно"
-
-#: .\templates\accounts\password-management\password-change-done.html:16
-msgid "Your password has been changed successfully."
-msgstr "Паролата Ви е променена успешно."
-
-#: .\templates\accounts\password-management\password-change-done.html:19
-#: .\templates\accounts\password-management\password-change.html:36
-#: .\templates\accounts\profile-management\customer-update.html:53
-#: .\templates\accounts\user-management\confirm-delete.html:51
-#: .\templates\reviews\update-review.html:50
-msgid "Back to my account"
-msgstr "Обратно към профила"
-
-#: .\templates\accounts\password-management\password-change.html:8
-#: .\templates\accounts\password-management\password-change.html:15
-#: .\templates\accounts\profile-management\customer-details.html:43
-msgid "Change password"
-msgstr "Промяна на паролата"
-
-#: .\templates\accounts\password-management\password-change.html:16
-msgid "Choose a strong new password"
-msgstr "Моля, изберете силна парола."
-
-#: .\templates\accounts\password-management\password-change.html:34
-msgid "Update password"
-msgstr "Промяна на паролата"
-
 #: .\templates\accounts\password-management\password-reset-complete.html:8
 msgid "Password reset"
 msgstr "Промяна на паролата"
@@ -687,8 +656,6 @@ msgstr "Поискайте нов линк."
 
 #: .\templates\accounts\password-management\password-reset-done.html:8
 #: .\templates\accounts\password-management\password-reset-done.html:15
-#: .\templates\accounts\password-management\password_reset_email.html:8
-#: .\templates\accounts\password-management\password_reset_email.html:15
 msgid "Check your email"
 msgstr "Моля, проверете пощата си."
 
@@ -701,8 +668,7 @@ msgstr ""
 "паролата. Това може да отнеме няколко минути."
 
 #: .\templates\accounts\password-management\password-reset-done.html:21
-#: .\templates\accounts\password-management\password-reset.html:34
-#: .\templates\accounts\password-management\password_reset_email.html:20
+#: .\templates\accounts\password-management\password-reset.html:33
 msgid "Back to sign in"
 msgstr "Обратно към логина."
 
@@ -711,17 +677,50 @@ msgstr "Обратно към логина."
 msgid "Reset password"
 msgstr "Промяна на парола"
 
-#: .\templates\accounts\password-management\password-reset.html:16
-msgid "Enter your email and we'll send you a reset link"
-msgstr "Въведете имейл адрес и ние"
-
-#: .\templates\accounts\password-management\password-reset.html:32
+#: .\templates\accounts\password-management\password-reset.html:31
 msgid "Send reset link"
 msgstr "Обнови парола"
 
-#: .\templates\accounts\password-management\password_reset_email.html:17
-msgid "If an account exists for that address, we"
-msgstr "Ако профил е асоцииран с този имейл адрес,"
+#: .\templates\accounts\password-management\password_reset_email.html:23
+msgid "Password Reset"
+msgstr "Промяна на паролата"
+
+#: .\templates\accounts\password-management\password_reset_email.html:33
+msgid ""
+"We received a request to reset the password for your account. Click the "
+"button below to choose a new one."
+msgstr ""
+
+#: .\templates\accounts\password-management\password_reset_email.html:44
+msgid "Reset my password"
+msgstr "Промяна на парола"
+
+#: .\templates\accounts\password-management\password_reset_email.html:51
+msgid "If the button doesn't work, copy and paste this link into your browser:"
+msgstr ""
+
+#: .\templates\accounts\password-management\password_reset_email.html:61
+msgid ""
+"If you didn't request a password reset, you can safely ignore this email — "
+"your password won't change."
+msgstr ""
+
+#: .\templates\accounts\password-management\password_reset_email.html:65
+#: .\templates\emails\welcome.html:65
+msgid "Warmly"
+msgstr ""
+
+#: .\templates\accounts\password-management\password_reset_email.html:66
+#: .\templates\emails\welcome.html:66
+msgid "The EllaPrimE Team"
+msgstr "С уважение, екипът на EllaPrimE"
+
+#: .\templates\accounts\password-management\password_reset_email.html:76
+#: .\templates\emails\order_confirmation.html:129
+#: .\templates\emails\shipping_confirmation.html:79
+#: .\templates\emails\welcome.html:75
+msgid "EllaPrimE — Thank you for shopping with us."
+msgstr "EllaPrime - благодарим Ви за покупката!"
 
 #: .\templates\accounts\password-management\password_reset_subject.txt:1
 msgid "Reset your EllaPrimE password"
@@ -732,12 +731,12 @@ msgid "Overview"
 msgstr "Преглед на профила"
 
 #: .\templates\accounts\profile-management\customer-details.html:29
-#: .\templates\accounts\profile-management\customer-details.html:109
+#: .\templates\accounts\profile-management\customer-details.html:108
 msgid "Personal information"
 msgstr "Лични данни"
 
 #: .\templates\accounts\profile-management\customer-details.html:32
-#: .\templates\accounts\profile-management\customer-details.html:129
+#: .\templates\accounts\profile-management\customer-details.html:128
 msgid "Loyalty points"
 msgstr "Бонус точки"
 
@@ -747,60 +746,60 @@ msgid "Wishlist"
 msgstr "Любими"
 
 #: .\templates\accounts\profile-management\customer-details.html:38
-#: .\templates\accounts\profile-management\customer-details.html:151
+#: .\templates\accounts\profile-management\customer-details.html:150
 #: .\templates\common\contact-form.html:14 .\templates\common\contact.html:14
 msgid "Contact us"
 msgstr "Контакт"
 
-#: .\templates\accounts\profile-management\customer-details.html:45
+#: .\templates\accounts\profile-management\customer-details.html:44
 msgid "Delete account"
 msgstr "Изтрийте профила си"
 
-#: .\templates\accounts\profile-management\customer-details.html:55
+#: .\templates\accounts\profile-management\customer-details.html:54
 msgid "Hello,"
 msgstr "Здравейте,"
 
-#: .\templates\accounts\profile-management\customer-details.html:56
+#: .\templates\accounts\profile-management\customer-details.html:55
 msgid "Your EllaPrimE account"
 msgstr "Вашият EllaPrimE профил"
 
-#: .\templates\accounts\profile-management\customer-details.html:61
+#: .\templates\accounts\profile-management\customer-details.html:60
 msgid "Please complete your profile to place orders."
 msgstr "Моля, попълнете профила си, за да може да поръчвате."
 
-#: .\templates\accounts\profile-management\customer-details.html:67
+#: .\templates\accounts\profile-management\customer-details.html:66
 #: .\templates\orders\orders\all-orders.html:14
 msgid "Order history"
 msgstr "Минали поръчки"
 
-#: .\templates\accounts\profile-management\customer-details.html:103
+#: .\templates\accounts\profile-management\customer-details.html:102
 #: .\templates\orders\orders\all-orders.html:63
 msgid "No orders yet."
 msgstr "Все още нямате поръчки."
 
-#: .\templates\accounts\profile-management\customer-details.html:124
+#: .\templates\accounts\profile-management\customer-details.html:123
 #: .\templates\accounts\profile-management\customer-update.html:49
 #: .\templates\accounts\profile-management\update-form.html:21
 msgid "Save changes"
 msgstr "Запазване на промени"
 
-#: .\templates\accounts\profile-management\customer-details.html:133
+#: .\templates\accounts\profile-management\customer-details.html:132
 msgid "points accumulated"
 msgstr "добавени точки"
 
-#: .\templates\accounts\profile-management\customer-details.html:135
+#: .\templates\accounts\profile-management\customer-details.html:134
 msgid "Shop now to earn more"
 msgstr "Поръчайте, за да натрупате още!"
 
-#: .\templates\accounts\profile-management\customer-details.html:141
+#: .\templates\accounts\profile-management\customer-details.html:140
 msgid "Your wishlist"
 msgstr "Вашите любими"
 
-#: .\templates\accounts\profile-management\customer-details.html:146
+#: .\templates\accounts\profile-management\customer-details.html:145
 msgid "No saved items yet."
 msgstr "Все още няма запазени артикули."
 
-#: .\templates\accounts\profile-management\customer-details.html:194
+#: .\templates\accounts\profile-management\customer-details.html:193
 #: .\templates\common\contact-form.html:53 .\templates\common\contact.html:53
 msgid "Send message"
 msgstr "Изпратете съобщение"
@@ -813,6 +812,12 @@ msgstr "Промяна на профил"
 #: .\templates\accounts\profile-management\customer-update.html:23
 msgid "Keep your delivery details up to date"
 msgstr "Актуализирайте данните си за получаване"
+
+#: .\templates\accounts\profile-management\customer-update.html:53
+#: .\templates\accounts\user-management\confirm-delete.html:51
+#: .\templates\reviews\update-review.html:50
+msgid "Back to my account"
+msgstr "Обратно към профила"
 
 #: .\templates\accounts\user-management\confirm-delete.html:8
 msgid "Confirm Delete"
@@ -1214,23 +1219,28 @@ msgstr ""
 "    <h2> колекция</h2>"
 
 #: .\templates\common\home.html:10 .\templates\common\home.html:27
+#: .\templates\common\home.html:31
 msgid "Discover"
 msgstr "Разгледайте"
 
-#: .\templates\common\home.html:31
+#: .\templates\common\home.html:30
+msgid "Summer is here!"
+msgstr "Лято в рокля"
+
+#: .\templates\common\home.html:35
 #, python-format
 msgid "10%% off your next order"
 msgstr "Получете -10%% от следващата си поръчка"
 
-#: .\templates\common\home.html:32
+#: .\templates\common\home.html:36
 msgid "Subscribe for fashion news and exclusive EllaPrimE offers"
 msgstr "Запишете се за EllaPrimE новини и ексклузивни отстъпки"
 
-#: .\templates\common\home.html:49
+#: .\templates\common\home.html:52
 msgid "Subscribe"
 msgstr "Запишете се"
 
-#: .\templates\common\home.html:54
+#: .\templates\common\home.html:57
 msgid "Join Now"
 msgstr "Присъединете се"
 
@@ -1382,7 +1392,6 @@ msgid "Unsubscribe"
 msgstr "Отпишете се"
 
 #: .\templates\emails\newsletter-welcome.html:31
-#: .\templates\emails\welcome.html:23
 msgid "Welcome to"
 msgstr "Добре дошли в"
 
@@ -1422,6 +1431,7 @@ msgstr "Благодарим за Вашата поръчка."
 
 #: .\templates\emails\order_confirmation.html:33
 #: .\templates\emails\shipping_confirmation.html:33
+#: .\templates\emails\welcome.html:35
 msgid "Dear"
 msgstr "Скъпи клиент"
 
@@ -1478,11 +1488,6 @@ msgstr ""
 msgid "contact us"
 msgstr "Контакт"
 
-#: .\templates\emails\order_confirmation.html:129
-#: .\templates\emails\shipping_confirmation.html:79
-msgid "EllaPrimE — Thank you for shopping with us."
-msgstr "EllaPrime - благодарим Ви за покупката!"
-
 #: .\templates\emails\order_placed.html:19
 msgid "New order received"
 msgstr "Вашата поръчка беше получена"
@@ -1516,35 +1521,36 @@ msgstr ""
 "Ако имате въпроси, моля, свържете се с нас чрез този имейл адрес и ние с "
 "радост ще Ви помогнем."
 
-#: .\templates\emails\welcome.html:28
-msgid "Thank you for registering! We"
+#: .\templates\emails\welcome.html:24
+msgid "Welcome"
+msgstr "Добре дошли в"
+
+#: .\templates\emails\welcome.html:39
+msgid "Thank you for registering! We're thrilled to have you with us."
 msgstr "Благодарим Ви, че се регистрирахте. Ние"
 
-#: .\templates\emails\welcome.html:32
+#: .\templates\emails\welcome.html:43
 msgid ""
 "Discover our latest collections, exclusive deals, and more by visiting our "
 "website."
 msgstr "Открийте новите ни колекции, промоции и още в нашия сайт."
 
-#: .\templates\emails\welcome.html:38
-msgid "Visit"
-msgstr "Посетете"
+#: .\templates\emails\welcome.html:54
+msgid "Discover the collection"
+msgstr "Разгледайте колекцията"
 
-#: .\templates\emails\welcome.html:43
+#: .\templates\emails\welcome.html:61
+#, fuzzy
+#| msgid ""
+#| "If you have any questions, feel free to reply to this email — we’re here "
+#| "to help."
 msgid ""
-"If you have any questions, feel free to reply to this email — we’re here to "
-"help."
+"If you have any questions, feel free to <a href=\"https://ella-prime.com/"
+"contact\" style=\"color:#b85c38; text-decoration:none;\">contact us</a> — "
+"we're here to help."
 msgstr ""
 "Ако имате въпроси, моля, свържете се с нас чрез този имейл адрес и ние с "
 "радост ще Ви помогнем."
-
-#: .\templates\emails\welcome.html:47
-msgid "Welcome aboard"
-msgstr "Добре дошли!"
-
-#: .\templates\emails\welcome.html:48
-msgid "Team"
-msgstr "Екипът"
 
 #: .\templates\orders\orders\cart.html:12
 msgid "Please enter a promo code."
@@ -1662,6 +1668,36 @@ msgstr "Промяна"
 #: .\templates\reviews\update-review.html:46
 msgid "Save review changes"
 msgstr "Запазване на промените"
+
+#~ msgid "Password updated"
+#~ msgstr "Паролата е променена успешно"
+
+#~ msgid "Your password has been changed successfully."
+#~ msgstr "Паролата Ви е променена успешно."
+
+#~ msgid "Change password"
+#~ msgstr "Промяна на паролата"
+
+#~ msgid "Choose a strong new password"
+#~ msgstr "Моля, изберете силна парола."
+
+#~ msgid "Update password"
+#~ msgstr "Промяна на паролата"
+
+#~ msgid "Enter your email and we'll send you a reset link"
+#~ msgstr "Въведете имейл адрес и ние"
+
+#~ msgid "If an account exists for that address, we"
+#~ msgstr "Ако профил е асоцииран с този имейл адрес,"
+
+#~ msgid "Visit"
+#~ msgstr "Посетете"
+
+#~ msgid "Welcome aboard"
+#~ msgstr "Добре дошли!"
+
+#~ msgid "Team"
+#~ msgstr "Екипът"
 
 #~ msgid "Your account has been deleted."
 #~ msgstr "Вашият профил беше изтрит."

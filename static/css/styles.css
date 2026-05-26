@@ -202,6 +202,11 @@ main {
     text-transform: uppercase;
 }
 
+.dresses button {
+    color: #9f1313;
+    font-weight: 800    ;
+}
+
 .gallery button:hover {
     background-color: #d8d2d2;
 }
@@ -274,10 +279,12 @@ main {
 
 .trending h2 {
     font-size: 3rem;
+    text-transform: uppercase;
     letter-spacing: 10px;
     font-weight: 800;
-    color: #bf2929;
+    color: #e3e0e0;
 }
+
 
 .trending button:hover {
     background: none;
