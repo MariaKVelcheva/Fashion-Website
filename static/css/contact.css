@@ -298,7 +298,8 @@ a:hover {
 
 .contact-success {
     width: 100%;
-    padding: 0.9rem 1.2rem;
+    padding: 1rem;
+    line-height: 1.5;
     background-color: #e8f4ec;
     border: 1px solid #4a7c59;
     border-radius: var(--radius);
@@ -309,8 +310,12 @@ a:hover {
 
 
 @media (max-width: 480px) {
+    main {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
     .auth-card {
-        margin: 1rem;
         padding: 2rem 1.5rem;
     }
 }

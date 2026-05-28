@@ -1,92 +1,228 @@
 {% load static %}
 {% load i18n %}
 
+<style>
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 100;
+}
+
+.nav-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: #1a1714;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+.nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+nav {
+    position: sticky;
+    top: 0;
+    z-index: 99;
+    background-color: #fffbfb;
+}
+
+.nav-inner {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 4rem;
+    padding: 1rem;
+    align-items: center;
+}
+
+
+@media (max-width: 900px) {
+    .nav-toggle {
+        display: flex;
+    }
+
+
+    .big-logo {
+        display: none;
+    }
+
+    .nav-inner {
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+        padding: 1.2rem 1.5rem 1.8rem;
+        border-top: 1px solid #e4ddd5;
+    }
+
+    .nav-inner.open {
+        display: flex;
+    }
+
+
+    .nav-topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        padding: 0.85rem 1rem;
+    }
+
+    .navigation {
+        flex-direction: column;
+        gap: 0.8rem;
+        align-items: flex-start;
+    }
+
+    .navigation li {
+        width: 100%;
+        text-align: left;
+    }
+
+    .navigation li:hover {
+        border-bottom: none;
+        border-left: 3px solid #bf2929;
+        padding-left: 0.5rem;
+    }
+
+    .customer {
+        margin-left: 0;
+        flex-direction: row;
+        gap: 1.2rem;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .lang-switcher {
+        order: -1;
+    }
+}
+
+@media (min-width: 901px) {
+    .nav-topbar {
+        display: none;
+    }
+}
+</style>
+
 <nav>
-    {% get_current_language as LANGUAGE_CODE %}
-    {% get_available_languages as LANGUAGES %}
-    <div class="lang-switcher">
-        {% for lang_code, lang_name in LANGUAGES %}
-            <form action="{% url 'set_language' %}" method="post">
-                {% csrf_token %}
-                <input name="next" type="hidden" value="{{ request.path }}">
-                <input type="hidden" name="language" value="{{ lang_code }}">
-                <button type="submit"
-                        class="lang-btn {% if lang_code == LANGUAGE_CODE %}lang-btn--active{% endif %}">
-                    {{ lang_code|upper }}
-                </button>
-            </form>
-        {% endfor %}
+    <div class="nav-topbar">
+        {% include "common/logo.html" %}
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </div>
 
-    <ul class="navigation" type="none">
-        <li><a href="{% url 'new' %}">{% trans 'New in' %}</a></li>
-        <li><a href="{% url 'promotion-catalogue' %}">{% trans 'Promo' %}</a></li>
-        <li><a href="{% url 'all-garments' %}">{% trans 'Collection' %}</a></li>
-        <li><a href="{% url 'gallery' %}" id="custom-nav-li">{% trans 'Gallery' %}</a></li>
-        <li><a href="{% url 'contact' %}">{% trans 'Contact' %}</a></li>
-    </ul>
+    <div class="nav-inner" id="nav-inner">
+        {% get_current_language as LANGUAGE_CODE %}
+        {% get_available_languages as LANGUAGES %}
+        <div class="lang-switcher">
+            {% for lang_code, lang_name in LANGUAGES %}
+                <form action="{% url 'set_language' %}" method="post">
+                    {% csrf_token %}
+                    <input name="next" type="hidden" value="{{ request.path }}">
+                    <input type="hidden" name="language" value="{{ lang_code }}">
+                    <button type="submit"
+                            class="lang-btn {% if lang_code == LANGUAGE_CODE %}lang-btn--active{% endif %}">
+                        {{ lang_code|upper }}
+                    </button>
+                </form>
+            {% endfor %}
+        </div>
 
-    {% include "common/logo.html" %}
+        <ul class="navigation" type="none">
+            <li><a href="{% url 'new' %}">{% trans 'New in' %}</a></li>
+            <li><a href="{% url 'promotion-catalogue' %}">{% trans 'Promo' %}</a></li>
+            <li><a href="{% url 'all-garments' %}">{% trans 'Collection' %}</a></li>
+            <li><a href="{% url 'gallery' %}" id="custom-nav-li">{% trans 'Gallery' %}</a></li>
+            <li><a href="{% url 'contact' %}">{% trans 'Contact' %}</a></li>
+        </ul>
 
-    <ul class="customer" type="none">
-        <li class="search-container">
-            <form method="get" action="{% url 'garment-search' %}">
-                <input
-                    type="text"
-                    name="q"
-                    placeholder="{% trans 'Search garments...' %}"
-                    class="nav-search-input"
-                >
-            </form>
-            <a href="#" id="search-toggle">
-                <i class="fa-solid fa-magnifying-glass" title="{% trans 'Search' %}"></i>
-            </a>
-        </li>
-        <li><a href="{% url 'wishlist' %}"><i class="fa-solid fa-heart" title="{% trans 'Wishlist' %}"></i></a></li>
-        <li>
-            <a href="{% url 'cart' %}" class="cart-nav-link">
-                <i class="fa-solid fa-bag-shopping" title="{% trans 'Cart' %}"></i>
-                {% if cart_count > 0 %}
-                    <span class="cart-badge">{{ cart_count }}</span>
-                {% endif %}
-            </a>
-        </li>
-        {% if not request.user.is_authenticated %}
-            <a href="{% url 'register' %}"><i class="fa-regular fa-user" title="{% trans 'Login / Register' %}"></i></a>
-        {% else %}
-            <a href="{% url 'customer-details' %}"><i class="fa-regular fa-user" title="{% trans 'Profile' %}"></i></a>
-        {% endif %}
-        </li>
-        {% if request.user.is_authenticated %}
-        <li>
-            <form id="logout-form" method="post" action="{% url 'logout' %}" style="display: inline;">
-                {% csrf_token %}
-                <button type="submit" class="nav-link" style="background: none; border: none; cursor: pointer;">
-                    <i class="fa-solid fa-right-from-bracket" title="{% trans 'Logout' %}"></i>
-                </button>
-            </form>
-        </li>
-        {% endif %}
-    </ul>
+        <span class="big-logo">{% include "common/logo.html" %}</span>
+
+        <ul class="customer" type="none">
+            <li class="search-container">
+                <form method="get" action="{% url 'garment-search' %}">
+                    <input
+                        type="text"
+                        name="q"
+                        placeholder="{% trans 'Search garments...' %}"
+                        class="nav-search-input"
+                    >
+                </form>
+                <a href="#" id="search-toggle">
+                    <i class="fa-solid fa-magnifying-glass" title="{% trans 'Search' %}"></i>
+                </a>
+            </li>
+            <li><a href="{% url 'wishlist' %}"><i class="fa-solid fa-heart" title="{% trans 'Wishlist' %}"></i></a></li>
+            <li>
+                <a href="{% url 'cart' %}" class="cart-nav-link">
+                    <i class="fa-solid fa-bag-shopping" title="{% trans 'Cart' %}"></i>
+                    {% if cart_count > 0 %}
+                        <span class="cart-badge">{{ cart_count }}</span>
+                    {% endif %}
+                </a>
+            </li>
+            {% if not request.user.is_authenticated %}
+                <a href="{% url 'register' %}"><i class="fa-regular fa-user" title="{% trans 'Login / Register' %}"></i></a>
+            {% else %}
+                <a href="{% url 'customer-details' %}"><i class="fa-regular fa-user" title="{% trans 'Profile' %}"></i></a>
+            {% endif %}
+            </li>
+            {% if request.user.is_authenticated %}
+            <li>
+                <form id="logout-form" method="post" action="{% url 'logout' %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="nav-link" style="background: none; border: none; cursor: pointer;">
+                        <i class="fa-solid fa-right-from-bracket" title="{% trans 'Logout' %}"></i>
+                    </button>
+                </form>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
 </nav>
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    const toggle = document.getElementById("search-toggle");
+    // ── Hamburger toggle ──────────────────────
+    const toggle = document.getElementById("nav-toggle");
+    const inner  = document.getElementById("nav-inner");
+
+    if (toggle && inner) {
+        toggle.addEventListener("click", function () {
+            const isOpen = inner.classList.toggle("open");
+            toggle.classList.toggle("open", isOpen);
+            toggle.setAttribute("aria-expanded", isOpen);
+        });
+    }
+
+    // ── Search toggle (unchanged) ─────────────
+    const searchToggle = document.getElementById("search-toggle");
     const input = document.querySelector(".nav-search-input");
 
-    toggle.addEventListener("click", function (e) {
-        e.preventDefault();
-        input.classList.toggle("active");
-        if (input.classList.contains("active")) {
-            input.focus();
-        }
-    });
+    if (searchToggle && input) {
+        searchToggle.addEventListener("click", function (e) {
+            e.preventDefault();
+            input.classList.toggle("active");
+            if (input.classList.contains("active")) input.focus();
+        });
 
-    document.addEventListener("click", function (e) {
-        if (!input.contains(e.target) && !toggle.contains(e.target)) {
-            input.classList.remove("active");
-        }
-    });
+        document.addEventListener("click", function (e) {
+            if (!input.contains(e.target) && !searchToggle.contains(e.target)) {
+                input.classList.remove("active");
+            }
+        });
+    }
 });
 </script>

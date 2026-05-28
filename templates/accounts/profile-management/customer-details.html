@@ -208,13 +208,6 @@ function switchPanel(target) {
     });
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll(".aside-trigger").forEach(function (trigger) {
-        trigger.addEventListener("click", function () {
-            switchPanel(this.dataset.panel);
-        });
-    });
-});
 
 document.addEventListener("DOMContentLoaded", function () {
     const triggers = document.querySelectorAll(".aside-trigger");

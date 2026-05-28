@@ -3,7 +3,7 @@
 {% load i18n %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/garment-details.css' %}?v=5">
+    <link rel="stylesheet" href="{% static 'css/garment-details.css' %}?v=6">
 {% endblock %}
 
 {% block content %}
@@ -219,6 +219,18 @@
     </div>
 </div>
 
+<div id="lightbox" class="lightbox" role="dialog" aria-modal="true">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close">&times;</button>
+    <button class="lightbox-arrow lightbox-arrow--prev" id="lightbox-prev" aria-label="Previous">
+        <i class="fa-solid fa-chevron-left"></i>
+    </button>
+    <img class="lightbox-img" id="lightbox-img" src="" alt="">
+    <button class="lightbox-arrow lightbox-arrow--next" id="lightbox-next" aria-label="Next">
+        <i class="fa-solid fa-chevron-right"></i>
+    </button>
+    <div class="lightbox-dots" id="lightbox-dots"></div>
+</div>
+
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -272,8 +284,12 @@ document.addEventListener("DOMContentLoaded", function () {
         toast.textContent = message;
         toast.style.cssText = `
             position: fixed;
-            bottom: 2rem;
-            right: 2rem;
+            bottom: 1.2rem;
+            right: 1rem;
+            left: 1rem;
+            width: calc(100% - 2rem);
+            max-width: 420px;
+            margin: 0 auto;
             padding: 1rem 1.6rem;
             border-radius: 4px;
             font-family: 'DM Sans', sans-serif;
@@ -308,12 +324,143 @@ document.addEventListener("DOMContentLoaded", function () {
         showToast("{{ m }}", "{{ m.tags }}");
     {% endfor %}
     {% endif %}
+
+
+    const number = document.getElementById("rating-number");
+    const ratingValue = document.getElementById("rating-input");
+    const stars = document.querySelectorAll(".rating-star i");
+
+    stars.forEach((star, index) => {
+        star.addEventListener("mouseover", () => {
+            stars.forEach((s, i) => s.style.color = i <= index ? "#b85c38" : "#e4ddd5");
+        });
+        star.addEventListener("mouseout", () => {
+            const current = parseInt(ratingValue.value) - 1;
+            stars.forEach((s, i) => s.style.color = i <= current ? "#b85c38" : "#e4ddd5");
+        });
+        star.addEventListener("click", () => {
+            number.textContent = (index + 1).toString();
+            ratingValue.value = index + 1;
+            stars.forEach((s, i) => s.style.color = i <= index ? "#b85c38" : "#e4ddd5");
+        });
+    });
+
+
+    const productData = [
+        {% for product in products %}
+            { color: "{{ product.color.id }}", size: "{{ product.size.id }}" },
+        {% endfor %}
+    ];
+    const colorInputs = document.querySelectorAll('input[name="color"]');
+    const sizeInputs  = document.querySelectorAll('input[name="size"]');
+
+    colorInputs.forEach(colorInput => {
+        colorInput.addEventListener("change", function () {
+            const selectedColor = this.value;
+            const validSizes = productData
+                .filter(p => p.color === selectedColor)
+                .map(p => p.size);
+
+            sizeInputs.forEach(sizeInput => {
+                const available = validSizes.includes(sizeInput.value);
+                sizeInput.disabled = !available;
+                sizeInput.checked = sizeInput.checked && available;
+                sizeInput.parentElement.style.opacity = available ? "1" : "0.3";
+            });
+        });
+    });
+
+const mainImgEl  = document.querySelector(".main-image img");
+const thumbEls   = Array.from(document.querySelectorAll(".thumbnail"));
+
+const images = [];
+if (mainImgEl?.src) images.push(mainImgEl.src);
+thumbEls.forEach(t => {
+    if (t.src && !images.includes(t.src)) images.push(t.src);
 });
 
-const modal = document.getElementById("confirm-modal");
+    const lightbox     = document.getElementById("lightbox");
+    const lightboxImg  = document.getElementById("lightbox-img");
+    const lightboxDots = document.getElementById("lightbox-dots");
+    const btnClose     = document.getElementById("lightbox-close");
+    const btnPrev      = document.getElementById("lightbox-prev");
+    const btnNext      = document.getElementById("lightbox-next");
+    let current = 0;
+
+    images.forEach((_, i) => {
+        const dot = document.createElement("div");
+        dot.className = "lightbox-dot" + (i === 0 ? " active" : "");
+        dot.addEventListener("click", () => goTo(i));
+        lightboxDots.appendChild(dot);
+    });
+
+    function goTo(index, skipFade = false) {
+        if (!images.length) return;
+        current = (index + images.length) % images.length;
+        const go = () => {
+            lightboxImg.src = images[current];
+            lightboxImg.classList.remove("fade");
+            document.querySelectorAll(".lightbox-dot").forEach((d, i) => {
+                d.classList.toggle("active", i === current);
+            });
+        };
+        if (skipFade) { go(); return; }
+        lightboxImg.classList.add("fade");
+        setTimeout(go, 180);
+    }
+
+    function openLightbox(index) {
+        goTo(index, true);
+        lightbox.classList.add("open");
+        document.body.style.overflow = "hidden";
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove("open");
+        document.body.style.overflow = "";
+    }
+
+   thumbEls.forEach((thumb, i) => {
+    thumb.addEventListener("click", () => {
+        mainImgEl.src = thumb.src;
+        const idx = images.indexOf(thumb.src);
+        openLightbox(idx >= 0 ? idx : 0);
+    });
+});
+
+    mainImgEl?.addEventListener("click", () => {
+        const idx = images.indexOf(mainImgEl.src);
+        openLightbox(idx >= 0 ? idx : 0);
+    });
+
+    btnClose.addEventListener("click", closeLightbox);
+    btnPrev.addEventListener("click",  () => goTo(current - 1));
+    btnNext.addEventListener("click",  () => goTo(current + 1));
+
+    lightbox.addEventListener("click", e => { if (e.target === lightbox) closeLightbox(); });
+
+    document.addEventListener("keydown", e => {
+        if (!lightbox.classList.contains("open")) return;
+        if (e.key === "ArrowLeft")  goTo(current - 1);
+        if (e.key === "ArrowRight") goTo(current + 1);
+        if (e.key === "Escape")     closeLightbox();
+    });
+
+    let touchStartX = 0;
+    lightbox.addEventListener("touchstart", e => {
+        touchStartX = e.changedTouches[0].clientX;
+    }, { passive: true });
+    lightbox.addEventListener("touchend", e => {
+        const delta = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(delta) > 40) goTo(current + (delta < 0 ? 1 : -1));
+    }, { passive: true });
+
+});
+
+const modal        = document.getElementById("confirm-modal");
 const modalMessage = modal.querySelector(".modal-message");
 const modalConfirm = modal.querySelector(".modal-confirm");
-const modalCancel = modal.querySelector(".modal-cancel");
+const modalCancel  = modal.querySelector(".modal-cancel");
 let pendingForm = null;
 
 document.querySelectorAll("[data-confirm]").forEach(btn => {
@@ -333,17 +480,11 @@ modalConfirm.addEventListener("click", () => {
     if (pendingForm) pendingForm.submit();
 });
 
-modal.addEventListener("click", (e) => {
+modal.addEventListener("click", e => {
     if (e.target === modal) {
         modal.style.display = "none";
         pendingForm = null;
     }
-});
-
-document.querySelectorAll(".thumbnail").forEach(img => {
-    img.addEventListener("click", function () {
-        document.querySelector(".main-image img").src = this.src;
-    });
 });
 
 function getCSRFToken() {
@@ -352,64 +493,6 @@ function getCSRFToken() {
         .find(row => row.startsWith("csrftoken"))
         ?.split("=")[1];
 }
-
-const productData = [
-    {% for product in products %}
-        {
-            color: "{{ product.color.id }}",
-            size: "{{ product.size.id }}"
-        },
-    {% endfor %}
-];
-const colorInputs = document.querySelectorAll('input[name="color"]');
-const sizeInputs = document.querySelectorAll('input[name="size"]');
-
-const number = document.getElementById("rating-number");
-const ratingValue = document.getElementById("rating-input");
-const stars = document.querySelectorAll(".rating-star i");
-
-stars.forEach((star, index) => {
-    star.addEventListener("mouseover", () => {
-        for (let i = 0; i < stars.length; i++) {
-            stars[i].style.color = i <= index ? "#b85c38" : "#e4ddd5";
-        }
-    });
-
-    star.addEventListener("mouseout", () => {
-        const current = parseInt(ratingValue.value) - 1;
-        for (let i = 0; i < stars.length; i++) {
-            stars[i].style.color = i <= current ? "#b85c38" : "#e4ddd5";
-        }
-    });
-
-    star.addEventListener("click", () => {
-        number.textContent = (index + 1).toString();
-        ratingValue.value = index + 1;
-        for (let i = 0; i < stars.length; i++) {
-            stars[i].style.color = i <= index ? "#b85c38" : "#e4ddd5";
-        }
-    });
-});
-
-colorInputs.forEach(colorInput => {
-    colorInput.addEventListener("change", function () {
-        const selectedColor = this.value;
-        const validSizes = productData
-            .filter(p => p.color === selectedColor)
-            .map(p => p.size);
-
-        sizeInputs.forEach(sizeInput => {
-            if (validSizes.includes(sizeInput.value)) {
-                sizeInput.disabled = false;
-                sizeInput.parentElement.style.opacity = "1";
-            } else {
-                sizeInput.disabled = true;
-                sizeInput.checked = false;
-                sizeInput.parentElement.style.opacity = "0.3";
-            }
-        });
-    });
-});
 </script>
 
 {% endblock %}

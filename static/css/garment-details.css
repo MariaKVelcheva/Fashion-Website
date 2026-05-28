@@ -212,6 +212,110 @@ main {
     line-height: 1.2;
 }
 
+.lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(26, 23, 20, 0.95);
+    z-index: 10001;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+}
+
+.lightbox.open {
+    display: flex;
+}
+
+.lightbox-img {
+    max-width: 90vw;
+    max-height: 88vh;
+    object-fit: contain;
+    border-radius: var(--radius);
+    user-select: none;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+.lightbox-img.fade {
+    opacity: 0;
+}
+
+.lightbox-close {
+    position: fixed;
+    top: 1.2rem;
+    right: 1.4rem;
+    background: none;
+    border: none;
+    color: rgba(247, 244, 240, 0.7);
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+    z-index: 10002;
+}
+
+.lightbox-close:hover {
+    color: #f7f4f0;
+    transform: scale(1.1);
+}
+
+.lightbox-arrow {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(247, 244, 240, 0.1);
+    border: 1px solid rgba(247, 244, 240, 0.15);
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(247, 244, 240, 0.8);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+    z-index: 10002;
+}
+
+.lightbox-arrow:hover {
+    background: rgba(247, 244, 240, 0.2);
+    color: #f7f4f0;
+}
+
+.lightbox-arrow--prev { left: 1.2rem; }
+.lightbox-arrow--next { right: 1.2rem; }
+
+.lightbox-dots {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.5rem;
+    z-index: 10002;
+}
+
+.lightbox-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(247, 244, 240, 0.3);
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.lightbox-dot.active {
+    background: #f7f4f0;
+    transform: scale(1.3);
+}
+
+.thumbnail,
+.main-image img {
+    cursor: zoom-in;
+}
+
 .garment-info h3,
 .price {
     font-family: var(--font-body);
@@ -438,7 +542,6 @@ main {
     margin-bottom: -1rem;
 }
 
-/* ── Review form ───────────────────────────────────────── */
 
 .review-form {
     display: flex;
@@ -532,13 +635,7 @@ main {
     transform: translateY(0);
 }
 
-/* ── Reviews display ───────────────────────────────────── */
 
-.reviews-display {
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
-}
 
 .review-card {
     background: var(--color-surface);
@@ -826,6 +923,16 @@ main {
     }
 
     .gallery ul {
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 0.25rem;
+}
+
+.gallery ul::-webkit-scrollbar {
+    display: none;
+}
+
+    .gallery ul {
         flex-direction: row;
         overflow-x: auto;
     }
@@ -837,7 +944,7 @@ main {
     }
 
     .main-image img {
-        aspect-ratio: 4 / 3;
+        aspect-ratio: 3 / 4;
     }
 
         .reviews {
