@@ -189,8 +189,9 @@ main {
 }
 
 .gallery h2 {
-    font-size: 5rem;
+    font-size: clamp(2.5rem, 8vw, 5rem);
 }
+
 
 .gallery button, .trending button {
     padding: 1.3rem 2.5rem;
@@ -278,7 +279,7 @@ main {
 }
 
 .trending h2 {
-    font-size: 3rem;
+    font-size: clamp(1.6rem, 5vw, 3rem);
     text-transform: uppercase;
     letter-spacing: 10px;
     font-weight: 800;
@@ -573,6 +574,7 @@ footer div:last-child {
 }
 
 @media (max-width: 900px) {
+
     .store-ad {
         flex-direction: column;
     }
@@ -622,4 +624,31 @@ footer div:last-child {
     .social ul {
         gap: 1.5rem;
     }
+
+    body {
+        max-width: 100%;
+    }
+
+    .gallery,
+.trending {
+    padding: 2rem 1.5rem;
+    text-align: center;
+}
+
+
+.gallery button,
+.trending button {
+    padding: 1rem 1.8rem;
+    letter-spacing: 0.1rem;
+}
+
+.categories {
+    gap: 1.5rem;
+    padding: 0 1rem;
+}
+
+.categories img {
+    width: 150px;
+    height: 150px;
+}
 }
