@@ -632,6 +632,7 @@ footer div:last-child {
     .gallery,
 .trending {
     padding: 2rem 1.5rem;
+        max-width: 100%;
     text-align: center;
 }
 
