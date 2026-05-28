@@ -635,6 +635,26 @@ footer div:last-child {
     text-align: center;
 }
 
+      .nav-inner {
+        width: 100%;
+        box-sizing: border-box;
+        overflow-x: hidden;
+    }
+
+    .navigation {
+        width: 100%;
+    }
+
+    .navigation li {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .navigation li a {
+        display: block;
+        width: 100%;
+    }
+
 
 .gallery button,
 .trending button {
