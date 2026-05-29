@@ -3,7 +3,7 @@
 {% load i18n %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/cart.css' %}?=v3">
+    <link rel="stylesheet" href="{% static 'css/cart.css' %}?=v4">
 {% endblock %}
 
 {% block content %}
@@ -25,13 +25,15 @@
     <h3>{% blocktrans count count=items|length %}{{ count }} item{% plural %}{{ count }} items{% endblocktrans %}</h3>
 
     <div class="cart-layout">
-        <div class="gallery">
+        <div class="cart-items">
 
             {% for item in items %}
             <div class="item-card" id="item-{% if session_cart %}{{ item.product.id }}{% else %}{{ item.id }}{% endif %}">
-            <img src="{{ item.product.garment.main_image.url }}"
-                         alt="{{ item.product.garment.name }}"
-                         class="item-image" style="max-width: 350px"/>
+<a href="{% url 'details-garment' item.product.garment.slug %}">
+    <img src="{{ item.product.garment.main_image.url }}"
+         alt="{{ item.product.garment.name }}"
+         class="item-image" style="max-width: 350px"/>
+</a>
                 <div class="item-info">
                     <a href="{% url 'details-garment' item.product.garment.slug %}" class="item-name">{{ item.product.garment.name }}</a>
                     <p class="price">{{ item.unit_price }} €</p>
@@ -128,13 +130,13 @@
 </div>
         {% if profile_complete %}
 
-    <form method="post" action="{% url 'checkout' %}">
-        {% csrf_token %}
-        <input type="hidden" name="payment_type" value="pod">
-        <button type="submit" class="checkout-btn checkout-btn--pod">
-            {% trans "Pay on delivery" %}
-        </button>
-    </form>
+<form method="post" action="{% url 'checkout' %}" id="pod-form">
+    {% csrf_token %}
+    <input type="hidden" name="payment_type" value="pod">
+    <button type="submit" class="checkout-btn checkout-btn--pod" id="pod-btn" disabled>
+        {% trans "Pay on delivery" %}
+    </button>
+</form>
  <a href="{% if card_payments_enabled %}{% url 'stripe-checkout' %}{% endif %}"
    class="checkout-btn checkout-btn--card {% if not card_payments_enabled %}checkout-btn--disabled{% endif %}"
    {% if not card_payments_enabled %}aria-disabled="true" onclick="return false;"{% endif %}>
@@ -162,23 +164,20 @@
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
-    const t = document.getElementById("js-translations").dataset;
-    const termsCheck = document.getElementById("terms");
-const podBtn = document.querySelector(".checkout-btn--pod");
-const cardBtn = document.querySelector(".checkout-btn--card");
+    const t = document.getElementById("js-translations").dataset;const termsCheck = document.getElementById("terms");
+const podBtn = document.getElementById("pod-btn");
 
 function toggleCheckout() {
-    const agreed = termsCheck.checked;
-    if (podBtn) podBtn.disabled = !agreed;
-    if (cardBtn) cardBtn.style.pointerEvents = agreed ? "auto" : "none";
-    if (cardBtn) cardBtn.style.opacity = agreed ? "1" : "0.4";
+    if (!termsCheck || !podBtn) return;
+    podBtn.disabled = !termsCheck.checked;
+    podBtn.style.opacity = termsCheck.checked ? "1" : "0.4";
+    podBtn.style.cursor = termsCheck.checked ? "pointer" : "not-allowed";
 }
 
 if (termsCheck) {
-    toggleCheckout(); // run on load so buttons start disabled
+    toggleCheckout();
     termsCheck.addEventListener("change", toggleCheckout);
 }
-
     function getCSRFToken() {
         const cookie = document.cookie
             .split(";")

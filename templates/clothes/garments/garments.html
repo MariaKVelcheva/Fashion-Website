@@ -6,7 +6,9 @@
                     
                     <div class="garment-image">
                         {% if garment.main_image %}
+                            <a href="{% url 'details-garment' garment.slug %}">
                             <img src="{{ garment.main_image.url }}" alt="{{ garment.name }}" style="max-width: 350px;">
+                            </a>
                         {% endif %}
                     </div>
                     {% include 'common/wishlist-heart.html' %}

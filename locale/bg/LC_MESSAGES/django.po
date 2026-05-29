@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-26 10:39+0200\n"
+"POT-Creation-Date: 2026-05-29 19:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -134,7 +134,7 @@ msgid "App Users"
 msgstr "Потребители"
 
 #: .\fashionWebsite\accounts\views\profile_management_views.py:22
-#: .\fashionWebsite\orders\views\cart.py:224
+#: .\fashionWebsite\orders\views\cart.py:225
 msgid "Profile updated successfully."
 msgstr "Профилът беше успешно актуализиран."
 
@@ -474,29 +474,29 @@ msgstr "Добавено към количката!"
 msgid "Not enough stock available."
 msgstr "Недостатъчна наличност на артикул."
 
-#: .\fashionWebsite\orders\views\cart.py:246
-#: .\fashionWebsite\orders\views\cart.py:348
+#: .\fashionWebsite\orders\views\cart.py:247
+#: .\fashionWebsite\orders\views\cart.py:349
 msgid "Please complete your profile before checking out."
 msgstr "Моля, попълнете профила си, преди да продължите."
 
-#: .\fashionWebsite\orders\views\cart.py:252
-#: .\fashionWebsite\orders\views\cart.py:354
+#: .\fashionWebsite\orders\views\cart.py:253
+#: .\fashionWebsite\orders\views\cart.py:355
 msgid "Your cart is empty."
 msgstr "Вашата количка е празна."
 
-#: .\fashionWebsite\orders\views\cart.py:259
-#: .\fashionWebsite\orders\views\cart.py:361
+#: .\fashionWebsite\orders\views\cart.py:260
+#: .\fashionWebsite\orders\views\cart.py:362
 #, python-format
 msgid "Sorry, only %(stock)s unit(s) of %(name)s are available."
 msgstr "Съжаляваме, само %(stock)s бр. от %(name)s са налични."
 
-#: .\fashionWebsite\orders\views\cart.py:281
-#: .\fashionWebsite\orders\views\cart.py:439
+#: .\fashionWebsite\orders\views\cart.py:282
+#: .\fashionWebsite\orders\views\cart.py:440
 msgid "EllaPrimE - Order confirmation"
 msgstr "EllaPrimE - Потвърждение на поръчката"
 
 #: .\fashionWebsite\promotions\models.py:8
-#: .\templates\orders\orders\cart.html:107
+#: .\templates\orders\orders\cart.html:109
 msgid "Promo code"
 msgstr "Промо код"
 
@@ -741,7 +741,7 @@ msgid "Loyalty points"
 msgstr "Бонус точки"
 
 #: .\templates\accounts\profile-management\customer-details.html:35
-#: .\templates\common\nav.html:45
+#: .\templates\common\nav.html:188
 msgid "Wishlist"
 msgstr "Любими"
 
@@ -1017,7 +1017,7 @@ msgstr "Намаления"
 msgid "Filter"
 msgstr "Филтър"
 
-#: .\templates\clothes\garments\search.html:17 .\templates\common\nav.html:42
+#: .\templates\clothes\garments\search.html:17 .\templates\common\nav.html:185
 msgid "Search"
 msgstr "Търсене"
 
@@ -1026,7 +1026,7 @@ msgid "Name or description..."
 msgstr "Име или описание..."
 
 #: .\templates\clothes\garments\search.html:69
-#: .\templates\orders\orders\cart.html:108
+#: .\templates\orders\orders\cart.html:110
 msgid "Apply"
 msgstr "Прилагане"
 
@@ -1058,43 +1058,43 @@ msgstr "Тенденции:"
 msgid "Your Wishlist"
 msgstr "Любими"
 
-#: .\templates\common\base.html:32
+#: .\templates\common\base.html:41
 msgid "SHOP"
 msgstr "ПОРЪЧАЙТЕ"
 
-#: .\templates\common\base.html:34 .\templates\common\nav.html:24
+#: .\templates\common\base.html:43 .\templates\common\nav.html:167
 msgid "Collection"
 msgstr "Колекция"
 
-#: .\templates\common\base.html:35 .\templates\common\nav.html:22
+#: .\templates\common\base.html:44 .\templates\common\nav.html:165
 msgid "New in"
 msgstr "Ново"
 
-#: .\templates\common\base.html:36 .\templates\common\nav.html:23
+#: .\templates\common\base.html:45 .\templates\common\nav.html:166
 msgid "Promo"
 msgstr "Намаление"
 
-#: .\templates\common\base.html:39
+#: .\templates\common\base.html:48
 msgid "HELP"
 msgstr "ПОМОЩ"
 
-#: .\templates\common\base.html:41
+#: .\templates\common\base.html:50
 msgid "Customer service"
 msgstr "Обслужване на клиенти"
 
-#: .\templates\common\base.html:42
+#: .\templates\common\base.html:51
 msgid "My account"
 msgstr "Моят профил"
 
-#: .\templates\common\base.html:43
+#: .\templates\common\base.html:52
 msgid "My orders"
 msgstr "Моите поръчки"
 
-#: .\templates\common\base.html:45
+#: .\templates\common\base.html:54
 msgid "LEGAL AND PRIVACY"
 msgstr "ОБЩИ УСЛОВИЯ"
 
-#: .\templates\common\base.html:48
+#: .\templates\common\base.html:57
 msgid "Sales conditions"
 msgstr "Условия на продажба"
 
@@ -1202,7 +1202,7 @@ msgstr "Как да променя данните си?"
 msgid "You can update your personal information from your account dashboard."
 msgstr "Можете да промените личните си данни през страницата на профила си."
 
-#: .\templates\common\gallery.html:14 .\templates\common\nav.html:25
+#: .\templates\common\gallery.html:14 .\templates\common\nav.html:168
 msgid "Gallery"
 msgstr "Галерия"
 
@@ -1244,27 +1244,27 @@ msgstr "Запишете се"
 msgid "Join Now"
 msgstr "Присъединете се"
 
-#: .\templates\common\nav.html:26 .\templates\common\sales-conditions.html:55
+#: .\templates\common\nav.html:169 .\templates\common\sales-conditions.html:55
 msgid "Contact"
 msgstr "Контакт"
 
-#: .\templates\common\nav.html:37
+#: .\templates\common\nav.html:180
 msgid "Search garments..."
 msgstr "Търсене..."
 
-#: .\templates\common\nav.html:48
+#: .\templates\common\nav.html:191
 msgid "Cart"
 msgstr "Вашата количка"
 
-#: .\templates\common\nav.html:55
+#: .\templates\common\nav.html:198
 msgid "Login / Register"
 msgstr "Влизане / Регистрация"
 
-#: .\templates\common\nav.html:57
+#: .\templates\common\nav.html:200
 msgid "Profile"
 msgstr "Профил"
 
-#: .\templates\common\nav.html:65
+#: .\templates\common\nav.html:208
 msgid "Logout"
 msgstr "Изход"
 
@@ -1417,6 +1417,8 @@ msgid "Your exclusive welcome discount"
 msgstr "Ексклузивна отстъпка за Добре дошли!"
 
 #: .\templates\emails\newsletter-welcome.html:65
+#, fuzzy, python-format
+#| msgid "10%% off your first order"
 msgid "10%% off your first order"
 msgstr "Получете -10% от следващата си поръчка"
 
@@ -1561,7 +1563,7 @@ msgid "Something went wrong. Please try again."
 msgstr "Нещо се обърка. Моля, опитайте отново."
 
 #: .\templates\orders\orders\cart.html:14
-#: .\templates\orders\orders\cart.html:115
+#: .\templates\orders\orders\cart.html:117
 msgid "Total"
 msgstr "Общо"
 
@@ -1584,57 +1586,69 @@ msgid_plural "%(count)s items"
 msgstr[0] "%(count)s броя"
 msgstr[1] "%(count)s броя"
 
-#: .\templates\orders\orders\cart.html:50
+#: .\templates\orders\orders\cart.html:52
 msgid "Remove"
 msgstr "Премахнете"
 
-#: .\templates\orders\orders\cart.html:53
+#: .\templates\orders\orders\cart.html:55
 msgid "Subtotal"
 msgstr "Общо"
 
-#: .\templates\orders\orders\cart.html:62
+#: .\templates\orders\orders\cart.html:64
 #, python-format
 msgid "Add %(gap)s € more for free delivery."
 msgstr "Още %(gap)s евро до безплатна доставка!"
 
-#: .\templates\orders\orders\cart.html:66
+#: .\templates\orders\orders\cart.html:68
 msgid "You qualify for free delivery!"
 msgstr "Безплатна доставка!"
 
-#: .\templates\orders\orders\cart.html:77
+#: .\templates\orders\orders\cart.html:79
 msgid "Delivery details"
 msgstr "Информация за доставката"
 
-#: .\templates\orders\orders\cart.html:94
+#: .\templates\orders\orders\cart.html:96
 msgid "Save details"
 msgstr "Запазете данните"
 
-#: .\templates\orders\orders\cart.html:103
+#: .\templates\orders\orders\cart.html:105
 #, python-format
 msgid "Promo code <strong>%(code)s</strong> applied (%(discount)s%% off)"
 msgstr "Промо код %(code)s приет за %(discount)s%% отстъпка"
 
+#: .\templates\orders\orders\cart.html:127
+msgid "I have read and agree with the"
+msgstr "Прочетох и съм съгласен/а с"
+
 #: .\templates\orders\orders\cart.html:128
+msgid "terms and conditions"
+msgstr "общите условия"
+
+#: .\templates\orders\orders\cart.html:137
 msgid "Pay on delivery"
 msgstr "С наложен платеж"
 
-#: .\templates\orders\orders\cart.html:133
+#: .\templates\orders\orders\cart.html:144
 msgid "Pay by card"
 msgstr "С банкова карта"
 
-#: .\templates\orders\orders\cart.html:137
+#: .\templates\orders\orders\cart.html:147
+msgid "Card payments are temporarily unavailable."
+msgstr "Плащането с карта недостъпно за момента."
+
+#: .\templates\orders\orders\cart.html:149
 msgid "Card payments are processed securely by Stripe."
 msgstr "Безопасно разплащане онлайн чрез Stripe"
 
-#: .\templates\orders\orders\cart.html:142
+#: .\templates\orders\orders\cart.html:154
 msgid "Please fill in all required fields above to proceed."
 msgstr "Моля, попълнете всички задължителни полета, преди да продължите."
 
-#: .\templates\orders\orders\cart.html:147
+#: .\templates\orders\orders\cart.html:159
 msgid "Please"
 msgstr "Моля,"
 
-#: .\templates\orders\orders\cart.html:147
+#: .\templates\orders\orders\cart.html:159
 msgid "to checkout"
 msgstr "за финализирне на поръчката."
 

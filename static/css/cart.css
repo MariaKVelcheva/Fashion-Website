@@ -120,6 +120,25 @@ h3 {
     padding: 0.6rem 4rem 2rem;
 }
 
+.remove-form button {
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    cursor: pointer;
+    transition: color var(--transition);
+    text-align: left;
+}
+
+.remove-form button:hover {
+    color: var(--color-danger);
+}
+
 .empty {
     font-family: var(--font-display);
     font-size: 1.6rem;
@@ -159,7 +178,7 @@ h3 {
     max-width: 1400px;
 }
 
-.gallery {
+.cart-items {
     flex: 1 1 0;
     display: flex;
     padding: 2rem;
@@ -637,10 +656,40 @@ h3 {
         padding: 0.6rem 1.5rem 1.5rem;
     }
 
-    .gallery {
-        padding: 1rem;
-        max-height: none;    /* remove height limit on mobile */
-        overflow-y: visible;
+.cart-items {
+    width: 100%;
+    min-width: 0;
+    padding: 0;
+    max-height: none;
+    overflow-y: visible;
+    overflow-x: visible;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+    .item-card {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .item-image {
+        max-width: 100% !important;
+        width: 100px;
+        height: 125px;
+    }
+
+    .promo-row {
+        flex-wrap: wrap;
+    }
+
+    .promo-input {
+        min-width: 0;
+        flex: 1 1 100%;
+    }
+
+    .promo-btn {
+        width: 100%;
     }
 }
 
