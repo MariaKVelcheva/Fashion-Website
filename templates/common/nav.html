@@ -49,6 +49,26 @@ nav {
     .nav-toggle {
         display: flex;
     }
+    
+    nav {
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    .nav-inner {
+        width: 100%;
+        padding: 1.2rem 1rem 1.8rem;
+        box-sizing: border-box;
+    }
+    
+    #small-logo.hidden {
+    display: none;
+}
+
+    .customer {
+        width: 100%;
+        box-sizing: border-box;
+    }
 
 
     .big-logo {
@@ -111,11 +131,12 @@ nav {
         display: none;
     }
 }
+
 </style>
 
 <nav>
     <div class="nav-topbar">
-        {% include "common/logo.html" %}
+        <span id="small-logo">{% include "common/logo.html" %}</span>
         <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
             <span></span>
             <span></span>
@@ -198,12 +219,14 @@ document.addEventListener("DOMContentLoaded", function () {
     // ── Hamburger toggle ──────────────────────
     const toggle = document.getElementById("nav-toggle");
     const inner  = document.getElementById("nav-inner");
+    const smallLogo = document.getElementById("small-logo");
 
     if (toggle && inner) {
         toggle.addEventListener("click", function () {
             const isOpen = inner.classList.toggle("open");
             toggle.classList.toggle("open", isOpen);
             toggle.setAttribute("aria-expanded", isOpen);
+            smallLogo.classList.toggle("hidden", isOpen);
         });
     }
 

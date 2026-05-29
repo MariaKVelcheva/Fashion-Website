@@ -142,6 +142,7 @@ class CartView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         free_delivery_threshold = 60
+        context["card_payments_enabled"] = False
         current_total = 0
 
         if self.request.user.is_authenticated:

@@ -119,6 +119,13 @@
 </div>
 
 </div>
+        <div class="terms-check">
+    <input type="checkbox" id="terms" name="terms">
+    <label for="terms">
+        {% trans "I have read and agree with the" %}
+        <a href="{% url 'sales-conditions' %}" target="_blank">{% trans "terms and conditions" %}</a>
+    </label>
+</div>
         {% if profile_complete %}
 
     <form method="post" action="{% url 'checkout' %}">
@@ -128,14 +135,17 @@
             {% trans "Pay on delivery" %}
         </button>
     </form>
-    <a href="{% url 'stripe-checkout' %}" class="checkout-btn checkout-btn--card">
-        <i class="fa-regular fa-credit-card"></i>
-        {% trans "Pay by card" %}
-    </a>
-
-    <p class="payment-note">
-        {% trans "Card payments are processed securely by Stripe." %}
-    </p>
+ <a href="{% if card_payments_enabled %}{% url 'stripe-checkout' %}{% endif %}"
+   class="checkout-btn checkout-btn--card {% if not card_payments_enabled %}checkout-btn--disabled{% endif %}"
+   {% if not card_payments_enabled %}aria-disabled="true" onclick="return false;"{% endif %}>
+    <i class="fa-regular fa-credit-card"></i>
+    {% trans "Pay by card" %}
+</a>
+{% if not card_payments_enabled %}
+    <p class="payment-note">{% trans "Card payments are temporarily unavailable." %}</p>
+{% else %}
+    <p class="payment-note">{% trans "Card payments are processed securely by Stripe." %}</p>
+{% endif %}
 
 {% else %}
     <p class="profile-warning">
@@ -153,6 +163,21 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     const t = document.getElementById("js-translations").dataset;
+    const termsCheck = document.getElementById("terms");
+const podBtn = document.querySelector(".checkout-btn--pod");
+const cardBtn = document.querySelector(".checkout-btn--card");
+
+function toggleCheckout() {
+    const agreed = termsCheck.checked;
+    if (podBtn) podBtn.disabled = !agreed;
+    if (cardBtn) cardBtn.style.pointerEvents = agreed ? "auto" : "none";
+    if (cardBtn) cardBtn.style.opacity = agreed ? "1" : "0.4";
+}
+
+if (termsCheck) {
+    toggleCheckout(); // run on load so buttons start disabled
+    termsCheck.addEventListener("change", toggleCheckout);
+}
 
     function getCSRFToken() {
         const cookie = document.cookie
